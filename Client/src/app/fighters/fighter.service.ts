@@ -52,7 +52,7 @@ export class FighterService {
   }
 
   getById(id: string): Observable<FighterDto> {
-    const url = `${this.baseUrl}/getById=${id}`;
+    const url = `${this.baseUrl}/GetById?id=${id}`;
     console.info(`sending GET request to: ${url}`);
 
     return this.http.get<FighterDto>(url).pipe(

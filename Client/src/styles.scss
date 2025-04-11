@@ -1,7 +1,9 @@
-@use 'styles/flex';
-@use 'styles/margin';
-@use 'styles/padding';
-@use 'styles/width';
+@use "styles/_border_radius";
+@use "styles/_border_width";
+@use "styles/flex";
+@use "styles/margin";
+@use "styles/padding";
+@use "styles/width";
 
 html,
 body {

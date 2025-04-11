@@ -1,0 +1,295 @@
+/* Border radius classes */
+.rounded-xs {
+  border-radius: var(--radius-xs); /* 0.125rem (2px) */
+}
+
+.rounded-sm {
+  border-radius: var(--radius-sm); /* 0.25rem (4px) */
+}
+
+.rounded-md {
+  border-radius: var(--radius-md); /* 0.375rem (6px) */
+}
+
+.rounded-lg {
+  border-radius: var(--radius-lg); /* 0.5rem (8px) */
+}
+
+.rounded-xl {
+  border-radius: var(--radius-xl); /* 0.75rem (12px) */
+}
+
+.rounded-2xl {
+  border-radius: var(--radius-2xl); /* 1rem (16px) */
+}
+
+.rounded-3xl {
+  border-radius: var(--radius-3xl); /* 1.5rem (24px) */
+}
+
+.rounded-4xl {
+  border-radius: var(--radius-4xl); /* 2rem (32px) */
+}
+
+.rounded-none {
+  border-radius: 0;
+}
+
+.rounded-full {
+  border-radius: calc(infinity * 1px);
+}
+
+/* Start & End Rounded classes (border-start) */
+.rounded-s-xs {
+  border-start-start-radius: var(--radius-xs); /* 0.125rem (2px) */
+  border-end-start-radius: var(--radius-xs); /* 0.125rem (2px) */
+}
+
+.rounded-s-sm {
+  border-start-start-radius: var(--radius-sm); /* 0.25rem (4px) */
+  border-end-start-radius: var(--radius-sm); /* 0.25rem (4px) */
+}
+
+.rounded-s-md {
+  border-start-start-radius: var(--radius-md); /* 0.375rem (6px) */
+  border-end-start-radius: var(--radius-md); /* 0.375rem (6px) */
+}
+
+.rounded-s-lg {
+  border-start-start-radius: var(--radius-lg); /* 0.5rem (8px) */
+  border-end-start-radius: var(--radius-lg); /* 0.5rem (8px) */
+}
+
+.rounded-s-xl {
+  border-start-start-radius: var(--radius-xl); /* 0.75rem (12px) */
+  border-end-start-radius: var(--radius-xl); /* 0.75rem (12px) */
+}
+
+.rounded-s-2xl {
+  border-start-start-radius: var(--radius-2xl); /* 1rem (16px) */
+  border-end-start-radius: var(--radius-2xl); /* 1rem (16px) */
+}
+
+.rounded-s-3xl {
+  border-start-start-radius: var(--radius-3xl); /* 1.5rem (24px) */
+  border-end-start-radius: var(--radius-3xl); /* 1.5rem (24px) */
+}
+
+.rounded-s-4xl {
+  border-start-start-radius: var(--radius-4xl); /* 2rem (32px) */
+  border-end-start-radius: var(--radius-4xl); /* 2rem (32px) */
+}
+
+.rounded-s-none {
+  border-start-start-radius: 0;
+  border-end-start-radius: 0;
+}
+
+.rounded-s-full {
+  border-start-start-radius: calc(infinity * 1px);
+  border-end-start-radius: calc(infinity * 1px);
+}
+
+/* End Rounded classes (border-end) */
+.rounded-e-xs {
+  border-start-end-radius: var(--radius-xs); /* 0.125rem (2px) */
+  border-end-end-radius: var(--radius-xs); /* 0.125rem (2px) */
+}
+
+.rounded-e-sm {
+  border-start-end-radius: var(--radius-sm); /* 0.25rem (4px) */
+  border-end-end-radius: var(--radius-sm); /* 0.25rem (4px) */
+}
+
+.rounded-e-md {
+  border-start-end-radius: var(--radius-md); /* 0.375rem (6px) */
+  border-end-end-radius: var(--radius-md); /* 0.375rem (6px) */
+}
+
+.rounded-e-lg {
+  border-start-end-radius: var(--radius-lg); /* 0.5rem (8px) */
+  border-end-end-radius: var(--radius-lg); /* 0.5rem (8px) */
+}
+
+.rounded-e-xl {
+  border-start-end-radius: var(--radius-xl); /* 0.75rem (12px) */
+  border-end-end-radius: var(--radius-xl); /* 0.75rem (12px) */
+}
+
+.rounded-e-2xl {
+  border-start-end-radius: var(--radius-2xl); /* 1rem (16px) */
+  border-end-end-radius: var(--radius-2xl); /* 1rem (16px) */
+}
+
+.rounded-e-3xl {
+  border-start-end-radius: var(--radius-3xl); /* 1.5rem (24px) */
+  border-end-end-radius: var(--radius-3xl); /* 1.5rem (24px) */
+}
+
+.rounded-e-4xl {
+  border-start-end-radius: var(--radius-4xl); /* 2rem (32px) */
+  border-end-end-radius: var(--radius-4xl); /* 2rem (32px) */
+}
+
+.rounded-e-none {
+  border-start-end-radius: 0;
+  border-end-end-radius: 0;
+}
+
+.rounded-e-full {
+  border-start-end-radius: calc(infinity * 1px);
+  border-end-end-radius: calc(infinity * 1px);
+}
+
+/* Top Rounded classes (border-top) */
+.rounded-t-xs {
+  border-top-left-radius: var(--radius-xs); /* 0.125rem (2px) */
+  border-top-right-radius: var(--radius-xs); /* 0.125rem (2px) */
+}
+
+.rounded-t-sm {
+  border-top-left-radius: var(--radius-sm); /* 0.25rem (4px) */
+  border-top-right-radius: var(--radius-sm); /* 0.25rem (4px) */
+}
+
+.rounded-t-md {
+  border-top-left-radius: var(--radius-md); /* 0.375rem (6px) */
+  border-top-right-radius: var(--radius-md); /* 0.375rem (6px) */
+}
+
+.rounded-t-lg {
+  border-top-left-radius: var(--radius-lg); /* 0.5rem (8px) */
+  border-top-right-radius: var(--radius-lg); /* 0.5rem (8px) */
+}
+
+.rounded-t-xl {
+  border-top-left-radius: var(--radius-xl); /* 0.75rem (12px) */
+  border-top-right-radius: var(--radius-xl); /* 0.75rem (12px) */
+}
+
+.rounded-t-2xl {
+  border-top-left-radius: var(--radius-2xl); /* 1rem (16px) */
+  border-top-right-radius: var(--radius-2xl); /* 1rem (16px) */
+}
+
+.rounded-t-3xl {
+  border-top-left-radius: var(--radius-3xl); /* 1.5rem (24px) */
+  border-top-right-radius: var(--radius-3xl); /* 1.5rem (24px) */
+}
+
+.rounded-t-4xl {
+  border-top-left-radius: var(--radius-4xl); /* 2rem (32px) */
+  border-top-right-radius: var(--radius-4xl); /* 2rem (32px) */
+}
+
+.rounded-t-none {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.rounded-t-full {
+  border-top-left-radius: calc(infinity * 1px);
+  border-top-right-radius: calc(infinity * 1px);
+}
+
+/* Right Rounded classes (border-right) */
+.rounded-r-xs {
+  border-top-right-radius: var(--radius-xs); /* 0.125rem (2px) */
+  border-bottom-right-radius: var(--radius-xs); /* 0.125rem (2px) */
+}
+
+.rounded-r-sm {
+  border-top-right-radius: var(--radius-sm); /* 0.25rem (4px) */
+  border-bottom-right-radius: var(--radius-sm); /* 0.25rem (4px) */
+}
+
+.rounded-r-md {
+  border-top-right-radius: var(--radius-md); /* 0.375rem (6px) */
+  border-bottom-right-radius: var(--radius-md); /* 0.375rem (6px) */
+}
+
+.rounded-r-lg {
+  border-top-right-radius: var(--radius-lg); /* 0.5rem (8px) */
+  border-bottom-right-radius: var(--radius-lg); /* 0.5rem (8px) */
+}
+
+.rounded-r-xl {
+  border-top-right-radius: var(--radius-xl); /* 0.75rem (12px) */
+  border-bottom-right-radius: var(--radius-xl); /* 0.75rem (12px) */
+}
+
+.rounded-r-2xl {
+  border-top-right-radius: var(--radius-2xl); /* 1rem (16px) */
+  border-bottom-right-radius: var(--radius-2xl); /* 1rem (16px) */
+}
+
+.rounded-r-3xl {
+  border-top-right-radius: var(--radius-3xl); /* 1.5rem (24px) */
+  border-bottom-right-radius: var(--radius-3xl); /* 1.5rem (24px) */
+}
+
+.rounded-r-4xl {
+  border-top-right-radius: var(--radius-4xl); /* 2rem (32px) */
+  border-bottom-right-radius: var(--radius-4xl); /* 2rem (32px) */
+}
+
+.rounded-r-none {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.rounded-r-full {
+  border-top-right-radius: calc(infinity * 1px);
+  border-bottom-right-radius: calc(infinity * 1px);
+}
+
+/* Bottom Rounded classes (border-bottom) */
+.rounded-b-xs {
+  border-bottom-left-radius: var(--radius-xs); /* 0.125rem (2px) */
+  border-bottom-right-radius: var(--radius-xs); /* 0.125rem (2px) */
+}
+
+.rounded-b-sm {
+  border-bottom-left-radius: var(--radius-sm); /* 0.25rem (4px) */
+  border-bottom-right-radius: var(--radius-sm); /* 0.25rem (4px) */
+}
+
+.rounded-b-md {
+  border-bottom-left-radius: var(--radius-md); /* 0.375rem (6px) */
+  border-bottom-right-radius: var(--radius-md); /* 0.375rem (6px) */
+}
+
+.rounded-b-lg {
+  border-bottom-left-radius: var(--radius-lg); /* 0.5rem (8px) */
+  border-bottom-right-radius: var(--radius-lg); /* 0.5rem (8px) */
+}
+
+.rounded-b-xl {
+  border-bottom-left-radius: var(--radius-xl); /* 0.75rem (12px) */
+  border-bottom-right-radius: var(--radius-xl); /* 0.75rem (12px) */
+}
+
+.rounded-b-2xl {
+  border-bottom-left-radius: var(--radius-2xl); /* 1rem (16px) */
+  border-bottom-right-radius: var(--radius-2xl); /* 1rem (16px) */
+}
+
+.rounded-b-3xl {
+  border-bottom-left-radius: var(--radius-3xl); /* 1.5rem (24px) */
+  border-bottom-right-radius: var(--radius-3xl); /* 1.5rem (24px) */
+}
+
+.rounded-b-4xl {
+  border-bottom-left-radius: var(--radius-4xl); /* 2rem (32px) */
+  border-bottom-right-radius: var(--radius-4xl); /* 2rem (32px) */
+}
+
+.rounded-b-none {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.rounded-b-full {
+  border-bottom-left-radius: calc(infinity * 1px);
+  border-bottom-right-radius: calc(infinity * 1px);
+}

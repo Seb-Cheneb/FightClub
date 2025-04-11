@@ -17,7 +17,8 @@ export class EditCompetitionFightersComponent {
   competition!: CompetitionDto;
   competitionFighters: FighterDto[] = [];
   fighters: FighterDto[] = [];
-  tableColumns: string[] = ['name', 'gender', 'weight', 'rank', 'add'];
+  fighterTable: string[] = ['add', 'name', 'gender', 'weight', 'rank', 'club'];
+  competitionFighterTable: string[] = ['name', 'club', 'remove'];
 
   private _snackBar = inject(MatSnackBar);
   private _competitionService = inject(CompetitionService);
@@ -51,17 +52,17 @@ export class EditCompetitionFightersComponent {
     this._competitionService
       .addFighter(this.competitionId(), fighterId)
       .subscribe({
-        next: () =>
-          this.getCompetitionFighters(this.competition.fighterIds),
+        next: () => this.getCompetitionFighters(this.competition.fighterIds),
         error: (error) => this._snackBar.open(error, 'close'),
       });
   }
-  // addFighter(competitionId: string, fighterId: string) {
-  //   this._competitionService.addFighter(competitionId, fighterId).subscribe({
-  //     next: (response) => {
-  //       var fighter = this.availableFighters.find((i) => i.id == fighterId);
-  //       this.competitionFighters.push(fighter);
-  //     },
-  //   });
-  // }
+
+  removeFighter(fighterId: string) {
+    this._competitionService
+      .removeFighter(this.competitionId(), fighterId)
+      .subscribe({
+        next: () => this.getCompetitionFighters(this.competition.fighterIds),
+        error: (error) => this._snackBar.open(error, 'close'),
+      });
+  }
 }

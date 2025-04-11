@@ -1,0 +1,65 @@
+/* Border width classes */
+.border-1 {
+  border-width: 1px;
+}
+
+/* Border x-axis width (inline) */
+.border-x-1 {
+  border-inline-width: 1px;
+}
+
+/* Border y-axis width (block) */
+.border-y-1 {
+  border-block-width: 1px;
+}
+
+/* Border start width (inline start) */
+.border-s-1 {
+  border-inline-start-width: 1px;
+}
+
+/* Border end width (inline end) */
+.border-e-1 {
+  border-inline-end-width: 1px;
+}
+
+/* Border top width */
+.border-t-1 {
+  border-top-width: 1px;
+}
+
+/* Border right width */
+.border-r-1 {
+  border-right-width: 1px;
+}
+
+/* Border left width */
+.border-l-1 {
+  border-left-width: 1px;
+}
+
+/* Divider x-axis width */
+.divide-x-1 {
+  & > :not(:last-child) {
+    border-inline-start-width: 0px;
+    border-inline-end-width: 1px;
+  }
+}
+
+/* Divider y-axis width */
+.divide-y-1 {
+  & > :not(:last-child) {
+    border-top-width: 0px;
+    border-bottom-width: 1px;
+  }
+}
+
+/* Reverse Divider x-axis */
+.divide-x-reverse {
+  --tw-divide-x-reverse: 1;
+}
+
+/* Reverse Divider y-axis */
+.divide-y-reverse {
+  --tw-divide-y-reverse: 1;
+}
