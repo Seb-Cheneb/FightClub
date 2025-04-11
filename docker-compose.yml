@@ -1,0 +1,40 @@
+version: "3.8"
+
+services:
+    vestas-database-service:
+        image: postgres
+        container_name: vestas_db
+        volumes:
+            - "./pgdata:/var/lib/postgresql/data"
+        ports:
+            - "7005:5432"
+        environment:
+            POSTGRES_DB: activityTracker
+            POSTGRES_USER: gandalf_the_blue
+            POSTGRES_PASSWORD: postgres
+        restart: always
+
+    vestas-backend-service:
+        image: sebastianbn/vestas_backend
+        container_name: vestas_api
+        ports:
+            - "7010:8080"
+        depends_on:
+            - vestas-database-service
+        environment:
+            POSTGRES_HOST: vestas-database-service
+            POSTGRES_PORT: 5432
+            POSTGRES_DB: activityTracker
+            POSTGRES_USER: gandalf_the_blue
+            POSTGRES_PASSWORD: postgres
+            HOST_ADDRESS: 0.0.0.0
+            HOST_PORT: 8080
+            SSL_ENABLED: true
+        restart: always
+
+    vestas-frontend-service:
+        image: sebastianbn/vestas_frontend
+        container_name: vestas_client
+        ports:
+            - "7015:443"
+        restart: always

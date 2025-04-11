@@ -1,0 +1,46 @@
+<mat-toolbar color="accent">
+  <button mat-button (click)="getHomePage()">Home</button>
+
+  @if (isLoggedIn) {
+  <button mat-button [matMenuTriggerFor]=" fighters">Clubs</button>
+  <mat-menu #fighters="matMenu">
+    <button mat-menu-item (click)="getHomePage()">View clubs</button>
+    <button mat-menu-item (click)="getHomePage()">Add clubs</button>
+  </mat-menu>
+  }
+
+  @if (isLoggedIn) {
+  <button mat-button [matMenuTriggerFor]=" fighters">Fighters</button>
+  <mat-menu #fighters="matMenu">
+    <button mat-menu-item (click)="getFighters()">View fighters</button>
+    <button mat-menu-item (click)="addFighter()">Add fighter</button>
+  </mat-menu>
+  }
+
+  @if (isLoggedIn) {
+  <button mat-button [matMenuTriggerFor]=" fighters">Competitions</button>
+  <mat-menu #fighters="matMenu">
+    <button mat-menu-item [matMenuTriggerFor]="matches" (click)="getHomePage()">Matches</button>
+    <button mat-menu-item (click)="getCompetitions()">View competitions</button>
+    <button mat-menu-item (click)="addCompetition()">Add competition</button>
+  </mat-menu>
+
+  <mat-menu #matches="matMenu">
+    <button mat-menu-item (click)="getHomePage()">Add matches</button>
+  </mat-menu>
+  }
+
+  <button mat-button [matMenuTriggerFor]="authentication">User</button>
+  <mat-menu #authentication="matMenu">
+    @if (!isLoggedIn) {
+    <button mat-menu-item (click)="register()">Register</button>
+    <button mat-menu-item (click)="login()">Login</button>
+    }
+    @if (isLoggedIn) {
+    <button mat-menu-item (click)="logout()">Logout</button>
+    }
+
+  </mat-menu>
+
+</mat-toolbar>
+<router-outlet></router-outlet>

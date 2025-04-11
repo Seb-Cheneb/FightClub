@@ -1,0 +1,26 @@
+<mat-tab-group>
+  <mat-tab label="Matches">
+    <app-add-match
+      [competitionId]="competitionId"
+      (matchCreatedSignal)="getCompetition(competitionId)"
+    ></app-add-match>
+    @for (item of competition.matchIds; track $index) {
+    <div class="m-4">
+      <app-edit-match
+        [id]="item"
+        (output)="reloadCurrentRoute()"
+      ></app-edit-match>
+    </div>
+    }
+  </mat-tab>
+  <!-- FIGHTER TAB -->
+  <mat-tab label="Fighters">
+    <app-edit-competition-fighters
+      [competitionId]="competitionId"
+    ></app-edit-competition-fighters
+  ></mat-tab>
+  <!-- COMPETITION DETAILS TAB -->
+  <mat-tab label="Details">
+    <app-edit-competition [id]="competitionId"></app-edit-competition>
+  </mat-tab>
+</mat-tab-group>

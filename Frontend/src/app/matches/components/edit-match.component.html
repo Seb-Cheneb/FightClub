@@ -1,0 +1,45 @@
+<h1>edit match component</h1>
+<div class="flex flex-row">
+  <!-- luptatori ce participa la lupta -->
+  <div class="w-half">
+    <mat-card appearance="outlined">
+      <span>CATEGORIA</span>
+      <mat-card-content>
+        <mat-list>
+          @for (item of matchFighters; track $index) {
+          <mat-list-item>
+            <button
+              class="m-1"
+              mat-stroked-button
+              (click)="removeFighter(item.id)"
+            >
+              remove
+            </button>
+            <span> {{ item.name }}, {{ item.club }}</span>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          }
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <!-- luptatori disponibili in competitie -->
+  <div class="w-half">
+    <mat-card appearance="outlined">
+      <div>luptatori disponibili</div>
+      <mat-card-content>
+        <mat-list>
+          @for (item of competitionFighters; track $index) {
+          <mat-list-item>
+            <span> {{ item.name }}, grad: {{ item.rank }} </span>
+            <button mat-stroked-button (click)="addFighter(item.id)">
+              add
+            </button>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          }
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

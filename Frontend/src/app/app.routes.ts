@@ -1,0 +1,145 @@
+import { Routes } from '@angular/router';
+import { AuthGuard } from './_guards/auth.guard';
+
+export const routes: Routes = [
+  /** Home */
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full',
+  },
+  {
+    path: 'home',
+    loadComponent: () =>
+      import('./pages/home/home-page.component').then(
+        (m) => m.HomePageComponent
+      ),
+  },
+  /** Authentication and user management */
+  {
+    path: 'authentication',
+    children: [
+      {
+        path: '',
+        loadComponent: () =>
+          import('./authentication/pages/authentication-page.component').then(
+            (m) => m.AuthenticationPageComponent
+          ),
+      },
+      {
+        path: 'register',
+        loadComponent: () =>
+          import('./authentication/pages/register-page.component').then(
+            (m) => m.RegisterPageComponent
+          ),
+      },
+      {
+        path: 'login',
+        loadComponent: () =>
+          import('./authentication/pages/login-page.component').then(
+            (m) => m.LoginPageComponent
+          ),
+      },
+    ],
+  },
+  /** App logic*/
+  {
+    path: 'fighters',
+    children: [
+      {
+        path: 'getAll',
+        pathMatch: 'full',
+        loadComponent: () =>
+          import('./pages/fighter/fighter-page.component').then(
+            (m) => m.FighterPageComponent
+          ),
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'add',
+        pathMatch: 'full',
+        loadComponent: () =>
+          import('./pages/fighter/add-fighter-page.component').then(
+            (m) => m.AddFighterPageComponent
+          ),
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'edit/:id',
+        pathMatch: 'full',
+        loadComponent: () =>
+          import('./pages/fighter/edit-fighter-page.component').then(
+            (m) => m.EditFighterPageComponent
+          ),
+        canActivate: [AuthGuard],
+      },
+    ],
+  },
+  {
+    path: 'competitions',
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        loadComponent: () =>
+          import('./pages/competition/competitions-page.component').then(
+            (m) => m.CompetitionsPageComponent
+          ),
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'add',
+        pathMatch: 'full',
+        loadComponent: () =>
+          import('./pages/competition/add-competition-page.component').then(
+            (m) => m.AddCompetitionPageComponent
+          ),
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'edit/:id',
+        pathMatch: 'full',
+        loadComponent: () =>
+          import('./pages/competition/edit-competition-page.component').then(
+            (m) => m.EditCompetitionPageComponent
+          ),
+        canActivate: [AuthGuard],
+      },
+    ],
+  },
+  // {
+  //   path: 'shifts',
+  //   children: [
+  //     {
+  //       path: 'add',
+  //       loadComponent: () =>
+  //         import('./components/employee-add.component').then(
+  //           (m) => m.EmployeeAddComponent
+  //         ),
+  //     },
+  //     {
+  //       path: 'list',
+  //       loadComponent: () =>
+  //         import('./components/employee-list.component').then(
+  //           (m) => m.EmployeeListComponent
+  //         ),
+  //     },
+  //   ],
+  //   canActivate: [AuthGuard],
+  // },
+  /** Errors */
+  {
+    path: '401',
+    loadComponent: () =>
+      import('./_errors/unauthorized-access.component').then(
+        (m) => m.UnauthorizedAccessComponent
+      ),
+  },
+  {
+    path: '**',
+    loadComponent: () =>
+      import('./_errors/page-not-found.component').then(
+        (m) => m.PageNotFoundComponent
+      ),
+  },
+];

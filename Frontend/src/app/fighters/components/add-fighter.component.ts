@@ -1,0 +1,61 @@
+import { Component, inject } from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { Client } from '../../_environments/client';
+import { MaterialModule } from '../../_modules/material.module';
+import { FighterService } from '../fighter.service';
+@Component({
+  selector: 'app-add-fighter',
+  imports: [MaterialModule, ReactiveFormsModule],
+  templateUrl: './add-fighter.component.html',
+})
+export class AddFighterComponent {
+  public form!: FormGroup;
+
+  private _service = inject(FighterService);
+  private _formBuilder = inject(FormBuilder);
+  private _router = inject(Router);
+  private _snackBar = inject(MatSnackBar);
+
+  ngOnInit() {
+    this.createForm();
+  }
+
+  createForm() {
+    this.form = this._formBuilder.group({
+      name: new FormControl(''),
+      gender: new FormControl(''),
+      birthDate: new FormControl(''),
+      weight: new FormControl(''),
+      club: new FormControl(''),
+      rank: new FormControl(''),
+    });
+  }
+
+  submit() {
+    if (this.form.valid) {
+      this._service.add(this.form.value).subscribe({
+        next: () => {
+          this.openSnackBar('Added entry successfully.', 'Close');
+        },
+        error: (e) => {
+          console.error('Oops, got the following error:', e);
+        },
+      });
+    }
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action);
+  }
+
+  cancel() {
+    this._router.navigateByUrl(Client.getFighters());
+  }
+}
