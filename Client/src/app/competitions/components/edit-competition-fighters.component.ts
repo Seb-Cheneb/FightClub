@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, input } from '@angular/core';
 import { CompetitionDto } from '../competition';
 import { CompetitionService } from '../competition.service';
 import { MaterialModule } from '../../_modules/material.module';
@@ -43,7 +43,8 @@ export class EditCompetitionFightersComponent {
 
   getCompetitionFighters(fighterIds: string[]) {
     this._fighterService.getAllById(fighterIds).subscribe({
-      next: (secondResponse) => (this.fighters = secondResponse),
+      next: (secondResponse) =>
+        (this.competitionFighters = [...secondResponse]),
       error: (error) => this._snackBar.open(error, 'close'),
     });
   }
@@ -52,7 +53,9 @@ export class EditCompetitionFightersComponent {
     this._competitionService
       .addFighter(this.competitionId(), fighterId)
       .subscribe({
-        next: () => this.getCompetitionFighters(this.competition.fighterIds),
+        next: () => {
+          this.getCompetitionFighters(this.competition.fighterIds);
+        },
         error: (error) => this._snackBar.open(error, 'close'),
       });
   }
@@ -61,7 +64,9 @@ export class EditCompetitionFightersComponent {
     this._competitionService
       .removeFighter(this.competitionId(), fighterId)
       .subscribe({
-        next: () => this.getCompetitionFighters(this.competition.fighterIds),
+        next: () => {
+          this.getCompetitionFighters(this.competition.fighterIds);
+        },
         error: (error) => this._snackBar.open(error, 'close'),
       });
   }
