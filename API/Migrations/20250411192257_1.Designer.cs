@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20250404101824_1.0")]
-    partial class _10
+    [Migration("20250411192257_1")]
+    partial class _1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -84,7 +84,7 @@ namespace API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("FighterIds");
+                    b.ToTable("Fighters");
                 });
 
             modelBuilder.Entity("Data.Entities.Match", b =>
@@ -103,7 +103,7 @@ namespace API.Migrations
 
                     b.HasIndex("CompetitionId");
 
-                    b.ToTable("MatchIds");
+                    b.ToTable("Matches");
                 });
 
             modelBuilder.Entity("FighterMatch", b =>
@@ -360,7 +360,7 @@ namespace API.Migrations
             modelBuilder.Entity("Data.Entities.Match", b =>
                 {
                     b.HasOne("Data.Entities.Competition", "Competition")
-                        .WithMany("MatchIds")
+                        .WithMany("Matches")
                         .HasForeignKey("CompetitionId")
                         .OnDelete(DeleteBehavior.Cascade);
 
@@ -435,7 +435,7 @@ namespace API.Migrations
 
             modelBuilder.Entity("Data.Entities.Competition", b =>
                 {
-                    b.Navigation("MatchIds");
+                    b.Navigation("Matches");
                 });
 #pragma warning restore 612, 618
         }

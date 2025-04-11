@@ -51,12 +51,9 @@ export class LoginComponent {
       const formData: LoginRequest = this.form.value;
 
       this.authenticationService.login(formData).subscribe({
-        next: () => {
-          this.navigator.getHome(200);
-        },
-        error: () => {
-          this.notFound();
-        },
+        next: () => this.navigator.navigateWithDelay(Client.home, 200),
+        error: () => this.notFound()
+
       });
     }
   }

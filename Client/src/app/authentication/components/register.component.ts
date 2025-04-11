@@ -7,13 +7,13 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Navigator } from '../../_environments/navigator';
 import { Client } from '../../_environments/client';
 import { CommonModule } from '@angular/common';
 import { RegistrationRequest } from '../models/authentication';
 import { MaterialModule } from '../../_modules/material.module';
 import { AuthenticationService } from '../services/authentication.service';
 
+import { Navigator } from '../../_environments/navigator';
 @Component({
   selector: 'app-register',
   imports: [CommonModule, ReactiveFormsModule, MaterialModule],
@@ -23,7 +23,7 @@ export class RegisterComponent {
   private authenticationService = inject(AuthenticationService);
   private formBuilder = inject(FormBuilder);
   private router = inject(Router);
-  private navigator = inject(Navigator);
+  private _navigator = inject(Navigator)
 
   public form!: FormGroup;
   public hidePassword = true;
@@ -57,12 +57,8 @@ export class RegisterComponent {
       const formData: RegistrationRequest = this.form.value;
 
       this.authenticationService.register(formData).subscribe({
-        next: () => {
-          this.navigator.getHome(200);
-        },
-        error: () => {
-          this.notFound();
-        },
+        next: () => this._navigator.navigateWithDelay(Client.home, 200),
+        error: () => this.notFound()
       });
 
       this.router.navigateByUrl(Client.home);

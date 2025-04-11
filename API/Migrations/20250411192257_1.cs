@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace API.Migrations
 {
     /// <inheritdoc />
-    public partial class _10 : Migration
+    public partial class _1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -68,7 +68,7 @@ namespace API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "FighterIds",
+                name: "Fighters",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -191,7 +191,7 @@ namespace API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MatchIds",
+                name: "Matches",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -228,7 +228,7 @@ namespace API.Migrations
                     table.ForeignKey(
                         name: "FK_FighterCompetition_Fighters_FightersId",
                         column: x => x.FightersId,
-                        principalTable: "FighterIds",
+                        principalTable: "Fighters",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -246,13 +246,13 @@ namespace API.Migrations
                     table.ForeignKey(
                         name: "FK_FighterMatch_Fighters_FightersId",
                         column: x => x.FightersId,
-                        principalTable: "FighterIds",
+                        principalTable: "Fighters",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_FighterMatch_Matches_MatchesId",
                         column: x => x.MatchesId,
-                        principalTable: "MatchIds",
+                        principalTable: "Matches",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -308,7 +308,7 @@ namespace API.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_Matches_CompetitionId",
-                table: "MatchIds",
+                table: "Matches",
                 column: "CompetitionId");
         }
 
@@ -343,10 +343,10 @@ namespace API.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "FighterIds");
+                name: "Fighters");
 
             migrationBuilder.DropTable(
-                name: "MatchIds");
+                name: "Matches");
 
             migrationBuilder.DropTable(
                 name: "Competitions");

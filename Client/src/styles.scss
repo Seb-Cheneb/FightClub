@@ -1,0 +1,14 @@
+@use 'styles/flex';
+@use 'styles/margin';
+@use 'styles/padding';
+@use 'styles/width';
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
