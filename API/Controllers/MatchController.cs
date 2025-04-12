@@ -27,23 +27,23 @@ public class MatchController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> Add([FromQuery] string competitionId)
+    public async Task<IActionResult> Add([FromBody] CreateMatchDto request)
     {
-        if (string.IsNullOrWhiteSpace(competitionId))
+        if (request is null)
         {
-            return BadRequest("Competition ID is required and cannot be null, empty, or whitespace.");
+            return BadRequest("The creation request is bad");
         }
 
         try
         {
-            var competition = await _dataContext.Competitions.FindAsync(competitionId);
+            var competition = await _dataContext.Competitions.FindAsync(request);
 
             if (competition == null)
             {
                 return BadRequest("The competition provided null");
             }
 
-            var match = MatchMapper.CreateModel(competitionId);
+            var match = MatchMapper.CreateModel(request);
             _dataContext.Matches.Add(match);
             _dataContext.Competitions.Update(competition);
 

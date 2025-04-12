@@ -1,6 +1,6 @@
 <mat-card>
   <mat-card-header>
-    <h3 class="italic">Categoria meciului TODO</h3>
+    <h3 class="italic">TODO categoria meciului</h3>
   </mat-card-header>
   <!-- luptatori ce participa la lupta -->
   <mat-card-content>
@@ -27,8 +27,8 @@
       <mat-list>
         @for (item of competitionFighters; track $index) {
         <mat-list-item>
-          <span> {{ item.name }}, grad: {{ item.rank }} </span>
           <button mat-stroked-button (click)="addFighter(item.id)">add</button>
+          <span> {{ item.name }}, grad: {{ item.rank }} </span>
         </mat-list-item>
         <mat-divider></mat-divider>
         }

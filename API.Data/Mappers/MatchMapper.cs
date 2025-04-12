@@ -5,12 +5,13 @@ namespace Data.Mappers;
 
 public static class MatchMapper
 {
-    public static Match CreateModel(string competitionId)
+    public static Match CreateModel(CreateMatchDto request)
     {
         return new Match
         {
             Id = Guid.NewGuid().ToString(),
-            CompetitionId = competitionId
+            CompetitionId = request.CompetitionId,
+            Category = request.Category
         };
     }
 
@@ -21,6 +22,7 @@ public static class MatchMapper
             Id = instance.Id,
             CompetitionId = instance.CompetitionId,
             Winner = instance.Winner,
+            Category = instance.Category,
             FighterIds = instance.Fighters.Select(fighter => fighter.Id ?? "NULL").ToList(),
         };
     }
@@ -28,5 +30,6 @@ public static class MatchMapper
     public static void Update(this Match instance, MatchDto request)
     {
         instance.Winner = request.Winner ?? instance.Winner;
+        instance.Category = request.Category;
     }
 }
