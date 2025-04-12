@@ -1,4 +1,4 @@
-import { Component, inject, input, output } from '@angular/core';
+import { Component, inject, input, output, signal } from '@angular/core';
 import { MatchService } from '../match.service';
 import { MatchDto } from '../match';
 import {
@@ -26,6 +26,7 @@ export class EditMatchComponent {
   match!: MatchDto;
   matchFighters: FighterDto[] = [];
   competitionFighters: FighterDto[] = [];
+  panelOpenState = signal(false);
 
   private _snackBar = inject(MatSnackBar);
   private _matchService = inject(MatchService);

@@ -4,11 +4,12 @@
       [competitionId]="competitionId"
       (matchCreatedSignal)="getCompetition(competitionId)"
     ></app-add-match>
-    <div>
+    <div class="flex flex-wrap">
       @for (item of competition.matchIds; track $index) {
       <app-edit-match
         [id]="item"
         (output)="reloadCurrentRoute()"
+        class="m-1"
       ></app-edit-match>
       }
     </div>
