@@ -54,7 +54,13 @@ export class EditCompetitionFightersComponent {
       .addFighter(this.competitionId(), fighterId)
       .subscribe({
         next: () => {
-          this.getCompetitionFighters(this.competition.fighterIds);
+          const fighter = this.fighters.find((i) => i.id == fighterId);
+          if (
+            fighter &&
+            !this.competitionFighters.some((f) => f.id == fighter.id)
+          ) {
+            this.competitionFighters = [...this.competitionFighters, fighter];
+          }
         },
         error: (error) => this._snackBar.open(error, 'close'),
       });
@@ -65,7 +71,9 @@ export class EditCompetitionFightersComponent {
       .removeFighter(this.competitionId(), fighterId)
       .subscribe({
         next: () => {
-          this.getCompetitionFighters(this.competition.fighterIds);
+          this.competitionFighters = this.competitionFighters.filter(
+            (f) => f.id !== fighterId
+          );
         },
         error: (error) => this._snackBar.open(error, 'close'),
       });
