@@ -23,6 +23,7 @@ public static class MatchMapper
             CompetitionId = instance.CompetitionId,
             Winner = instance.Winner,
             Category = instance.Category,
+            Number = instance.Number,
             FighterIds = instance.Fighters.Select(fighter => fighter.Id ?? "NULL").ToList(),
         };
     }
@@ -31,5 +32,6 @@ public static class MatchMapper
     {
         instance.Winner = request.Winner ?? instance.Winner;
         instance.Category = request.Category;
+        instance.Number = request.Number;
     }
 }

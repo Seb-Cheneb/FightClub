@@ -11,8 +11,8 @@ export class MatchService {
   private baseUrl: string = API.match;
   private http = inject(HttpClient);
 
-  add(competitionId: String, entity: CreateMatchDto): Observable<MatchDto> {
-    const url = `${this.baseUrl}/Add?competitionId=${competitionId}`;
+  add(entity: CreateMatchDto): Observable<MatchDto> {
+    const url = `${this.baseUrl}/Add`;
     console.info(`sending POST request to: ${url}`);
 
     return this.http.post<MatchDto>(url, entity).pipe(

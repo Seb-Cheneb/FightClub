@@ -6,6 +6,7 @@ public class Match
     public string Winner { get; set; } = string.Empty;
     public string? CompetitionId { get; set; }
     public string Category { get; set; } = string.Empty;
+    public int Number { get; set; }
     public Competition? Competition { get; set; }
     public List<Fighter> Fighters { get; set; } = [];
 }

@@ -4,7 +4,7 @@
     <div class="w-1-2 mx-auto my-1">
       <app-add-match
         [competitionId]="competitionId"
-        (matchCreatedSignal)="getCompetition(competitionId)"
+        (matchCreatedSignal)="reloadCurrentRoute()"
       ></app-add-match>
     </div>
     <!-- match entries  -->

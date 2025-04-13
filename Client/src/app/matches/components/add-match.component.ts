@@ -8,6 +8,7 @@ import {
   FormGroup,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-match',
@@ -22,6 +23,7 @@ export class AddMatchComponent {
 
   private _matchService = inject(MatchService);
   private _formBuilder = inject(FormBuilder);
+  private _snackBar = inject(MatSnackBar);
 
   ngOnInit() {
     this.initializeForm();
@@ -29,20 +31,21 @@ export class AddMatchComponent {
 
   initializeForm() {
     this.form = this._formBuilder.group({
-      competitionId: new FormControl(''),
+      competitionId: new FormControl(this.competitionId),
       category: new FormControl(''),
     });
   }
 
   submit() {
     if (this.form.valid) {
-      this._matchService.add(this.competitionId(), this.form.value).subscribe({
-        next: (response) => {
-          this.matchCreatedSignal.emit(response);
-        },
-        error: (e) => {
-          console.error('Oops, got the following error:', e);
-        },
+      const request: CreateMatchDto = {
+        competitionId: this.competitionId(),
+        category: this.form.value.category,
+      };
+
+      this._matchService.add(request).subscribe({
+        next: (response) => this.matchCreatedSignal.emit(response),
+        error: (e) => this._snackBar.open(e, 'close'),
       });
     }
   }

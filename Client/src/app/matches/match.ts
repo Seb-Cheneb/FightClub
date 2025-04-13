@@ -8,6 +8,8 @@ export interface CreateMatchDto {
 export interface MatchDto {
   id: string;
   competitionId: string;
+  category: string;
+  number: number;
   winner: string;
   fighterIds: string[];
 }

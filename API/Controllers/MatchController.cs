@@ -36,14 +36,17 @@ public class MatchController : ControllerBase
 
         try
         {
-            var competition = await _dataContext.Competitions.FindAsync(request);
+            var competition = await _dataContext.Competitions.FindAsync(request.CompetitionId);
 
             if (competition == null)
             {
                 return BadRequest("The competition provided null");
             }
 
+            var matchNumber = competition.Matches.Count + 1;
+
             var match = MatchMapper.CreateModel(request);
+            match.Number = matchNumber;
             _dataContext.Matches.Add(match);
             _dataContext.Competitions.Update(competition);
 

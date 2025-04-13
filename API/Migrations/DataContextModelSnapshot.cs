@@ -96,6 +96,9 @@ namespace API.Migrations
                     b.Property<string>("CompetitionId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int>("Number")
+                        .HasColumnType("int");
+
                     b.Property<string>("Winner")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20250413195031_1")]
+    [Migration("20250413204404_1")]
     partial class _1
     {
         /// <inheritdoc />
@@ -98,6 +98,9 @@ namespace API.Migrations
 
                     b.Property<string>("CompetitionId")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Number")
+                        .HasColumnType("int");
 
                     b.Property<string>("Winner")
                         .IsRequired()

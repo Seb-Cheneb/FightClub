@@ -1,6 +1,9 @@
 <mat-card>
   <mat-card-header>
-    <h3 class="italic">TODO categoria meciului</h3>
+    <h3>
+      Match no. {{ this.match.number }},
+      <span class="italic"> {{ this.match.category }}</span>
+    </h3>
   </mat-card-header>
   <!-- luptatori ce participa la lupta -->
   <mat-card-content>
