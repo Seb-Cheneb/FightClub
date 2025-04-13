@@ -30,9 +30,5 @@ public class DataContext : IdentityDbContext
             .HasOne(match => match.Competition)
             .WithMany(competition => competition.Matches)
             .OnDelete(DeleteBehavior.Cascade);
-
-        modelBuilder.Entity<Match>()
-            .Property(m => m.Category)
-            .HasConversion<string>();
     }
 }

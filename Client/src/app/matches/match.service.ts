@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { API } from '../_environments/api';
 import { catchError, map, Observable, throwError } from 'rxjs';
-import { MatchDto } from './match';
+import { CreateMatchDto, MatchDto } from './match';
 
 @Injectable({
   providedIn: 'root',
@@ -11,11 +11,11 @@ export class MatchService {
   private baseUrl: string = API.match;
   private http = inject(HttpClient);
 
-  add(competitionId: String): Observable<MatchDto> {
+  add(competitionId: String, request: CreateMatchDto): Observable<MatchDto> {
     return this.http
       .post<MatchDto>(
         `${this.baseUrl}/Add?competitionId=${competitionId}`,
-        null
+        request
       )
       .pipe(
         map((response) => {

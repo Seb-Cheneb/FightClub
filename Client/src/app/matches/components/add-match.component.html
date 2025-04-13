@@ -1,3 +1,27 @@
-<mat-card appearance="outlined">
-  <button mat-button (click)="submit()" class="">New match</button>
+<mat-card>
+  <mat-card-header>
+    <span class="italic">Create a new match </span></mat-card-header
+  >
+  <form
+    [formGroup]="form"
+    novalidate
+    (ngSubmit)="submit()"
+    class="flex flex-col p-2"
+  >
+    <mat-form-field>
+      <mat-label>category</mat-label>
+      <input matInput formControlName="category" />
+    </mat-form-field>
+
+    <div class="flex flex-col">
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="form.invalid"
+      >
+        Create
+      </button>
+    </div>
+  </form>
 </mat-card>
