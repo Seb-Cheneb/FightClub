@@ -1,7 +1,5 @@
 ﻿namespace Data.Entities;
 
-using Data.Enums;
-
 public class Match
 {
     public string? Id { get; set; }

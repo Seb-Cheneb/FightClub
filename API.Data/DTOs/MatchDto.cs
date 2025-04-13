@@ -1,7 +1,5 @@
 ﻿namespace Data.DTOs;
 
-using Data.Enums;
-
 public class MatchDto
 {
     public string? Id { get; set; }

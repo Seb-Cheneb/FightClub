@@ -196,7 +196,8 @@ namespace API.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Winner = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CompetitionId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    CompetitionId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Category = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {

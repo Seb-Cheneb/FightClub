@@ -11,18 +11,17 @@ export class MatchService {
   private baseUrl: string = API.match;
   private http = inject(HttpClient);
 
-  add(competitionId: String, request: CreateMatchDto): Observable<MatchDto> {
-    return this.http
-      .post<MatchDto>(
-        `${this.baseUrl}/Add?competitionId=${competitionId}`,
-        request
-      )
-      .pipe(
-        map((response) => {
-          return response;
-        }),
-        catchError(this.handleError)
-      );
+  add(competitionId: String, entity: CreateMatchDto): Observable<MatchDto> {
+    const url = `${this.baseUrl}/Add?competitionId=${competitionId}`;
+    console.info(`sending POST request to: ${url}`);
+
+    return this.http.post<MatchDto>(url, entity).pipe(
+      map((response) => {
+        console.info(`got response from ${url}`, response);
+        return response;
+      }),
+      catchError(this.handleError)
+    );
   }
 
   getAll(): Observable<MatchDto[]> {
