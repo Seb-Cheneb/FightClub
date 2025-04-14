@@ -36,7 +36,9 @@ public class MatchController : ControllerBase
 
         try
         {
-            var competition = await _dataContext.Competitions.FindAsync(request.CompetitionId);
+            var competition = await _dataContext.Competitions
+                .Include(i => i.Matches)
+                .FirstOrDefaultAsync(i => i.Id == request.CompetitionId);
 
             if (competition == null)
             {
