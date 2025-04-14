@@ -37,7 +37,7 @@ public class BracketController : ControllerBase
         try
         {
             var competition = await _dataContext.Competitions
-                .Include(i => i.Matches)
+                .Include(i => i.Brackets)
                 .FirstOrDefaultAsync(i => i.Id == request.CompetitionId);
 
             if (competition == null)
@@ -68,7 +68,7 @@ public class BracketController : ControllerBase
     {
         try
         {
-            var output = await _dataContext.Matches
+            var output = await _dataContext.Brackets
                 .Include(e => e.Fighters)
                 .ToListAsync();
 
@@ -91,7 +91,7 @@ public class BracketController : ControllerBase
     {
         try
         {
-            var output = await _dataContext.Matches
+            var output = await _dataContext.Brackets
                 .Include(i => i.Fighters)
                 .Include(i => i.Competition)
                 .Where(i => ids.Contains(i.Id ?? "NULL"))
@@ -116,13 +116,13 @@ public class BracketController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> GetById([FromQuery] string matchId)
+    public async Task<IActionResult> GetById([FromQuery] string requestedId)
     {
         try
         {
-            var output = await _dataContext.Matches
+            var output = await _dataContext.Brackets
                 .Include(e => e.Fighters)
-                .FirstOrDefaultAsync(e => e.Id == matchId);
+                .FirstOrDefaultAsync(e => e.Id == requestedId);
 
             if (output is null) return NotFound();
             return Ok(output.CastToDto());
@@ -143,12 +143,12 @@ public class BracketController : ControllerBase
     {
         try
         {
-            var data = await _dataContext.Matches.FindAsync(id);
+            var data = await _dataContext.Brackets.FindAsync(id);
             if (data == null)
             {
                 return NotFound();
             }
-            _dataContext.Matches.Remove(data);
+            _dataContext.Brackets.Remove(data);
             await _dataContext.SaveChangesAsync();
             return NoContent();
         }
@@ -163,11 +163,11 @@ public class BracketController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<IActionResult> Update([FromBody] MatchDto request)
+    public async Task<IActionResult> Update([FromBody] BracketDto request)
     {
         try
         {
-            var data = await _dataContext.Matches.FindAsync(request.Id);
+            var data = await _dataContext.Brackets.FindAsync(request.Id);
             if (data == null)
             {
                 return NotFound();
@@ -188,39 +188,32 @@ public class BracketController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<IActionResult> AddFighter([FromQuery] string matchId, [FromQuery] string fighterId)
+    public async Task<IActionResult> AddFighter([FromQuery] string bracketId, [FromQuery] string fighterId)
     {
         try
         {
-            if (string.IsNullOrWhiteSpace(matchId) || string.IsNullOrWhiteSpace(fighterId))
+            if (string.IsNullOrWhiteSpace(bracketId) || string.IsNullOrWhiteSpace(fighterId))
             {
                 return BadRequest("The parameters provided are null");
             }
 
-            var match = await _dataContext.Matches.FindAsync(matchId);
-            var fighter = await _dataContext.Fighters
-                .Include(e => e.Matches)
-                .FirstOrDefaultAsync(e => e.Id == fighterId);
+            var bracket = await _dataContext.Brackets.FindAsync(bracketId);
+            var fighter = await _dataContext.Fighters.FirstOrDefaultAsync(e => e.Id == fighterId);
 
-            if (match == null || fighter == null)
+            if (bracket == null || fighter == null)
             {
                 return NotFound();
             }
 
-            if (match.Fighters.Contains(fighter))
+            if (bracket.Fighters.Contains(fighter))
             {
-                return BadRequest("Fighter already enrolled in match");
+                return BadRequest("Fighter already enrolled in bracket");
             }
 
-            if (match.Fighters.Count >= 3)
-            {
-                return BadRequest("Maximum number of fighters reached");
-            }
-
-            match.Fighters.Add(fighter);
+            bracket.Fighters.Add(fighter);
             await _dataContext.SaveChangesAsync();
 
-            return Ok(match.CastToDto());
+            return Ok(bracket.CastToDto());
         }
         catch (Exception ex)
         {
@@ -233,40 +226,41 @@ public class BracketController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<IActionResult> RemoveFighter([FromQuery] string matchId, [FromQuery] string fighterId)
+    public async Task<IActionResult> RemoveFighter([FromQuery] string bracketId, [FromQuery] string fighterId)
     {
         try
         {
-            if (string.IsNullOrWhiteSpace(matchId) || string.IsNullOrWhiteSpace(fighterId))
+            if (string.IsNullOrWhiteSpace(bracketId) || string.IsNullOrWhiteSpace(fighterId))
             {
                 return BadRequest("The parameters provided are null");
             }
 
-            var match = await _dataContext.Matches
+            var bracket = await _dataContext.Brackets
                 .Include(i => i.Fighters)
-                .FirstOrDefaultAsync(i => i.Id == matchId);
+                .FirstOrDefaultAsync(i => i.Id == bracketId);
 
-            if (match == null)
+            if (bracket == null)
             {
                 return NotFound();
             }
 
-            var fighter = match.Fighters.FirstOrDefault(i => i.Id == fighterId);
+            var fighter = bracket.Fighters.FirstOrDefault(i => i.Id == fighterId);
+
             if (fighter == null)
             {
-                return BadRequest("Fighter isn't enrolled in match");
+                return BadRequest("Fighter isn't enrolled in bracket");
             }
 
-            if (!match.Fighters.Any(i => i.Id == fighterId))
+            if (!bracket.Fighters.Any(i => i.Id == fighterId))
             {
-                return BadRequest("Fighter isn't enrolled in match");
+                return BadRequest("Fighter isn't enrolled in bracket");
             }
 
-            match.Fighters.Remove(fighter);
+            bracket.Fighters.Remove(fighter);
 
             await _dataContext.SaveChangesAsync();
 
-            return Ok(match.CastToDto());
+            return Ok(bracket.CastToDto());
         }
         catch (Exception ex)
         {

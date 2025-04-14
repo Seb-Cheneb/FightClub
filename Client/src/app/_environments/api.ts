@@ -12,4 +12,5 @@ export class API {
   static fighter: string = `${this.server}/api/Fighter`;
   static competition: string = `${this.server}/api/Competition`;
   static match: string = `${this.server}/api/Match`;
+  static bracket: string = `${this.server}/api/Bracket`;
 }
