@@ -9,4 +9,5 @@ public class CompetitionDto
 
     public List<string> FighterIds { get; set; } = [];
     public List<string> MatchIds { get; set; } = [];
+    public List<string> BracketIds { get; set; } = [];
 }

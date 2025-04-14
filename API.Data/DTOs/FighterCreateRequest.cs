@@ -1,6 +1,6 @@
 ﻿namespace Data.DTOs;
 
-public class CreateFighterDto
+public class FighterCreateRequest
 {
     public string? Name { get; set; }
     public string? Gender { get; set; }

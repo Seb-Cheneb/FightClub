@@ -11,6 +11,7 @@ import { EditCompetitionComponent } from '../../competitions/components/edit-com
 import { AddMatchComponent } from '../../matches/components/add-match.component';
 import { EditMatchComponent } from '../../matches/components/edit-match.component';
 import { MatchService } from '../../matches/match.service';
+import { AdminMatchPageComponent } from "../../matches/pages/admin-match-page.component";
 
 @Component({
   selector: 'app-edit-competition-page',
@@ -20,7 +21,8 @@ import { MatchService } from '../../matches/match.service';
     AddMatchComponent,
     EditMatchComponent,
     EditCompetitionFightersComponent,
-  ],
+    AdminMatchPageComponent
+],
   templateUrl: './edit-competition-page.component.html',
   styles: ``,
 })

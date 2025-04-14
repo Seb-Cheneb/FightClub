@@ -10,12 +10,12 @@ namespace API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class MatchController : ControllerBase
+public class BracketController : ControllerBase
 {
     private readonly ILogger<UserController> _logger;
     private readonly DataContext _dataContext;
 
-    public MatchController(ILogger<UserController> logger, DataContext context)
+    public BracketController(ILogger<UserController> logger, DataContext context)
     {
         _logger = logger;
         _dataContext = context;
@@ -27,7 +27,7 @@ public class MatchController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> Add([FromBody] MatchCreateRequest request)
+    public async Task<IActionResult> Add([FromBody] BracketCreateRequest request)
     {
         if (request is null)
         {
@@ -45,11 +45,8 @@ public class MatchController : ControllerBase
                 return BadRequest("The competition provided null");
             }
 
-            var matchNumber = competition.Matches.Count + 1;
-
-            var match = MatchMapper.CreateModel(request);
-            match.Number = matchNumber;
-            _dataContext.Matches.Add(match);
+            var match = BracketMapper.CreateModel(request);
+            _dataContext.Brackets.Add(match);
             _dataContext.Competitions.Update(competition);
 
             await _dataContext.SaveChangesAsync();

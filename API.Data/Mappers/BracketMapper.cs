@@ -1,13 +1,13 @@
-using Data.DTOs;
+﻿using Data.DTOs;
 using Data.Entities;
 
 namespace Data.Mappers;
 
-public static class MatchMapper
+public static class BracketMapper
 {
-    public static Match CreateModel(MatchCreateRequest request)
+    public static Bracket CreateModel(BracketCreateRequest request)
     {
-        return new Match
+        return new Bracket
         {
             Id = Guid.NewGuid().ToString(),
             CompetitionId = request.CompetitionId,
@@ -15,23 +15,19 @@ public static class MatchMapper
         };
     }
 
-    public static MatchDto CastToDto(this Match instance)
+    public static BracketDto CastToDto(this Bracket instance)
     {
-        return new MatchDto
+        return new BracketDto
         {
             Id = instance.Id,
             CompetitionId = instance.CompetitionId,
-            Winner = instance.Winner,
             Category = instance.Category,
-            Number = instance.Number,
             FighterIds = instance.Fighters.Select(fighter => fighter.Id ?? "NULL").ToList(),
         };
     }
 
-    public static void Update(this Match instance, MatchDto request)
+    public static void Update(this Bracket instance, BracketDto request)
     {
-        instance.Winner = request.Winner ?? instance.Winner;
         instance.Category = request.Category;
-        instance.Number = request.Number;
     }
 }

@@ -26,7 +26,7 @@ public class CompetitionController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> Create([FromBody] CompetitionCreateDto? request)
+    public async Task<IActionResult> Create([FromBody] CompetitionCreateRequest? request)
     {
         try
         {
@@ -62,6 +62,7 @@ public class CompetitionController : ControllerBase
             var output = await _dataContext.Competitions
                 .Include(i => i.Fighters)
                 .Include(i => i.Matches)
+                .Include(i => i.Brackets)
                 .ToListAsync();
 
             if (output.Count == 0)
@@ -93,6 +94,7 @@ public class CompetitionController : ControllerBase
             var output = await _dataContext.Competitions
                 .Include(i => i.Fighters)
                 .Include(i => i.Matches)
+                .Include(i => i.Brackets)
                 .Where(i => ids.Contains(i.Id ?? "NULL"))
                 .ToListAsync();
 
@@ -122,6 +124,7 @@ public class CompetitionController : ControllerBase
             var output = await _dataContext.Competitions
                 .Include(i => i.Fighters)
                 .Include(i => i.Matches)
+                .Include(i => i.Brackets)
                 .FirstOrDefaultAsync(i => i.Id == id);
 
             if (output is null)
@@ -178,6 +181,7 @@ public class CompetitionController : ControllerBase
             var data = await _dataContext.Competitions
                 .Include(i => i.Matches)
                 .Include(i => i.Fighters)
+                .Include(i => i.Brackets)
                 .FirstOrDefaultAsync(i => i.Id == request.Id);
 
             if (data == null)

@@ -5,7 +5,7 @@ namespace Data.Mappers;
 
 public static class CompetitionMapper
 {
-    public static Competition CreateModel(this CompetitionCreateDto instance)
+    public static Competition CreateModel(this CompetitionCreateRequest instance)
     {
         return new Competition
         {
@@ -25,6 +25,7 @@ public static class CompetitionMapper
             Name = instance.Name,
             Description = instance.Description,
             MatchIds = instance.Matches.Select(i => i.Id ?? "NULL").ToList(),
+            BracketIds = instance.Brackets.Select(i => i.Id ?? "NULL").ToList(),
             FighterIds = instance.Fighters.Select(i => i.Id ?? "NULL").ToList(),
         };
     }

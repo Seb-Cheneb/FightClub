@@ -5,7 +5,7 @@ namespace Data.Mappers;
 
 public static class FighterMapper
 {
-    public static Fighter CreateModel(this CreateFighterDto instance)
+    public static Fighter CreateModel(this FighterCreateRequest instance)
     {
         return new Fighter
         {

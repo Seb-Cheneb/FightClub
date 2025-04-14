@@ -104,6 +104,15 @@ export const routes: Routes = [
             (m) => m.EditCompetitionPageComponent
           ),
         canActivate: [AuthGuard],
+      }, {
+
+        path: 'matches',
+        pathMatch: 'full',
+        loadComponent: () =>
+          import('./pages/competition/competitions-page.component').then(
+            (m) => m.CompetitionsPageComponent
+          ),
+        canActivate: [AuthGuard],
       },
     ],
   },

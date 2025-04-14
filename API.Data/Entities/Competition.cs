@@ -8,5 +8,6 @@ public class Competition
     public string? Description { get; set; }
 
     public ICollection<Match> Matches { get; set; } = [];
+    public ICollection<Bracket> Brackets { get; set; } = [];
     public ICollection<Fighter> Fighters { get; set; } = [];
 }
