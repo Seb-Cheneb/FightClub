@@ -2,13 +2,13 @@ import { Page } from '../shared/models/page';
 
 export interface CreateBracketDto {
   competitionId: string;
-  category: string;
+  name: string;
 }
 
 export interface BracketDto {
   id: string;
   competitionId: string;
-  category: string;
+  name: string;
   fighterIds: string[];
 }
 

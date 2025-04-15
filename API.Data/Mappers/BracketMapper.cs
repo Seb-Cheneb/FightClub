@@ -11,7 +11,7 @@ public static class BracketMapper
         {
             Id = Guid.NewGuid().ToString(),
             CompetitionId = request.CompetitionId,
-            Category = request.Category
+            Name = request.Name
         };
     }
 
@@ -21,13 +21,13 @@ public static class BracketMapper
         {
             Id = instance.Id,
             CompetitionId = instance.CompetitionId,
-            Category = instance.Category,
+            Name = instance.Name,
             FighterIds = instance.Fighters.Select(fighter => fighter.Id ?? "NULL").ToList(),
         };
     }
 
     public static void Update(this Bracket instance, BracketDto request)
     {
-        instance.Category = request.Category;
+        instance.Name = request.Name;
     }
 }

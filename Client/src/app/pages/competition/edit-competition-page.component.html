@@ -29,7 +29,9 @@
     <app-edit-competition [id]="competitionId"></app-edit-competition>
   </mat-tab>
   <mat-tab label="test">
-   <app-admin-match-page [competitionId]="competitionId"></app-admin-match-page>
+    <app-admin-bracket-page
+      [competitionId]="competitionId"
+    ></app-admin-bracket-page>
   </mat-tab>
 </mat-tab-group>
-} 
+}

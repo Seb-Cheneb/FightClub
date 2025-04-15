@@ -1,1 +1,3 @@
-<p>admin-bracket-page works!</p>
+@if (competition) { @for (item of brackets; track $index) {
+<div>{{ item.name }}</div>
+} }

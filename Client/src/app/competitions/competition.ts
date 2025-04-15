@@ -12,6 +12,7 @@ export interface CompetitionDto {
   type: string;
   description: string;
   fighterIds: string[];
+  bracketIds: string[];
   matchIds: string[];
 }
 

@@ -4,14 +4,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MaterialModule } from '../../_modules/material.module';
 import { CompetitionDto } from '../../competitions/competition';
 import { CompetitionService } from '../../competitions/competition.service';
-import {
-    EditCompetitionFightersComponent
-} from '../../competitions/components/edit-competition-fighters.component';
+import { EditCompetitionFightersComponent } from '../../competitions/components/edit-competition-fighters.component';
 import { EditCompetitionComponent } from '../../competitions/components/edit-competition.component';
 import { AddMatchComponent } from '../../matches/components/add-match.component';
 import { EditMatchComponent } from '../../matches/components/edit-match.component';
 import { MatchService } from '../../matches/match.service';
-import { AdminMatchPageComponent } from "../../matches/pages/admin-match-page.component";
+import { AdminMatchPageComponent } from '../../matches/pages/admin-match-page.component';
+import { AdminBracketPageComponent } from '../../brackets/pages/admin-bracket-page.component';
 
 @Component({
   selector: 'app-edit-competition-page',
@@ -21,8 +20,8 @@ import { AdminMatchPageComponent } from "../../matches/pages/admin-match-page.co
     AddMatchComponent,
     EditMatchComponent,
     EditCompetitionFightersComponent,
-    AdminMatchPageComponent
-],
+    AdminBracketPageComponent,
+  ],
   templateUrl: './edit-competition-page.component.html',
   styles: ``,
 })

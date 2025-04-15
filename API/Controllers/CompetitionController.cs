@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Data.DTOs;
+using API.Services.Interfaces;
+using API.Services;
 
 namespace API.Controllers;
 
@@ -12,12 +14,14 @@ namespace API.Controllers;
 public class CompetitionController : ControllerBase
 {
     private readonly ILogger<CompetitionController> _logger;
+    private readonly IBracketService _bracketService;
     private readonly DataContext _dataContext;
 
-    public CompetitionController(ILogger<CompetitionController> logger, DataContext context)
+    public CompetitionController(ILogger<CompetitionController> logger, DataContext context, IBracketService bracketService)
     {
         _logger = logger;
         _dataContext = context;
+        _bracketService = bracketService;
     }
 
     [Authorize]
@@ -226,6 +230,7 @@ public class CompetitionController : ControllerBase
 
             var competition = await _dataContext.Competitions
                 .Include(e => e.Fighters)
+                .Include(e => e.Brackets)
                 .Include(e => e.Matches)
                 .FirstOrDefaultAsync(e => e.Id == competitionId);
 
@@ -247,6 +252,12 @@ public class CompetitionController : ControllerBase
             }
 
             competition.Fighters.Add(fighter);
+
+            var bracketStatus = await _bracketService.AddFighterToCompetition(competitionId, fighter);
+            if (!bracketStatus)
+            {
+                _logger.LogError($"Failed to add fighter '{fighter.Name}' to bracket'.");
+            }
 
             await _dataContext.SaveChangesAsync();
 
@@ -302,6 +313,11 @@ public class CompetitionController : ControllerBase
             }
 
             competition.Fighters.Remove(fighter);
+            var bracketStatus = await _bracketService.RemoveFighterFromCompetition(competitionId, fighterId);
+            if (!bracketStatus)
+            {
+                _logger.LogError($"Failed to remove fighter '{fighter.Name}' from bracket'.");
+            }
 
             await _dataContext.SaveChangesAsync();
 

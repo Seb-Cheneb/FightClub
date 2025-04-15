@@ -7,7 +7,7 @@ import { BracketDto, CreateBracketDto } from './bracket';
 @Injectable({
   providedIn: 'root',
 })
-export class MatchService {
+export class BracketService {
   private baseUrl: string = API.bracket;
   private http = inject(HttpClient);
 
@@ -66,10 +66,10 @@ export class MatchService {
       .pipe(catchError(this.handleError));
   }
 
-  addFighter(matchId: string, fighterId: string): Observable<BracketDto> {
+  addFighter(bracketId: string, fighterId: string): Observable<BracketDto> {
     return this.http
       .put<BracketDto>(
-        `${this.baseUrl}/AddFighter?matchId=${matchId}&fighterId=${fighterId}`,
+        `${this.baseUrl}/AddFighter?matchId=${bracketId}&fighterId=${fighterId}`,
         null
       )
       .pipe(
@@ -80,8 +80,8 @@ export class MatchService {
       );
   }
 
-  removeFighter(matchId: string, fighterId: string): Observable<BracketDto> {
-    var url: string = `${this.baseUrl}/RemoveFighter?matchId=${matchId}&fighterId=${fighterId}`;
+  removeFighter(bracketId: string, fighterId: string): Observable<BracketDto> {
+    var url: string = `${this.baseUrl}/RemoveFighter?matchId=${bracketId}&fighterId=${fighterId}`;
     return this.http.put<BracketDto>(url, null).pipe(
       map((response) => {
         return response;
