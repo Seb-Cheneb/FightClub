@@ -6,10 +6,12 @@ import { FighterDto } from '../../fighters/fighter';
 import { FighterService } from '../../fighters/fighter.service';
 import { BracketDto } from '../bracket';
 import { BracketService } from '../bracket.service';
+import { MaterialModule } from '../../_modules/material.module';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-admin-bracket-page',
-  imports: [],
+  imports: [MaterialModule],
   templateUrl: './admin-bracket-page.component.html',
   styles: ``,
 })
@@ -18,6 +20,9 @@ export class AdminBracketPageComponent {
   competition!: CompetitionDto;
   brackets: BracketDto[] = [];
   fighters: FighterDto[] = [];
+
+  selectedBracket!: BracketDto;
+  bracketFighters: FighterDto[] = [];
 
   private competitionService = inject(CompetitionService);
   private bracketService = inject(BracketService);
@@ -38,6 +43,49 @@ export class AdminBracketPageComponent {
         });
       },
       error: (e) => this.snackBar.open(e, 'close'),
+    });
+  }
+
+  onBracketSelected(bracketId: string) {
+    this.bracketService.getById(bracketId).subscribe({
+      next: (bracketResponse) => {
+        this.selectedBracket = bracketResponse;
+        this.fighterService.getAllById(bracketResponse.fighterIds).subscribe({
+          next: (fighterResponse) => (this.bracketFighters = fighterResponse),
+          error: (error) => this.snackBar.open(error, 'close'),
+        });
+      },
+      error: (error) => this.snackBar.open(error, 'close'),
+    });
+  }
+
+  addFighter(bracketId: string, fighterId: string) {
+    this.bracketService.addFighter(bracketId, fighterId).subscribe({
+      next: () => {
+        this.fighterService.getById(fighterId).subscribe({
+          next: (fighterResponse) => {
+            this.bracketFighters = [...this.bracketFighters, fighterResponse];
+          },
+          error: (error) => this.snackBar.open(error, 'close'),
+        });
+      },
+      error: (error) => this.snackBar.open(error, 'close'),
+    });
+  }
+
+  removeFighter(bracketId: string, fighterId: string) {
+    this.bracketService.removeFighter(bracketId, fighterId).subscribe({
+      next: () => {
+        this.fighterService.getById(fighterId).subscribe({
+          next: () => {
+            this.bracketFighters = this.bracketFighters.filter((i) => {
+              return i.id !== fighterId;
+            });
+          },
+          error: (error) => this.snackBar.open(error, 'close'),
+        });
+      },
+      error: (error) => this.snackBar.open(error, 'close'),
     });
   }
 }

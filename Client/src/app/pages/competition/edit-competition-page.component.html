@@ -1,5 +1,24 @@
 @if (competition) {
 <mat-tab-group>
+  <mat-tab label="Bracket">
+    <div class="">
+      <app-admin-bracket-page
+        [competitionId]="competitionId"
+      ></app-admin-bracket-page>
+    </div>
+  </mat-tab>
+  <!-- FIGHTER TAB -->
+  <mat-tab label="Fighters">
+    <app-edit-competition-fighters
+      [competitionId]="competitionId"
+    ></app-edit-competition-fighters
+  ></mat-tab>
+  <!-- COMPETITION DETAILS TAB -->
+  <mat-tab label="Details">
+    <app-edit-competition [id]="competitionId"></app-edit-competition>
+  </mat-tab>
+
+  <!-- MATCHES -->
   <mat-tab label="Matches">
     <!-- add match -->
     <div class="w-1-2 mx-auto my-1">
@@ -17,21 +36,6 @@
       ></app-edit-match>
     </div>
     }
-  </mat-tab>
-  <!-- FIGHTER TAB -->
-  <mat-tab label="Fighters">
-    <app-edit-competition-fighters
-      [competitionId]="competitionId"
-    ></app-edit-competition-fighters
-  ></mat-tab>
-  <!-- COMPETITION DETAILS TAB -->
-  <mat-tab label="Details">
-    <app-edit-competition [id]="competitionId"></app-edit-competition>
-  </mat-tab>
-  <mat-tab label="test">
-    <app-admin-bracket-page
-      [competitionId]="competitionId"
-    ></app-admin-bracket-page>
   </mat-tab>
 </mat-tab-group>
 }

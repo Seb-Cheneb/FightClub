@@ -1,3 +1,61 @@
-@if (competition) { @for (item of brackets; track $index) {
-<div>{{ item.name }}</div>
+@if (competition) {
+<!-- BRACKET SELECTION -->
+<mat-form-field class="w-full">
+  <mat-label>Available brackets</mat-label>
+  <mat-select (selectionChange)="onBracketSelected($event.value)">
+    @for (bracket of brackets; track $index) {
+    <mat-option [value]="bracket.id">{{ bracket.name }}</mat-option>
+    }
+  </mat-select>
+</mat-form-field>
+
+@if (selectedBracket && bracketFighters && fighters) {
+<mat-accordion>
+  <!-- REMOVE FIGHTERS -->
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title> Remove fighters </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-list>
+      @for (item of bracketFighters; track $index) {
+      <mat-list-item>
+        <button
+          mat-stroked-button
+          (click)="removeFighter(selectedBracket.id, item.id)"
+        >
+          remove
+        </button>
+        <span> {{ item.name }} </span>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      }
+    </mat-list>
+  </mat-expansion-panel>
+  <!-- ADD FIGHTERS -->
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title> Add fighters </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-list>
+      @for (item of fighters; track $index) {
+      <mat-list-item>
+        <button
+          mat-stroked-button
+          (click)="addFighter(selectedBracket.id, item.id)"
+        >
+          Add
+        </button>
+        <span> {{ item.name }} </span>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      }
+    </mat-list>
+  </mat-expansion-panel>
+</mat-accordion>
+<!-- LIST FIGHTERS -->
+<div>
+  @for (fighter of bracketFighters; track $index) {
+  <div>{{ fighter.name }}</div>
+  }
+</div>
 } }

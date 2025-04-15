@@ -42,7 +42,7 @@ export class BracketService {
 
   getById(id: string): Observable<BracketDto> {
     return this.http
-      .get<BracketDto>(`${this.baseUrl}/GetById?matchId=${id}`)
+      .get<BracketDto>(`${this.baseUrl}/GetById?bracketId=${id}`)
       .pipe(
         map((response) => {
           return response;
@@ -69,7 +69,7 @@ export class BracketService {
   addFighter(bracketId: string, fighterId: string): Observable<BracketDto> {
     return this.http
       .put<BracketDto>(
-        `${this.baseUrl}/AddFighter?matchId=${bracketId}&fighterId=${fighterId}`,
+        `${this.baseUrl}/AddFighter?bracketId=${bracketId}&fighterId=${fighterId}`,
         null
       )
       .pipe(
@@ -81,7 +81,7 @@ export class BracketService {
   }
 
   removeFighter(bracketId: string, fighterId: string): Observable<BracketDto> {
-    var url: string = `${this.baseUrl}/RemoveFighter?matchId=${bracketId}&fighterId=${fighterId}`;
+    var url: string = `${this.baseUrl}/RemoveFighter?bracketId=${bracketId}&fighterId=${fighterId}`;
     return this.http.put<BracketDto>(url, null).pipe(
       map((response) => {
         return response;

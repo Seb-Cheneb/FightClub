@@ -1,5 +1,4 @@
-﻿using Data.Entities;
-using Data.Mappers;
+﻿using Data.Mappers;
 using API.Persistence;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -116,13 +115,18 @@ public class BracketController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> GetById([FromQuery] string requestedId)
+    public async Task<IActionResult> GetById([FromQuery] string bracketId)
     {
+        if (string.IsNullOrWhiteSpace(bracketId))
+        {
+            return BadRequest("bracketId is required");
+        }
+
         try
         {
             var output = await _dataContext.Brackets
                 .Include(e => e.Fighters)
-                .FirstOrDefaultAsync(e => e.Id == requestedId);
+                .FirstOrDefaultAsync(e => e.Id == bracketId);
 
             if (output is null) return NotFound();
             return Ok(output.CastToDto());
