@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20250414051330_1")]
+    [Migration("20250415052427_1")]
     partial class _1
     {
         /// <inheritdoc />
@@ -38,6 +38,24 @@ namespace API.Migrations
                     b.HasIndex("FightersId");
 
                     b.ToTable("FighterCompetition", (string)null);
+                });
+
+            modelBuilder.Entity("Data.Entities.Bracket", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Category")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CompetitionId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompetitionId");
+
+                    b.ToTable("Brackets");
                 });
 
             modelBuilder.Entity("Data.Entities.Competition", b =>
@@ -67,6 +85,9 @@ namespace API.Migrations
                     b.Property<DateTime>("Birthdate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("BracketId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Club")
                         .HasColumnType("nvarchar(max)");
 
@@ -83,6 +104,8 @@ namespace API.Migrations
                         .HasColumnType("real");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BracketId");
 
                     b.ToTable("Fighters");
                 });
@@ -364,6 +387,23 @@ namespace API.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Data.Entities.Bracket", b =>
+                {
+                    b.HasOne("Data.Entities.Competition", "Competition")
+                        .WithMany("Brackets")
+                        .HasForeignKey("CompetitionId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("Competition");
+                });
+
+            modelBuilder.Entity("Data.Entities.Fighter", b =>
+                {
+                    b.HasOne("Data.Entities.Bracket", null)
+                        .WithMany("Fighters")
+                        .HasForeignKey("BracketId");
+                });
+
             modelBuilder.Entity("Data.Entities.Match", b =>
                 {
                     b.HasOne("Data.Entities.Competition", "Competition")
@@ -440,8 +480,15 @@ namespace API.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Data.Entities.Bracket", b =>
+                {
+                    b.Navigation("Fighters");
+                });
+
             modelBuilder.Entity("Data.Entities.Competition", b =>
                 {
+                    b.Navigation("Brackets");
+
                     b.Navigation("Matches");
                 });
 #pragma warning restore 612, 618

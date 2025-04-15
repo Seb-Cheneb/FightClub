@@ -47,9 +47,6 @@ export class EditCompetitionComponent {
       error: (e) => {
         console.error('Oops, got the following error:', e);
       },
-      complete: () => {
-        console.log('Request completed successfully');
-      },
     });
   }
 

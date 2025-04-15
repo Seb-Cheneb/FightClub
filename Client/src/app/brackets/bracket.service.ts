@@ -13,11 +13,8 @@ export class MatchService {
 
   add(entity: CreateBracketDto): Observable<BracketDto> {
     const url = `${this.baseUrl}/Add`;
-    console.info(`sending POST request to: ${url}`);
-
     return this.http.post<BracketDto>(url, entity).pipe(
       map((response) => {
-        console.info(`got response from ${url}`, response);
         return response;
       }),
       catchError(this.handleError)
@@ -85,8 +82,6 @@ export class MatchService {
 
   removeFighter(matchId: string, fighterId: string): Observable<BracketDto> {
     var url: string = `${this.baseUrl}/RemoveFighter?matchId=${matchId}&fighterId=${fighterId}`;
-    console.info(`Sending DELETE request to ${url}`);
-
     return this.http.put<BracketDto>(url, null).pipe(
       map((response) => {
         return response;
@@ -95,20 +90,12 @@ export class MatchService {
     );
   }
 
-  /**
-   * Handles errors that occur during HTTP requests.
-   *
-   * @param error - The error that occurred during the HTTP request.
-   * @returns An Observable that emits an error.
-   */
   private handleError(error: HttpErrorResponse): Observable<never> {
     let errorMessage = 'Unknown error occurred';
     if (error.error instanceof ErrorEvent) {
-      // Client-side error
-      errorMessage = `Error: ${error.error.message}`;
+      errorMessage = `CLIENT ERROR: ${error.error.message}`;
     } else {
-      // Server-side error
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+      errorMessage = `SERVER ERROR: ${error.status}\n: ${error.message}`;
     }
     console.error(errorMessage);
     return throwError(() => new Error(errorMessage));

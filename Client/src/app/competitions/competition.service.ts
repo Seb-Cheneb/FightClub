@@ -99,22 +99,15 @@ export class CompetitionService {
       );
   }
 
-  /**
-   * Handles errors that occur during HTTP requests.
-   *
-   * @param error - The error that occurred during the HTTP request.
-   * @returns An Observable that emits an error.
-   */
   private handleError(error: HttpErrorResponse): Observable<never> {
     let errorMessage = 'Unknown error occurred';
     if (error.error instanceof ErrorEvent) {
-      // Client-side error
-      errorMessage = `Error: ${error.error.message}`;
+      errorMessage = `CLIENT ERROR: ${error.error.message}`;
     } else {
-      // Server-side error
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+      errorMessage = `SERVER ERROR: ${error.status}\n: ${error.message}`;
     }
     console.error(errorMessage);
     return throwError(() => new Error(errorMessage));
   }
+
 }
