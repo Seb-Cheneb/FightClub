@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using API.Services.Interfaces;
+using API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -54,7 +56,7 @@ builder.Services
     });
 
 // Register Application Services
-//builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IBracketService, BracketService>();
 //builder.Services.AddScoped<ITimeService, TimeService>();
 
 //builder.Services.AddAuthorization(options =>
