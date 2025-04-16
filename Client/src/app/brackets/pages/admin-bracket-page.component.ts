@@ -7,10 +7,11 @@ import { FighterService } from '../../fighters/fighter.service';
 import { BracketDto } from '../bracket';
 import { BracketService } from '../bracket.service';
 import { MaterialModule } from '../../_modules/material.module';
+import { KumiteStandardComponent } from '../components/kumite-standard.component';
 
 @Component({
   selector: 'app-admin-bracket-page',
-  imports: [MaterialModule],
+  imports: [MaterialModule, KumiteStandardComponent],
   templateUrl: './admin-bracket-page.component.html',
   styles: ``,
 })

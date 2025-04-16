@@ -53,9 +53,7 @@
   </mat-expansion-panel>
 </mat-accordion>
 <!-- LIST FIGHTERS -->
-<div>
-  @for (fighter of bracketFighters; track $index) {
-  <div>{{ fighter.name }}</div>
-  }
-</div>
+ <app-kumite-standard
+  [fighters]="bracketFighters"
+ ></app-kumite-standard>
 } }

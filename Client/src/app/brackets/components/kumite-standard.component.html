@@ -1,1 +1,5 @@
-<p>kumite-standard works!</p>
+@if (fighters()) {
+    @for (item of fighters(); track $index) {
+        <div>{{item.name}}, {{item.weight}}</div>
+    }
+}
