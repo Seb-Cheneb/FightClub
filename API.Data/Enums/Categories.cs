@@ -88,12 +88,12 @@ public class Categories
     public static readonly string KumiteCopiiFete8AniSub30 = "Kumite (copii) fete, sub 8 ani, -30 kg";
     public static readonly string KumiteCopiiFete8AniSub25 = "Kumite (copii) fete, sub 8 ani, -25 kg";
 
-    public static readonly string KumiteMixt7AniPeste30 = "Kumite (mix), sub 7 ani, +30 kg";
-    public static readonly string KumiteMixt7AniSub30 = "Kumite (mix), sub 7 ani, -30 kg";
-    public static readonly string KumiteMixt7AniSub25 = "Kumite (mix), sub 7 ani, -25 kg";
-    public static readonly string KumiteMixt7AniSub20 = "Kumite (mix), sub 7 ani, -20 kg";
+    public static readonly string KumiteMixt7AniPeste30 = "Kumite (mixt), sub 7 ani, +30 kg";
+    public static readonly string KumiteMixt7AniSub30 = "Kumite (mixt), sub 7 ani, -30 kg";
+    public static readonly string KumiteMixt7AniSub25 = "Kumite (mixt), sub 7 ani, -25 kg";
+    public static readonly string KumiteMixt7AniSub20 = "Kumite (mixt), sub 7 ani, -20 kg";
 
-    public static readonly string KumiteMixt6AniPeste24 = "Kumite (mix), sub 6 ani, +24 kg";
-    public static readonly string KumiteMixt6AniSub24 = "Kumite (mix), sub 6 ani, -24 kg";
-    public static readonly string KumiteMixt6AniSub20 = "Kumite (mix), sub 6 ani, -20 kg";
+    public static readonly string KumiteMixt6AniPeste24 = "Kumite (mixt), sub 6 ani, +24 kg";
+    public static readonly string KumiteMixt6AniSub24 = "Kumite (mixt), sub 6 ani, -24 kg";
+    public static readonly string KumiteMixt6AniSub20 = "Kumite (mixt), sub 6 ani, -20 kg";
 }

@@ -80,6 +80,108 @@ public class BracketService : IBracketService
         float weight = fighter.Weight;
         string gender = fighter.Gender ?? "NULL";
 
+        if (age < 6)
+        {
+            if (weight >= 24) return Categories.KumiteMixt6AniPeste24;
+            else if (weight >= 20) return Categories.KumiteMixt6AniSub24;
+            else return Categories.KumiteMixt6AniSub20;
+        }
+        else if (age < 7)
+        {
+            if (weight >= 30) return Categories.KumiteMixt7AniPeste30;
+            else if (weight >= 25) return Categories.KumiteMixt7AniSub30;
+            else if (weight >= 20) return Categories.KumiteMixt7AniSub25;
+            else return Categories.KumiteMixt7AniSub20;
+        }
+        else if (age < 8)
+        {
+            if (gender.Equals("masculin"))
+            {
+                if (weight >= 35) return Categories.KumiteCopiiBaieti8AniPeste35;
+                else if (weight >= 30) return Categories.KumiteCopiiBaieti8AniSub35;
+                else if (weight >= 25) return Categories.KumiteCopiiBaieti8AniSub30;
+                else return Categories.KumiteCopiiBaieti8AniSub25;
+            }
+            else
+            {
+                if (weight >= 30) return Categories.KumiteCopiiFete8AniPeste30;
+                else if (weight >= 25) return Categories.KumiteCopiiFete8AniSub30;
+                else return Categories.KumiteCopiiFete8AniSub25;
+            }
+        }
+        else if (age < 9)
+        {
+            if (gender.Equals("masculin"))
+            {
+                if (weight >= 40) return Categories.KumiteCopiiBaieti9AniPeste40;
+                else if (weight >= 35) return Categories.KumiteCopiiBaieti9AniSub40;
+                else if (weight >= 30) return Categories.KumiteCopiiBaieti9AniSub35;
+                else if (weight >= 25) return Categories.KumiteCopiiBaieti9AniSub30;
+                else return Categories.KumiteCopiiBaieti9AniSub25;
+            }
+            else
+            {
+                if (weight >= 35) return Categories.KumiteCopiiFete9AniPeste35;
+                else if (weight >= 30) return Categories.KumiteCopiiFete9AniSub35;
+                else if (weight >= 25) return Categories.KumiteCopiiFete9AniSub30;
+                else return Categories.KumiteCopiiFete9AniSub25;
+            }
+        }
+        else if (age < 10)
+        {
+            if (gender.Equals("masculin"))
+            {
+                if (weight >= 45) return Categories.KumiteCopiiBaieti10AniPeste45;
+                else if (weight >= 40) return Categories.KumiteCopiiBaieti10AniSub45;
+                else if (weight >= 35) return Categories.KumiteCopiiBaieti10AniSub40;
+                else if (weight >= 30) return Categories.KumiteCopiiBaieti10AniSub35;
+                else return Categories.KumiteCopiiBaieti10AniSub30;
+            }
+            else
+            {
+                if (weight >= 40) return Categories.KumiteCopiiFete10AniPeste40;
+                else if (weight >= 35) return Categories.KumiteCopiiFete10AniSub40;
+                else if (weight >= 30) return Categories.KumiteCopiiFete10AniSub35;
+                else return Categories.KumiteCopiiFete10AniSub30;
+            }
+        }
+        else if (age < 12)
+        {
+            if (gender.Equals("masculin"))
+            {
+                if (weight >= 50) return Categories.KumiteCopiiBaieti11AniPeste50;
+                else if (weight >= 45) return Categories.KumiteCopiiBaieti11AniSub50;
+                else if (weight >= 40) return Categories.KumiteCopiiBaieti11AniSub45;
+                else if (weight >= 35) return Categories.KumiteCopiiBaieti11AniSub40;
+                else return Categories.KumiteCopiiBaieti11AniSub35;
+            }
+            else
+            {
+                if (weight >= 45) return Categories.KumiteCopiiFete11AniPeste45;
+                else if (weight >= 40) return Categories.KumiteCopiiFete11AniSub45;
+                else if (weight >= 35) return Categories.KumiteCopiiFete11AniSub40;
+                else return Categories.KumiteCopiiFete11AniSub35;
+            }
+        }
+        else if (age < 13)
+        {
+            if (gender.Equals("masculin"))
+            {
+                if (weight >= 50) return Categories.KumiteCopiiBaieti11AniPeste50;
+                else if (weight >= 45) return Categories.KumiteCopiiBaieti11AniSub50;
+                else if (weight >= 40) return Categories.KumiteCopiiBaieti11AniSub45;
+                else if (weight >= 35) return Categories.KumiteCopiiBaieti11AniSub40;
+                else return Categories.KumiteCopiiBaieti11AniSub35;
+            }
+            else
+            {
+                if (weight >= 45) return Categories.KumiteCopiiFete11AniPeste45;
+                else if (weight >= 40) return Categories.KumiteCopiiFete11AniSub45;
+                else if (weight >= 35) return Categories.KumiteCopiiFete11AniSub40;
+                else return Categories.KumiteCopiiFete11AniSub35;
+            }
+        }
+
         if (age >= 45)
         {
             if (weight >= 80) return Categories.KumiteVeteraniPeste80;
