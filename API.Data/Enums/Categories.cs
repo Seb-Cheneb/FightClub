@@ -2,8 +2,12 @@
 
 public class Categories
 {
-    public static string KumiteVeteraniPeste80 = "Kumite (veterani) +80 kg";
-    public static string KumiteVeteraniSub80 = "Kumite (veterani) +80 kg";
+    public static string KumiteVeteraniMasculinPeste80 = "Kumite (veterani) masculin +80 kg";
+    public static string KumiteVeteraniMasculinSub80 = "Kumite (veterani) masculin +80 kg";
+
+    public static readonly string KumiteVeteraniFemininPeste65 = "Kumite (veterani) feminin +65 kg";
+    public static readonly string KumiteVeteraniFemininSub65 = "Kumite (veterani) feminin -65 kg";
+    public static readonly string KumiteVeteraniFemininSub60 = "Kumite (veterani) feminin -60 kg";
 
     public static readonly string KumiteSenioriMasculinPeste85 = "Kumite (seniori) masculin +85 kg";
     public static readonly string KumiteSenioriMasculinSub85 = "Kumite (seniori) masculin -85 kg";

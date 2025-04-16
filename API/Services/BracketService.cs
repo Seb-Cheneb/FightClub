@@ -163,46 +163,44 @@ public class BracketService : IBracketService
                 else return Categories.KumiteCopiiFete11AniSub35;
             }
         }
-        else if (age < 13)
+        else if (age < 14)
         {
             if (gender.Equals("masculin"))
             {
-                if (weight >= 50) return Categories.KumiteCopiiBaieti11AniPeste50;
-                else if (weight >= 45) return Categories.KumiteCopiiBaieti11AniSub50;
-                else if (weight >= 40) return Categories.KumiteCopiiBaieti11AniSub45;
-                else if (weight >= 35) return Categories.KumiteCopiiBaieti11AniSub40;
-                else return Categories.KumiteCopiiBaieti11AniSub35;
+                if (weight >= 60) return Categories.KumiteCopiiBaieti13AniPeste60;
+                else if (weight >= 55) return Categories.KumiteCopiiBaieti13AniSub60;
+                else if (weight >= 50) return Categories.KumiteCopiiBaieti13AniSub55;
+                else if (weight >= 45) return Categories.KumiteCopiiBaieti13AniSub50;
+                else if (weight >= 40) return Categories.KumiteCopiiBaieti13AniSub45;
+                else return Categories.KumiteCopiiBaieti13AniSub40;
             }
             else
             {
-                if (weight >= 45) return Categories.KumiteCopiiFete11AniPeste45;
-                else if (weight >= 40) return Categories.KumiteCopiiFete11AniSub45;
-                else if (weight >= 35) return Categories.KumiteCopiiFete11AniSub40;
-                else return Categories.KumiteCopiiFete11AniSub35;
+                if (weight >= 55) return Categories.KumiteCopiiFete13AniPeste55;
+                else if (weight >= 50) return Categories.KumiteCopiiFete13AniSub55;
+                else if (weight >= 45) return Categories.KumiteCopiiFete13AniSub50;
+                else if (weight >= 40) return Categories.KumiteCopiiFete13AniSub45;
+                else return Categories.KumiteCopiiFete13AniSub40;
             }
         }
-
-        if (age >= 45)
-        {
-            if (weight >= 80) return Categories.KumiteVeteraniPeste80;
-            else return Categories.KumiteVeteraniSub80;
-        }
-        else if (age >= 18)
+        else if (age < 16)
         {
             if (gender.Equals("masculin"))
             {
-                if (weight >= 85) return Categories.KumiteSenioriMasculinPeste85;
-                else if (weight >= 75) return Categories.KumiteSenioriMasculinSub85;
-                else return Categories.KumiteSenioriMasculinSub75;
+                if (weight >= 65) return Categories.KumiteCadetiBaietiPeste65;
+                else if (weight >= 60) return Categories.KumiteCadetiBaietiSub65;
+                else if (weight >= 55) return Categories.KumiteCadetiBaietiSub60;
+                else return Categories.KumiteCadetiBaietiSub55;
             }
             else
             {
-                if (weight >= 65) return Categories.KumiteSenioriFemininPeste65;
-                else if (weight >= 60) return Categories.KumiteSenioriFemininSub65;
-                else return Categories.KumiteSenioriFemininSub60;
+                if (weight >= 60) return Categories.KumiteCadetiFetePeste60;
+                else if (weight >= 55) return Categories.KumiteCadetiFeteSub60;
+                else if (weight >= 50) return Categories.KumiteCadetiFeteSub55;
+                else return Categories.KumiteCadetiFeteSub50;
             }
         }
-        else if (age >= 16)
+        else if (age < 18)
         {
             if (gender.Equals("masculin"))
             {
@@ -219,7 +217,34 @@ public class BracketService : IBracketService
                 else return Categories.KumiteJunioriFeteSub55;
             }
         }
-
-        return "UNIMPLEMENTED";
+        else if (age < 45)
+        {
+            if (gender.Equals("masculin"))
+            {
+                if (weight >= 85) return Categories.KumiteSenioriMasculinPeste85;
+                else if (weight >= 75) return Categories.KumiteSenioriMasculinSub85;
+                else return Categories.KumiteSenioriMasculinSub75;
+            }
+            else
+            {
+                if (weight >= 65) return Categories.KumiteSenioriFemininPeste65;
+                else if (weight >= 60) return Categories.KumiteSenioriFemininSub65;
+                else return Categories.KumiteSenioriFemininSub60;
+            }
+        }
+        else
+        {
+            if (gender.Equals("masculin"))
+            {
+                if (weight >= 80) return Categories.KumiteVeteraniMasculinPeste80;
+                else return Categories.KumiteVeteraniMasculinSub80;
+            }
+            else
+            {
+                if (weight >= 65) return Categories.KumiteVeteraniFemininPeste65;
+                else if (weight >= 60) return Categories.KumiteVeteraniFemininSub65;
+                else return Categories.KumiteVeteraniFemininSub60;
+            }
+        }
     }
 }
