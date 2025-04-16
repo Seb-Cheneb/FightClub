@@ -19,7 +19,7 @@ export class AdminBracketPageComponent {
   competition!: CompetitionDto;
   brackets: BracketDto[] = [];
   fighters: FighterDto[] = [];
-
+  
   selectedBracket!: BracketDto;
   bracketFighters: FighterDto[] = [];
 
@@ -29,6 +29,8 @@ export class AdminBracketPageComponent {
   private snackBar = inject(MatSnackBar);
 
   ngOnInit() {
+    let number: number = 5;
+
     this.competitionService.getById(this.competitionId()).subscribe({
       next: (competitionResp) => {
         this.competition = competitionResp;
