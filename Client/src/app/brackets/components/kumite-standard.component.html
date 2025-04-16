@@ -1,18 +1,37 @@
 <div class="bracket-container">
-  @for (round of rounds; track $index; let roundIndex = $index) {
+  @for (round of rounds; track $index) {
   <div class="round">
-    <h3 class="round-title">Round {{ roundIndex + 1 }}</h3>
+    <h3 class="round-title">
+      {{
+        round.isFinal
+          ? "Final"
+          : round.roundNumber === 1
+          ? "First Round"
+          : "Round " + round.roundNumber
+      }}
+    </h3>
 
     <div class="matches">
-      @for (fighter of round; track trackByFn($index, fighter); let matchIndex =
-      $index) {
+      @for (pair of round.pairs; track trackByFn($index)) {
       <mat-card class="match-card">
-        <mat-card-content>
-          @if (fighter) {
-          <div class="fighter-name">{{ fighter.name }}</div>
-          } @else {
-          <div class="empty-slot">__________</div>
-          }
+        <mat-card-content class="pair-container">
+          <div class="fighter">
+            @if (pair[0]) {
+            <div class="fighter-name">{{ pair[0].name }}</div>
+            } @else {
+            <div class="empty-slot color-transparent">__________</div>
+            }
+          </div>
+
+          <mat-divider></mat-divider>
+
+          <div class="fighter">
+            @if (pair[1]) {
+            <div class="fighter-name">{{ pair[1].name }}</div>
+            } @else {
+            <div class="empty-slot">__________</div>
+            }
+          </div>
         </mat-card-content>
       </mat-card>
       }

@@ -12,8 +12,11 @@ import { CommonModule } from '@angular/common';
 })
 export class KumiteStandardComponent {
   fighters = input.required<FighterDto[]>();
-  rounds: (FighterDto | null)[][] = [];
-  numberOfRounds: number = 0;
+  rounds: {
+    pairs: [FighterDto | null, FighterDto | null][];
+    roundNumber: number;
+    isFinal: boolean;
+  }[] = [];
 
   ngOnInit() {
     this.generateBracket();
@@ -26,22 +29,54 @@ export class KumiteStandardComponent {
   }
 
   private generateBracket() {
-    const fighterCount = this.fighters().length;
-    this.numberOfRounds = Math.ceil(Math.log2(fighterCount)) + 1;
+    const fighters = [...this.fighters()];
+    const totalFighters = fighters.length;
+
+    // Calculate number of rounds needed
+    const numberOfRounds =
+      Math.max(1, Math.ceil(Math.log2(totalFighters))) +
+      (totalFighters > 2 ? 1 : 0);
     this.rounds = [];
 
-    // First round with actual fighters
-    this.rounds.push([...this.fighters()]);
+    // First round - pair up fighters
+    const firstRoundPairs: [FighterDto | null, FighterDto | null][] = [];
+    for (let i = 0; i < fighters.length; i += 2) {
+      firstRoundPairs.push([
+        fighters[i],
+        i + 1 < fighters.length ? fighters[i + 1] : null,
+      ]);
+    }
 
-    // Subsequent rounds with empty slots
-    let matchesInRound = Math.ceil(fighterCount / 2);
-    for (let i = 1; i < this.numberOfRounds; i++) {
-      this.rounds.push(new Array(matchesInRound).fill(null));
-      matchesInRound = Math.ceil(matchesInRound / 2);
+    this.rounds.push({
+      pairs: firstRoundPairs,
+      roundNumber: 1,
+      isFinal: firstRoundPairs.length === 1,
+    });
+
+    // Generate subsequent rounds
+    let currentPairs = firstRoundPairs.length;
+    let currentRound = 2;
+
+    while (currentPairs > 1) {
+      const newPairs: [FighterDto | null, FighterDto | null][] = [];
+      const pairsInThisRound = Math.ceil(currentPairs / 2);
+
+      for (let i = 0; i < pairsInThisRound; i++) {
+        newPairs.push([null, null]);
+      }
+
+      this.rounds.push({
+        pairs: newPairs,
+        roundNumber: currentRound,
+        isFinal: pairsInThisRound === 1,
+      });
+
+      currentPairs = pairsInThisRound;
+      currentRound++;
     }
   }
 
-  trackByFn(index: number, item: FighterDto | null): number {
+  trackByFn(index: number): number {
     return index;
   }
 }
