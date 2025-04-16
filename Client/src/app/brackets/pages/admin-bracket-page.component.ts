@@ -7,7 +7,6 @@ import { FighterService } from '../../fighters/fighter.service';
 import { BracketDto } from '../bracket';
 import { BracketService } from '../bracket.service';
 import { MaterialModule } from '../../_modules/material.module';
-import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-admin-bracket-page',

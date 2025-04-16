@@ -51,4 +51,49 @@ public class Categories
     public static readonly string KumiteCopiiBaieti11AniSub45 = "Kumite (copii) baieti, 10 - 11 ani, -45 kg";
     public static readonly string KumiteCopiiBaieti11AniSub40 = "Kumite (copii) baieti, 10 - 11 ani, -40 kg";
     public static readonly string KumiteCopiiBaieti11AniSub35 = "Kumite (copii) baieti, 10 - 11 ani, -35 kg";
+
+    public static readonly string KumiteCopiiFete11AniPeste45 = "Kumite (copii) fete, 10 - 11 ani, +45 kg";
+    public static readonly string KumiteCopiiFete11AniSub45 = "Kumite (copii) fete, 10 - 11 ani, -45 kg";
+    public static readonly string KumiteCopiiFete11AniSub40 = "Kumite (copii) fete, 10 - 11 ani, -40 kg";
+    public static readonly string KumiteCopiiFete11AniSub35 = "Kumite (copii) fete, 10 - 11 ani, -35 kg";
+
+    public static readonly string KumiteCopiiBaieti10AniPeste45 = "Kumite (copii) baieti, sub 10 ani, +45 kg";
+    public static readonly string KumiteCopiiBaieti10AniSub45 = "Kumite (copii) baieti, sub 10 ani, -45 kg";
+    public static readonly string KumiteCopiiBaieti10AniSub40 = "Kumite (copii) baieti, sub 10 ani, -40 kg";
+    public static readonly string KumiteCopiiBaieti10AniSub35 = "Kumite (copii) baieti, sub 10 ani, -35 kg";
+    public static readonly string KumiteCopiiBaieti10AniSub30 = "Kumite (copii) baieti, sub 10 ani, -30 kg";
+
+    public static readonly string KumiteCopiiFete10AniPeste40 = "Kumite (copii) fete, sub 10 ani, +40 kg";
+    public static readonly string KumiteCopiiFete10AniSub40 = "Kumite (copii) fete, sub 10 ani, -40 kg";
+    public static readonly string KumiteCopiiFete10AniSub35 = "Kumite (copii) fete, sub 10 ani, -35 kg";
+    public static readonly string KumiteCopiiFete10AniSub30 = "Kumite (copii) fete, sub 10 ani, -30 kg";
+
+    public static readonly string KumiteCopiiBaieti9AniPeste40 = "Kumite (copii) baieti, sub 9 ani, +40 kg";
+    public static readonly string KumiteCopiiBaieti9AniSub40 = "Kumite (copii) baieti, sub 9 ani, -40 kg";
+    public static readonly string KumiteCopiiBaieti9AniSub35 = "Kumite (copii) baieti, sub 9 ani, -35 kg";
+    public static readonly string KumiteCopiiBaieti9AniSub30 = "Kumite (copii) baieti, sub 9 ani, -30 kg";
+    public static readonly string KumiteCopiiBaieti9AniSub25 = "Kumite (copii) baieti, sub 9 ani, -25 kg";
+
+    public static readonly string KumiteCopiiFete9AniPeste35 = "Kumite (copii) fete, sub 9 ani, +35 kg";
+    public static readonly string KumiteCopiiFete9AniSub35 = "Kumite (copii) fete, sub 9 ani, -35 kg";
+    public static readonly string KumiteCopiiFete9AniSub30 = "Kumite (copii) fete, sub 9 ani, -30 kg";
+    public static readonly string KumiteCopiiFete9AniSub25 = "Kumite (copii) fete, sub 9 ani, -25 kg";
+
+    public static readonly string KumiteCopiiBaieti8AniPeste35 = "Kumite (copii) baieti, sub 8 ani, +35 kg";
+    public static readonly string KumiteCopiiBaieti8AniSub35 = "Kumite (copii) baieti, sub 8 ani, -35 kg";
+    public static readonly string KumiteCopiiBaieti8AniSub30 = "Kumite (copii) baieti, sub 8 ani, -30 kg";
+    public static readonly string KumiteCopiiBaieti8AniSub25 = "Kumite (copii) baieti, sub 8 ani, -25 kg";
+
+    public static readonly string KumiteCopiiFete8AniPeste30 = "Kumite (copii) fete, sub 8 ani, +30 kg";
+    public static readonly string KumiteCopiiFete8AniSub30 = "Kumite (copii) fete, sub 8 ani, -30 kg";
+    public static readonly string KumiteCopiiFete8AniSub25 = "Kumite (copii) fete, sub 8 ani, -25 kg";
+
+    public static readonly string KumiteMixt7AniPeste30 = "Kumite (mix), sub 7 ani, +30 kg";
+    public static readonly string KumiteMixt7AniSub30 = "Kumite (mix), sub 7 ani, -30 kg";
+    public static readonly string KumiteMixt7AniSub25 = "Kumite (mix), sub 7 ani, -25 kg";
+    public static readonly string KumiteMixt7AniSub20 = "Kumite (mix), sub 7 ani, -20 kg";
+
+    public static readonly string KumiteMixt6AniPeste24 = "Kumite (mix), sub 6 ani, +24 kg";
+    public static readonly string KumiteMixt6AniSub24 = "Kumite (mix), sub 6 ani, -24 kg";
+    public static readonly string KumiteMixt6AniSub20 = "Kumite (mix), sub 6 ani, -20 kg";
 }
