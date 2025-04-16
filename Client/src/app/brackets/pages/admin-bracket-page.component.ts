@@ -20,7 +20,7 @@ export class AdminBracketPageComponent {
   competition!: CompetitionDto;
   brackets: BracketDto[] = [];
   fighters: FighterDto[] = [];
-  
+
   selectedBracket!: BracketDto;
   bracketFighters: FighterDto[] = [];
 

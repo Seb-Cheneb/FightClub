@@ -1,12 +1,11 @@
-import { Component, input, SimpleChanges } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { FighterDto } from '../../fighters/fighter';
-import { MaterialModule } from '../../_modules/material.module';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-kumite-standard',
   standalone: true,
-  imports: [MaterialModule, CommonModule],
+  imports: [CommonModule],
   templateUrl: './kumite-standard.component.html',
   styleUrls: ['./kumite-standard.component.scss'],
 })
@@ -22,20 +21,12 @@ export class KumiteStandardComponent {
     this.generateBracket();
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['fighters']) {
-      this.generateBracket();
-    }
+  ngOnChanges() {
+    this.generateBracket();
   }
 
   private generateBracket() {
     const fighters = [...this.fighters()];
-    const totalFighters = fighters.length;
-
-    // Calculate number of rounds needed
-    const numberOfRounds =
-      Math.max(1, Math.ceil(Math.log2(totalFighters))) +
-      (totalFighters > 2 ? 1 : 0);
     this.rounds = [];
 
     // First round - pair up fighters
@@ -76,7 +67,24 @@ export class KumiteStandardComponent {
     }
   }
 
-  trackByFn(index: number): number {
+  trackByRound(index: number): number {
     return index;
+  }
+
+  trackByMatch(index: number): number {
+    return index;
+  }
+
+  // Add this method to your component class
+  getChampion(): string | null {
+    if (this.rounds.length === 0) return null;
+
+    const finalRound = this.rounds[this.rounds.length - 1];
+    if (!finalRound.isFinal) return null;
+
+    // In a real app, you would have logic to determine the actual winner
+    // For now, we'll just return the first fighter in the final pair
+    const finalPair = finalRound.pairs[0];
+    return finalPair[0]?.name || finalPair[1]?.name || null;
   }
 }

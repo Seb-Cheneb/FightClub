@@ -1,43 +1,27 @@
-<div class="bracket-container">
-  @for (round of rounds; track $index) {
-  <div class="round">
-    <h3 class="round-title">
-      {{
-        round.isFinal
-          ? "Final"
-          : round.roundNumber === 1
-          ? "First Round"
-          : "Round " + round.roundNumber
-      }}
-    </h3>
+<h1>Tournament Bracket</h1>
+<main class="tournament">
+  @for (round of rounds; track trackByRound($index)) {
+  <ul class="round round-{{ round.roundNumber }}">
+    <li class="spacer">&nbsp;</li>
 
-    <div class="matches justify-evenly">
-      @for (pair of round.pairs; track trackByFn($index)) {
-      <mat-card class="match-card">
-        <mat-card-content class="pair-container">
-          <div class="fighter">
-            @if (pair[0]) {
-            <div class="fighter-name">{{ pair[0].name }}</div>
-            } @else {
-            <div class="empty-slot color-transparent">
-              ........................
-            </div>
-            }
-          </div>
-
-          <mat-divider></mat-divider>
-
-          <div class="fighter">
-            @if (pair[1]) {
-            <div class="fighter-name">{{ pair[1].name }}</div>
-            } @else {
-            <div class="empty-slot">........................</div>
-            }
-          </div>
-        </mat-card-content>
-      </mat-card>
+    @for (pair of round.pairs; track trackByMatch($index)) {
+    <li class="game game-top">
+      @if (pair[0]) {
+      <span class="fighter">{{ pair[0].name }}</span>
+      } @else {
+      <span class="fighter empty">&nbsp;</span>
       }
-    </div>
-  </div>
+    </li>
+    <li class="game-spacer">&nbsp;</li>
+    <li class="game game-bottom">
+      @if (pair[1]) {
+      <span class="fighter">{{ pair[1].name }}</span>
+      } @else {
+      <span class="fighter empty">&nbsp;</span>
+      }
+    </li>
+    <li class="spacer">&nbsp;</li>
+    }
+  </ul>
   }
-</div>
+</main>
