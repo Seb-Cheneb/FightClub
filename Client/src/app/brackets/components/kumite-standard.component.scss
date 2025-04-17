@@ -1,93 +1,117 @@
-/* Main tournament container */
-.tournament {
-  display: flex;
-  flex-direction: row;
-  font-family: sans-serif;
-  background: white; /* Ensure white background */
+body {
+  background: #383738;
 }
 
-/* Round styling */
-.round {
+$tournament-grid-line-color: rgba(#000, 0.2);
+$tournament-grid-comand-height: 32px;
+$tournament-grid-comand-width: auto;
+$tournament-grid-comand-bd-color: rgba(#000, 0.2);
+$team-icon-spacing: 36px;
+$tournament-round-width: $tournament-grid-comand-width;
+$tournament-match-min-height: 100px;
+
+.tournament {
+  position: relative;
+  min-height: 300px;
+  padding: 30px 0 0;
+}
+
+.tournament__grid {
+  font-size: 0;
+  line-height: 0;
+  display: flex;
+  align-items: stretch;
+  min-height: 400px;
+}
+
+.tournament__round {
+  position: relative;
+  flex: 1 0;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  width: 200px;
-  list-style: none;
-  padding: 0;
-  margin: 0;
+}
+
+.tournament__match {
   position: relative;
-}
-
-/* Spacer elements for proper alignment */
-.spacer {
-  flex-grow: 1;
-}
-
-.spacer:first-child,
-.spacer:last-child {
-  flex-grow: 0.5;
-}
-
-/* Game spacer (the connecting line) */
-.game-spacer {
-  flex-grow: 1;
-  border-right: 1px solid #000000;
-  min-height: 40px;
-  position: relative;
-}
-
-/* Game items */
-.game {
-  padding: 10px 20px;
+  overflow: hidden;
   display: flex;
+  flex-direction: column;
+  flex: 1 0;
+  align-items: center;
+  min-height: $tournament-match-min-height;
+
+  &:first-child {
+    margin: 0 !important;
+  }
+
+  .tournament__round--first-round & {
+    padding-left: 0;
+  }
+
+  .tournament__round--winner & {
+    padding-right: 0;
+    height: $tournament-grid-comand-height;
+  }
+
+  &:after {
+    content: "";
+    position: absolute;
+    right: 0;
+    width: 2px;
+    background: $tournament-grid-line-color;
+    top: 25%;
+    bottom: 25%;
+
+    .tournament__round--winner &,
+    .tournament__round--end-point & {
+      display: none;
+    }
+  }
 }
 
-.game-top {
-  border-bottom: 1px solid #000000;
-  padding-bottom: 10px;
-  position: relative;
-}
+.tournament__match__team {
+  font-size: 14px;
+  font-weight: bold;
+  transition: color 0.3s ease;
+  color: #000000;
+  text-decoration: none;
 
-.game-bottom {
-  border-top: 1px solid #000000;
-  padding-top: 10px;
-  position: relative;
-}
-
-/* Fighter names */
-.fighter {
+  box-sizing: border-box;
+  background: $tournament-grid-comand-bd-color;
   display: block;
-  width: 100%;
-  background: transparent !important; /* Ensure no background */
-}
+  position: relative;
+  width: $tournament-grid-comand-width;
+  height: $tournament-grid-comand-height;
+  line-height: $tournament-grid-comand-height;
+  padding: 0 $team-icon-spacing 0 $team-icon-spacing;
+  margin: auto;
 
-.fighter.empty {
-  color: #999;
-}
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 999px;
+    height: 2px;
+    margin-top: -1px;
+    background: $tournament-grid-line-color;
+  }
 
-/* Connector lines - horizontal */
-.game-top::after,
-.game-bottom::after {
-  content: "";
-  position: absolute;
-  right: -1px;
-  width: 10px;
-  height: 2px;
-  background: #aaaaaa00;
-}
+  &:after {
+    left: 100%;
 
-.game-top::after {
-  top: 50%;
-  transform: translateY(-50%);
-}
+    .tournament__round:last-child &,
+    .tournament__round--end-point & {
+      display: none;
+    }
+  }
 
-.game-bottom::after {
-  bottom: 50%;
-  transform: translateY(50%);
-}
+  &:before {
+    right: 100%;
 
-/* Remove any Material card styling */
-mat-card,
-mat-card-content {
-  all: unset;
+    .tournament__round:first-child & {
+      display: none;
+    }
+  }
 }

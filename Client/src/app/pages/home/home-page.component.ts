@@ -5,5 +5,6 @@ import { MaterialModule } from '../../_modules/material.module';
   selector: 'app-home-page',
   imports: [MaterialModule],
   templateUrl: './home-page.component.html',
+  styleUrl: './home-page.component.scss',
 })
 export class HomePageComponent {}

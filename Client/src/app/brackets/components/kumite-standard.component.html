@@ -1,27 +1,49 @@
-<h1>Standard Bracket</h1>
-<main class="tournament">
-  @for (round of rounds; track trackByRound($index)) {
-  <ul class="round round-{{ round.roundNumber }}">
-    <li class="spacer">&nbsp;</li>
+<div class="tournament">
+  <div class="tournament__grid">
+    <!-- tournament__round 1/8 -->
+    <div class="tournament__round tournament__round--first-round">
+      <div class="tournament__match">
+        <a class="tournament__match__team" href="#">Lorem ipsum.</a>
+        <a class="tournament__match__team" href="#">Lorem ipsum.</a>
+      </div>
+      <div class="tournament__match">
+        <a class="tournament__match__team" href="#">Lorem ipsum.</a>
+        <a class="tournament__match__team" href="#">Lorem ipsum.</a>
+      </div>
+      <div class="tournament__match">
+        <a class="tournament__match__team" href="#">Lorem ipsum.</a>
+        <a class="tournament__match__team" href="#">Lorem ipsum.</a>
+      </div>
+      <div class="tournament__match">
+        <a class="tournament__match__team" href="#">Lorem ipsum.</a>
+        <a class="tournament__match__team" href="#">Lorem ipsum.</a>
+      </div>
+    </div>
 
-    @for (pair of round.pairs; track trackByMatch($index)) {
-    <li class="game game-top">
-      @if (pair[0]) {
-      <span class="fighter">{{ pair[0].name }}</span>
-      } @else {
-      <span class="fighter empty">&nbsp;</span>
-      }
-    </li>
-    <li class="game-spacer">&nbsp;</li>
-    <li class="game game-bottom">
-      @if (pair[1]) {
-      <span class="fighter">{{ pair[1].name }}</span>
-      } @else {
-      <span class="fighter empty">&nbsp;</span>
-      }
-    </li>
-    <li class="spacer">&nbsp;</li>
-    }
-  </ul>
-  }
-</main>
+    <div class="tournament__round tournament__round--first-round">
+      <div class="tournament__match">
+        <a class="tournament__match__team" href="#">Lorem ipsum.</a>
+        <a class="tournament__match__team" href="#">Lorem ipsum.</a>
+      </div>
+      <div class="tournament__match">
+        <a class="tournament__match__team" href="#">Lorem ipsum.</a>
+        <a class="tournament__match__team" href="#">Lorem ipsum.</a>
+      </div>
+    </div>
+
+    <!-- tournament__round 1/2 -->
+    <div class="tournament__round">
+      <div class="tournament__match">
+        <a class="tournament__match__team" href="#">Lorem ipsum.</a>
+        <a class="tournament__match__team" href="#">Lorem ipsum.</a>
+      </div>
+    </div>
+
+    <!-- tournament__round final -->
+    <div class="tournament__round tournament__round--winner">
+      <div class="tournament__match">
+        <a class="tournament__match__team" href="#">Lorem ipsum.</a>
+      </div>
+    </div>
+  </div>
+</div>
