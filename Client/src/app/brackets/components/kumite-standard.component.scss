@@ -115,3 +115,28 @@ $tournament-match-min-height: 100px;
     }
   }
 }
+
+.fighter-select {
+  appearance: none; /* Removes default dropdown arrow */
+  -webkit-appearance: none; /* For Safari */
+  -moz-appearance: none; /* For Firefox */
+  background: transparent; /* Make background transparent */
+  border: none; /* Remove border */
+  outline: none; /* Remove focus outline */
+  width: 100%;
+  height: 100%;
+  padding: 0 $team-icon-spacing;
+  font-size: 14px;
+  font-weight: bold;
+  color: #000000;
+  cursor: pointer;
+
+  /* Center the text */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  /* Remove default dropdown icon */
+  background-image: none;
+}
