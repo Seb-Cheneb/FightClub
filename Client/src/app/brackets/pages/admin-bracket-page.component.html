@@ -53,10 +53,10 @@
   </mat-expansion-panel>
 </mat-accordion>
 <!-- LIST FIGHTERS -->
-@if (bracketFighters.length == 3) {
+<!-- @if (bracketFighters.length == 3) {
 <app-kumite-tournament [fighters]="bracketFighters"></app-kumite-tournament>
 } @else {
 <app-kumite-standard [fighters]="bracketFighters"></app-kumite-standard>
-}
-<!-- <app-kata [fighters]="bracketFighters"></app-kata> -->
+} -->
+<app-kata [fighters]="bracketFighters"></app-kata>
 } }

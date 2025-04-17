@@ -1,71 +1,103 @@
 @if (fighters()) {
-<table mat-table [dataSource]="fighters()" class="mat-elevation-z8">
-  <ng-container matColumnDef="nume">
-    <th mat-header-cell *matHeaderCellDef>Nume</th>
-    <td mat-cell *matCellDef="let element">{{ element.name }}</td>
-  </ng-container>
+<div class="m-1">
+  <table mat-table [dataSource]="fighters()" class="mat-elevation-z8">
+    <ng-container matColumnDef="nume">
+      <th mat-header-cell *matHeaderCellDef>Nume</th>
+      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+    </ng-container>
 
-  <ng-container matColumnDef="t1n1">
-    <th mat-header-cell *matHeaderCellDef>Nota 1</th>
-    <td mat-cell *matCellDef="let element"></td>
-  </ng-container>
+    <ng-container matColumnDef="t1n1">
+      <th mat-header-cell *matHeaderCellDef>N1</th>
+      <td mat-cell *matCellDef="let element"></td>
+    </ng-container>
 
-  <ng-container matColumnDef="t1n2">
-    <th mat-header-cell *matHeaderCellDef>Nota 2</th>
-    <td mat-cell *matCellDef="let element"></td>
-  </ng-container>
+    <ng-container matColumnDef="t1n2">
+      <th mat-header-cell *matHeaderCellDef>N2</th>
+      <td mat-cell *matCellDef="let element"></td>
+    </ng-container>
 
-  <ng-container matColumnDef="t1n3">
-    <th mat-header-cell *matHeaderCellDef>Nota 3</th>
-    <td mat-cell *matCellDef="let element"></td>
-  </ng-container>
+    <ng-container matColumnDef="t1n3">
+      <th mat-header-cell *matHeaderCellDef>N3</th>
+      <td mat-cell *matCellDef="let element"></td>
+    </ng-container>
 
-  <ng-container matColumnDef="t1nf">
-    <th mat-header-cell *matHeaderCellDef>Nota finala</th>
-    <td mat-cell *matCellDef="let element"></td>
-  </ng-container>
+    <ng-container matColumnDef="t1n4">
+      <th mat-header-cell *matHeaderCellDef>N4</th>
+      <td mat-cell *matCellDef="let element"></td>
+    </ng-container>
 
-  <ng-container matColumnDef="t2n1">
-    <th mat-header-cell *matHeaderCellDef>Nota 1</th>
-    <td mat-cell *matCellDef="let element"></td>
-  </ng-container>
+    <ng-container matColumnDef="t1n5">
+      <th mat-header-cell *matHeaderCellDef>N5</th>
+      <td mat-cell *matCellDef="let element"></td>
+    </ng-container>
 
-  <ng-container matColumnDef="t2n2">
-    <th mat-header-cell *matHeaderCellDef>Nota 2</th>
-    <td mat-cell *matCellDef="let element"></td>
-  </ng-container>
+    <ng-container matColumnDef="t1nf">
+      <th mat-header-cell *matHeaderCellDef>NF</th>
+      <td mat-cell *matCellDef="let element"></td>
+    </ng-container>
 
-  <ng-container matColumnDef="t2n3">
-    <th mat-header-cell *matHeaderCellDef>Nota 3</th>
-    <td mat-cell *matCellDef="let element"></td>
-  </ng-container>
+    <ng-container matColumnDef="t2n1">
+      <th mat-header-cell *matHeaderCellDef>N1</th>
+      <td mat-cell *matCellDef="let element"></td>
+    </ng-container>
 
-  <ng-container matColumnDef="t2nf">
-    <th mat-header-cell *matHeaderCellDef>Nota finala</th>
-    <td mat-cell *matCellDef="let element"></td>
-  </ng-container>
+    <ng-container matColumnDef="t2n2">
+      <th mat-header-cell *matHeaderCellDef>N2</th>
+      <td mat-cell *matCellDef="let element"></td>
+    </ng-container>
 
-  <ng-container matColumnDef="t3n1">
-    <th mat-header-cell *matHeaderCellDef>Nota 1</th>
-    <td mat-cell *matCellDef="let element"></td>
-  </ng-container>
+    <ng-container matColumnDef="t2n3">
+      <th mat-header-cell *matHeaderCellDef>N3</th>
+      <td mat-cell *matCellDef="let element"></td>
+    </ng-container>
 
-  <ng-container matColumnDef="t3n2">
-    <th mat-header-cell *matHeaderCellDef>Nota 2</th>
-    <td mat-cell *matCellDef="let element"></td>
-  </ng-container>
+    <ng-container matColumnDef="t2n4">
+      <th mat-header-cell *matHeaderCellDef>N4</th>
+      <td mat-cell *matCellDef="let element"></td>
+    </ng-container>
 
-  <ng-container matColumnDef="t3n3">
-    <th mat-header-cell *matHeaderCellDef>Nota 3</th>
-    <td mat-cell *matCellDef="let element"></td>
-  </ng-container>
+    <ng-container matColumnDef="t2n5">
+      <th mat-header-cell *matHeaderCellDef>N5</th>
+      <td mat-cell *matCellDef="let element"></td>
+    </ng-container>
 
-  <ng-container matColumnDef="t3nf">
-    <th mat-header-cell *matHeaderCellDef>Nota finala</th>
-    <td mat-cell *matCellDef="let element"></td>
-  </ng-container>
-  <tr mat-header-row *matHeaderRowDef="columns"></tr>
-  <tr mat-row *matRowDef="let row; columns: columns"></tr>
-</table>
+    <ng-container matColumnDef="t2nf">
+      <th mat-header-cell *matHeaderCellDef>NF</th>
+      <td mat-cell *matCellDef="let element"></td>
+    </ng-container>
+
+    <ng-container matColumnDef="t3n1">
+      <th mat-header-cell *matHeaderCellDef>N1</th>
+      <td mat-cell *matCellDef="let element"></td>
+    </ng-container>
+
+    <ng-container matColumnDef="t3n2">
+      <th mat-header-cell *matHeaderCellDef>N2</th>
+      <td mat-cell *matCellDef="let element"></td>
+    </ng-container>
+
+    <ng-container matColumnDef="t3n3">
+      <th mat-header-cell *matHeaderCellDef>N3</th>
+      <td mat-cell *matCellDef="let element"></td>
+    </ng-container>
+
+    <ng-container matColumnDef="t3n4">
+      <th mat-header-cell *matHeaderCellDef>N4</th>
+      <td mat-cell *matCellDef="let element"></td>
+    </ng-container>
+
+    <ng-container matColumnDef="t3n5">
+      <th mat-header-cell *matHeaderCellDef>N5</th>
+      <td mat-cell *matCellDef="let element"></td>
+    </ng-container>
+
+    <ng-container matColumnDef="t3nf">
+      <th mat-header-cell *matHeaderCellDef>NF</th>
+      <td mat-cell *matCellDef="let element"></td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="columns"></tr>
+    <tr mat-row *matRowDef="let row; columns: columns"></tr>
+  </table>
+</div>
 
 }

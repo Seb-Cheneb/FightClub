@@ -1,6 +1,29 @@
-.mat-column-nume,
+.mat-column-nume {
+  border-right: 1px solid currentColor;
+  background-color: rgb(249, 191, 191);
+}
+
+.mat-column-t1n1,
+.mat-column-t1n2,
+.mat-column-t1n3,
+.mat-column-t1n4,
+.mat-column-t1n5,
+.mat-column-t2n1,
+.mat-column-t2n2,
+.mat-column-t2n3,
+.mat-column-t2n4,
+.mat-column-t2n5,
+.mat-column-t3n1,
+.mat-column-t3n2,
+.mat-column-t3n3,
+.mat-column-t3n4,
+.mat-column-t3n5 {
+  border-right: 1px dashed rgb(132, 132, 132);
+}
+
 .mat-column-t1nf,
 .mat-column-t2nf,
 .mat-column-t3nf {
   border-right: 1px solid currentColor;
+  background-color: rgb(249, 191, 191);
 }
