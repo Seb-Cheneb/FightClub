@@ -1,1 +1,27 @@
-<p>kumite-tournament works!</p>
+<h1>Tournament Bracket</h1>
+<main class="tournament">
+  @for (round of rounds; track trackByRound($index)) {
+  <ul class="round round-{{ round.roundNumber }}">
+    <li class="spacer">&nbsp;</li>
+
+    @for (pair of round.pairs; track trackByMatch($index)) {
+    <li class="game game-top">
+      @if (pair[0]) {
+      <span class="fighter">{{ pair[0].name }}</span>
+      } @else {
+      <span class="fighter empty">&nbsp;</span>
+      }
+    </li>
+    <li class="game-spacer">&nbsp;</li>
+    <li class="game game-bottom">
+      @if (pair[1]) {
+      <span class="fighter">{{ pair[1].name }}</span>
+      } @else {
+      <span class="fighter empty">&nbsp;</span>
+      }
+    </li>
+    <li class="spacer">&nbsp;</li>
+    }
+  </ul>
+  }
+</main>

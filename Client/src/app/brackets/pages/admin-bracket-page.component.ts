@@ -9,10 +9,16 @@ import { BracketService } from '../bracket.service';
 import { MaterialModule } from '../../_modules/material.module';
 import { KumiteStandardComponent } from '../components/kumite-standard.component';
 import { KataComponent } from '../components/kata.component';
+import { KumiteTournamentComponent } from '../components/kumite-tournament.component';
 
 @Component({
   selector: 'app-admin-bracket-page',
-  imports: [MaterialModule, KumiteStandardComponent, KataComponent],
+  imports: [
+    MaterialModule,
+    KumiteStandardComponent,
+    KumiteTournamentComponent,
+    KataComponent,
+  ],
   templateUrl: './admin-bracket-page.component.html',
   styles: ``,
 })
