@@ -35,5 +35,10 @@ public class DataContext : IdentityDbContext
             .HasOne(match => match.Competition)
             .WithMany(competition => competition.Brackets)
             .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<Position>()
+            .HasOne(i => i.Bracket)
+            .WithMany(j => j.Positions)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

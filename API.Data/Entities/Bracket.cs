@@ -7,4 +7,5 @@ public class Bracket
     public string? CompetitionId { get; set; }
     public string? Name { get; set; }
     public List<Fighter> Fighters { get; set; } = [];
+    public List<Position> Positions { get; set; } = [];
 }
