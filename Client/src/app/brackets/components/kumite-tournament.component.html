@@ -1,27 +1,43 @@
-<h1>Tournament Bracket</h1>
+<h1>Round Robin Tournament</h1>
 <main class="tournament">
-  @for (round of rounds; track trackByRound($index)) {
-  <ul class="round round-{{ round.roundNumber }}">
+  <!-- Single round container -->
+  <ul class="round">
     <li class="spacer">&nbsp;</li>
 
-    @for (pair of round.pairs; track trackByMatch($index)) {
+    <!-- Fighter 1 vs Fighter 2 -->
     <li class="game game-top">
-      @if (pair[0]) {
-      <span class="fighter">{{ pair[0].name }}</span>
-      } @else {
-      <span class="fighter empty">&nbsp;</span>
-      }
+      <span class="fighter">{{ fighters()[0]?.name || "Fighter 1" }}</span>
     </li>
-    <li class="game-spacer">&nbsp;</li>
+    <li class="game-spacer">
+      <div class="winner-line"></div>
+    </li>
     <li class="game game-bottom">
-      @if (pair[1]) {
-      <span class="fighter">{{ pair[1].name }}</span>
-      } @else {
-      <span class="fighter empty">&nbsp;</span>
-      }
+      <span class="fighter">{{ fighters()[1]?.name || "Fighter 2" }}</span>
     </li>
     <li class="spacer">&nbsp;</li>
-    }
+
+    <!-- Fighter 1 vs Fighter 3 -->
+    <li class="game game-top">
+      <span class="fighter">{{ fighters()[0]?.name || "Fighter 1" }}</span>
+    </li>
+    <li class="game-spacer">
+      <div class="winner-line"></div>
+    </li>
+    <li class="game game-bottom">
+      <span class="fighter">{{ fighters()[2]?.name || "Fighter 3" }}</span>
+    </li>
+    <li class="spacer">&nbsp;</li>
+
+    <!-- Fighter 2 vs Fighter 3 -->
+    <li class="game game-top">
+      <span class="fighter">{{ fighters()[1]?.name || "Fighter 2" }}</span>
+    </li>
+    <li class="game-spacer">
+      <div class="winner-line"></div>
+    </li>
+    <li class="game game-bottom">
+      <span class="fighter">{{ fighters()[2]?.name || "Fighter 3" }}</span>
+    </li>
+    <li class="spacer">&nbsp;</li>
   </ul>
-  }
 </main>
