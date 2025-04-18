@@ -90,6 +90,42 @@ export class BracketService {
     );
   }
 
+  setFighterPosition(
+    bracketId: string,
+    fighterId: string,
+    position: number
+  ): Observable<BracketDto> {
+    return this.http
+      .put<BracketDto>(
+        `${this.baseUrl}/SetFighterPosition?bracketId=${bracketId}&fighterId=${fighterId}&position=${position}`,
+        null
+      )
+      .pipe(
+        map((response) => {
+          return response;
+        }),
+        catchError(this.handleError)
+      );
+  }
+
+  removeFighterPosition(
+    bracketId: string,
+    fighterId: string,
+    position: number
+  ): Observable<BracketDto> {
+    return this.http
+      .put<BracketDto>(
+        `${this.baseUrl}/RemoveFighterPosition?bracketId=${bracketId}&fighterId=${fighterId}&position=${position}`,
+        null
+      )
+      .pipe(
+        map((response) => {
+          return response;
+        }),
+        catchError(this.handleError)
+      );
+  }
+
   private handleError(error: HttpErrorResponse): Observable<never> {
     let errorMessage = 'Unknown error occurred';
     if (error.error instanceof ErrorEvent) {

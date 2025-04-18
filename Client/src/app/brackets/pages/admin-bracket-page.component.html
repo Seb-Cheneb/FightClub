@@ -56,7 +56,7 @@
 @if (bracketFighters.length == 3) {
 <app-kumite-tournament [fighters]="bracketFighters"></app-kumite-tournament>
 } @else {
-<app-kumite-standard [fighters]="bracketFighters"></app-kumite-standard>
+<app-kumite-standard [bracket]="selectedBracket"></app-kumite-standard>
 }
 <!-- <app-kata [fighters]="bracketFighters"></app-kata> -->
 } }

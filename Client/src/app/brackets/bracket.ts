@@ -6,11 +6,17 @@ export interface CreateBracketDto {
   name: string;
 }
 
+export interface Position {
+  key: number;
+  value: string;
+}
+
 export interface BracketDto {
   id: string;
   competitionId: string;
   name: string;
   fighterIds: string[];
+  positions: Position[];
 }
 
 export class Round {
