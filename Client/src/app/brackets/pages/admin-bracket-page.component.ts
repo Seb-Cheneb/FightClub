@@ -57,10 +57,11 @@ export class AdminBracketPageComponent {
     this.bracketService.getById(bracketId).subscribe({
       next: (bracketResponse) => {
         this.selectedBracket = bracketResponse;
-        this.fighterService.getAllById(bracketResponse.fighterIds).subscribe({
-          next: (fighterResponse) => (this.bracketFighters = fighterResponse),
-          error: (error) => this.snackBar.open(error, 'close'),
-        });
+        this.bracketFighters = bracketResponse.fighters;
+        // this.fighterService.getAllById(bracketResponse.fighterIds).subscribe({
+        //   next: (fighterResponse) => (this.bracketFighters = fighterResponse),
+        //   error: (error) => this.snackBar.open(error, 'close'),
+        // });
       },
       error: (error) => this.snackBar.open(error, 'close'),
     });

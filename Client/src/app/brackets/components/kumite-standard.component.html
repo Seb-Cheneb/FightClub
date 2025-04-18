@@ -1,3 +1,4 @@
+@if (bracket()) {
 <div class="tournament">
   <div class="tournament__grid">
     <!-- tournament__round 1/8 -->
@@ -6,24 +7,24 @@
         <span class="tournament__match__team">
           <select
             class="fighter-select"
-            [ngModel]="getSelectedFighter(1)"
+            [ngModel]="getFighterAtPosition(1)"
             (ngModelChange)="onSelectionChange(1, $event)"
           >
             <option value=""></option>
-            @for (item of fighters; track $index) {
-            <option [value]="item.name">{{ item.name }}</option>
+            @for (item of bracket().fighters; track $index) {
+            <option [value]="item">TEST {{ item }}</option>
             }
           </select>
         </span>
         <span class="tournament__match__team">
           <select
             class="fighter-select"
-            [ngModel]="getSelectedFighter(2)"
+            [ngModel]="getFighterAtPosition(2)"
             (ngModelChange)="onSelectionChange(2, $event)"
           >
             <option value=""></option>
-            @for (item of fighters; track $index) {
-            <option [value]="item.name">{{ item.name }}</option>
+            @for (item of bracket().fighters; track $index) {
+            <option [value]="item">{{ item }}</option>
             }
           </select>
         </span>
@@ -32,24 +33,24 @@
         <span class="tournament__match__team">
           <select
             class="fighter-select"
-            [ngModel]="getSelectedFighter(3)"
+            [ngModel]="getFighterAtPosition(3)"
             (ngModelChange)="onSelectionChange(3, $event)"
           >
             <option value=""></option>
-            @for (item of fighters; track $index) {
-            <option [value]="item.name">{{ item.name }}</option>
+            @for (item of bracket().fighters; track $index) {
+            <option [value]="item">{{ item }}</option>
             }
           </select>
         </span>
         <span class="tournament__match__team">
           <select
             class="fighter-select"
-            [ngModel]="getSelectedFighter(4)"
+            [ngModel]="getFighterAtPosition(4)"
             (ngModelChange)="onSelectionChange(4, $event)"
           >
             <option value=""></option>
-            @for (item of fighters; track $index) {
-            <option [value]="item.name">{{ item.name }}</option>
+            @for (item of bracket().fighters; track $index) {
+            <option [value]="item">{{ item }}</option>
             }
           </select>
         </span>
@@ -58,16 +59,16 @@
         <span class="tournament__match__team">
           <select class="fighter-select">
             <option value=""></option>
-            @for (item of fighters; track $index) {
-            <option [value]="item.name">{{ item.name }}</option>
+            @for (item of bracket().fighters; track $index) {
+            <option [value]="item">{{ item }}</option>
             }
           </select>
         </span>
         <span class="tournament__match__team">
           <select class="fighter-select">
             <option value=""></option>
-            @for (item of fighters; track $index) {
-            <option [value]="item.name">{{ item.name }}</option>
+            @for (item of bracket().fighters; track $index) {
+            <option [value]="item">{{ item }}</option>
             }
           </select>
         </span>
@@ -76,16 +77,16 @@
         <span class="tournament__match__team">
           <select class="fighter-select">
             <option value=""></option>
-            @for (item of fighters; track $index) {
-            <option [value]="item.name">{{ item.name }}</option>
+            @for (item of bracket().fighters; track $index) {
+            <option [value]="item">{{ item }}</option>
             }
           </select>
         </span>
         <span class="tournament__match__team">
           <select class="fighter-select">
             <option value=""></option>
-            @for (item of fighters; track $index) {
-            <option [value]="item.name">{{ item.name }}</option>
+            @for (item of bracket().fighters; track $index) {
+            <option [value]="item">{{ item }}</option>
             }
           </select>
         </span>
@@ -97,16 +98,16 @@
         <span class="tournament__match__team">
           <select class="fighter-select">
             <option value=""></option>
-            @for (item of fighters; track $index) {
-            <option [value]="item.name">{{ item.name }}</option>
+            @for (item of bracket().fighters; track $index) {
+            <option [value]="item">{{ item }}</option>
             }
           </select>
         </span>
         <span class="tournament__match__team">
           <select class="fighter-select">
             <option value=""></option>
-            @for (item of fighters; track $index) {
-            <option [value]="item.name">{{ item.name }}</option>
+            @for (item of bracket().fighters; track $index) {
+            <option [value]="item">{{ item }}</option>
             }
           </select>
         </span>
@@ -115,16 +116,16 @@
         <span class="tournament__match__team">
           <select class="fighter-select">
             <option value=""></option>
-            @for (item of fighters; track $index) {
-            <option [value]="item.name">{{ item.name }}</option>
+            @for (item of bracket().fighters; track $index) {
+            <option [value]="item">{{ item }}</option>
             }
           </select>
         </span>
         <span class="tournament__match__team">
           <select class="fighter-select">
             <option value=""></option>
-            @for (item of fighters; track $index) {
-            <option [value]="item.name">{{ item.name }}</option>
+            @for (item of bracket().fighters; track $index) {
+            <option [value]="item">{{ item }}</option>
             }
           </select>
         </span>
@@ -137,16 +138,16 @@
         <span class="tournament__match__team">
           <select class="fighter-select">
             <option value=""></option>
-            @for (item of fighters; track $index) {
-            <option [value]="item.name">{{ item.name }}</option>
+            @for (item of bracket().fighters; track $index) {
+            <option [value]="item">{{ item }}</option>
             }
           </select>
         </span>
         <span class="tournament__match__team">
           <select class="fighter-select">
             <option value=""></option>
-            @for (item of fighters; track $index) {
-            <option [value]="item.name">{{ item.name }}</option>
+            @for (item of bracket().fighters; track $index) {
+            <option [value]="item">{{ item }}</option>
             }
           </select>
         </span>
@@ -159,8 +160,8 @@
         <span class="tournament__match__team">
           <select class="fighter-select">
             <option value=""></option>
-            @for (item of fighters; track $index) {
-            <option [value]="item.name">{{ item.name }}</option>
+            @for (item of bracket().fighters; track $index) {
+            <option [value]="item">{{ item }}</option>
             }
           </select>
         </span>
@@ -168,3 +169,5 @@
     </div>
   </div>
 </div>
+
+}

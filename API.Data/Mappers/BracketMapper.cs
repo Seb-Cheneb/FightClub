@@ -22,7 +22,7 @@ public static class BracketMapper
             Id = instance.Id,
             CompetitionId = instance.CompetitionId,
             Name = instance.Name,
-            FighterIds = instance.Fighters.Select(fighter => fighter.Id ?? "NULL").ToList(),
+            Fighters = instance.Fighters.Select(i => i.CastToDto()).ToList(),
             Positions = instance.Positions.Select(i => i.CastToDto()).ToList()
         };
     }
