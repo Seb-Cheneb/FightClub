@@ -237,6 +237,26 @@ namespace API.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Position",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    BracketId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Key = table.Column<int>(type: "int", nullable: false),
+                    Value = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Position", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Position_Brackets_BracketId",
+                        column: x => x.BracketId,
+                        principalTable: "Brackets",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "FighterCompetition",
                 columns: table => new
                 {
@@ -347,6 +367,11 @@ namespace API.Migrations
                 name: "IX_Matches_CompetitionId",
                 table: "Matches",
                 column: "CompetitionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Position_BracketId",
+                table: "Position",
+                column: "BracketId");
         }
 
         /// <inheritdoc />
@@ -372,6 +397,9 @@ namespace API.Migrations
 
             migrationBuilder.DropTable(
                 name: "FighterMatch");
+
+            migrationBuilder.DropTable(
+                name: "Position");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

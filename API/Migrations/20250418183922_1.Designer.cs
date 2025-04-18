@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20250416051604_1")]
+    [Migration("20250418183922_1")]
     partial class _1
     {
         /// <inheritdoc />
@@ -134,6 +134,29 @@ namespace API.Migrations
                     b.HasIndex("CompetitionId");
 
                     b.ToTable("Matches");
+                });
+
+            modelBuilder.Entity("Data.Entities.Position", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("BracketId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Key")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BracketId");
+
+                    b.ToTable("Position");
                 });
 
             modelBuilder.Entity("FighterMatch", b =>
@@ -414,6 +437,17 @@ namespace API.Migrations
                     b.Navigation("Competition");
                 });
 
+            modelBuilder.Entity("Data.Entities.Position", b =>
+                {
+                    b.HasOne("Data.Entities.Bracket", "Bracket")
+                        .WithMany("Positions")
+                        .HasForeignKey("BracketId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Bracket");
+                });
+
             modelBuilder.Entity("FighterMatch", b =>
                 {
                     b.HasOne("Data.Entities.Fighter", null)
@@ -483,6 +517,8 @@ namespace API.Migrations
             modelBuilder.Entity("Data.Entities.Bracket", b =>
                 {
                     b.Navigation("Fighters");
+
+                    b.Navigation("Positions");
                 });
 
             modelBuilder.Entity("Data.Entities.Competition", b =>

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Data.DTOs;
+using Data.Entities;
 
 namespace API.Controllers;
 
@@ -262,6 +263,91 @@ public class BracketController : ControllerBase
 
             bracket.Fighters.Remove(fighter);
 
+            await _dataContext.SaveChangesAsync();
+
+            return Ok(bracket.CastToDto());
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, ex);
+        }
+    }
+
+    [Authorize]
+    [HttpPut("SetFighterPosition")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public async Task<IActionResult> SetFighterPosition(
+        [FromQuery] string bracketId,
+        [FromQuery] string fighterId,
+        [FromQuery] int position)
+    {
+        try
+        {
+            if (string.IsNullOrWhiteSpace(bracketId) ||
+                string.IsNullOrWhiteSpace(fighterId))
+            {
+                return BadRequest("The parameters provided are null");
+            }
+
+            var bracket = await _dataContext
+                .Brackets
+                .Include(i => i.Positions)
+                .FirstOrDefaultAsync(i => i.Id == bracketId);
+
+            if (bracket == null)
+            {
+                return NotFound();
+            }
+
+            bracket.Positions.Add(new Position
+            {
+                Id = Guid.NewGuid().ToString(),
+                BracketId = bracketId,
+                Key = position,
+                Value = fighterId
+            });
+
+            await _dataContext.SaveChangesAsync();
+
+            return Ok(bracket.CastToDto());
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, ex);
+        }
+    }
+
+    [Authorize]
+    [HttpPut("RemoveFighterPosition")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public async Task<IActionResult> RemoveFighterPosition(
+        [FromQuery] string bracketId,
+        [FromQuery] string fighterId,
+        [FromQuery] int position)
+    {
+        try
+        {
+            if (string.IsNullOrWhiteSpace(bracketId) ||
+                string.IsNullOrWhiteSpace(fighterId))
+            {
+                return BadRequest("The parameters provided are null");
+            }
+
+            var bracket = await _dataContext
+                .Brackets
+                .Include(i => i.Positions)
+                .FirstOrDefaultAsync(i => i.Id == bracketId);
+
+            if (bracket == null)
+            {
+                return NotFound();
+            }
+
+            bracket.Positions.Remove(bracket.Positions.FirstOrDefault(i => i.Key == position && i.Value == fighterId));
             await _dataContext.SaveChangesAsync();
 
             return Ok(bracket.CastToDto());
