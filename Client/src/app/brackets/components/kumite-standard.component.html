@@ -10,7 +10,7 @@
             [ngModel]="selectedFighter1"
             (ngModelChange)="onSelectionChange(1, $event)"
           >
-            <option value=""></option>
+            <option value="undefined"></option>
             @for (item of bracket().fighters; track $index) {
             <option [value]="item">TEST {{ item }}</option>
             }
