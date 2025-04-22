@@ -73,7 +73,8 @@ export class KumiteStandardComponent implements OnInit {
       .subscribe({
         next: (response) => {
           console.info(
-            `${this.className} :: onSelectionChange(position: ${position}, fighter: ${fighter}) set the position of the fighter and got the following response: ${response}`
+            `${this.className} :: onSelectionChange(position: ${position}, fighter: ${fighter}) got the following response: `,
+            response
           );
         },
         error: (error) => this.snackBar.open(error, 'close'),

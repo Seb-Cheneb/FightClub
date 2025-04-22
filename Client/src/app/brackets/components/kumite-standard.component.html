@@ -8,11 +8,11 @@
           <select
             class="fighter-select"
             [ngModel]="selectedFighter1"
-            (ngModelChange)="onSelectionChange(1, $event)"
+            (ngModelChange)="onSelectionChange(1, $event.value)"
           >
             <option value="undefined"></option>
             @for (item of bracket().fighters; track $index) {
-            <option [value]="item">{{ item.name }}</option>
+            <option [value]="item">test {{ item.name }}</option>
             }
           </select>
         </span>
@@ -57,7 +57,11 @@
       </div>
       <div class="tournament__match">
         <span class="tournament__match__team">
-          <select class="fighter-select">
+          <select
+            class="fighter-select"
+            [ngModel]="selectedFighter5"
+            (ngModelChange)="onSelectionChange(5, $event)"
+          >
             <option value=""></option>
             @for (item of bracket().fighters; track $index) {
             <option [value]="item">{{ item.name }}</option>
@@ -67,8 +71,8 @@
         <span class="tournament__match__team">
           <select
             class="fighter-select"
-            [ngModel]="selectedFighter4"
-            (ngModelChange)="onSelectionChange(4, $event)"
+            [ngModel]="selectedFighter6"
+            (ngModelChange)="onSelectionChange(6, $event)"
           >
             <option value=""></option>
             @for (item of bracket().fighters; track $index) {
@@ -81,8 +85,8 @@
         <span class="tournament__match__team">
           <select
             class="fighter-select"
-            [ngModel]="selectedFighter4"
-            (ngModelChange)="onSelectionChange(4, $event)"
+            [ngModel]="selectedFighter7"
+            (ngModelChange)="onSelectionChange(7, $event)"
           >
             <option value=""></option>
             @for (item of bracket().fighters; track $index) {
@@ -93,8 +97,8 @@
         <span class="tournament__match__team">
           <select
             class="fighter-select"
-            [ngModel]="selectedFighter4"
-            (ngModelChange)="onSelectionChange(4, $event)"
+            [ngModel]="selectedFighter8"
+            (ngModelChange)="onSelectionChange(8, $event)"
           >
             <option value=""></option>
             @for (item of bracket().fighters; track $index) {
@@ -110,8 +114,8 @@
         <span class="tournament__match__team">
           <select
             class="fighter-select"
-            [ngModel]="selectedFighter4"
-            (ngModelChange)="onSelectionChange(4, $event)"
+            [ngModel]="selectedFighter9"
+            (ngModelChange)="onSelectionChange(9, $event)"
           >
             <option value=""></option>
             @for (item of bracket().fighters; track $index) {
@@ -122,8 +126,8 @@
         <span class="tournament__match__team">
           <select
             class="fighter-select"
-            [ngModel]="selectedFighter4"
-            (ngModelChange)="onSelectionChange(4, $event)"
+            [ngModel]="selectedFighter10"
+            (ngModelChange)="onSelectionChange(10, $event)"
           >
             <option value=""></option>
             @for (item of bracket().fighters; track $index) {
@@ -136,8 +140,8 @@
         <span class="tournament__match__team">
           <select
             class="fighter-select"
-            [ngModel]="selectedFighter4"
-            (ngModelChange)="onSelectionChange(4, $event)"
+            [ngModel]="selectedFighter11"
+            (ngModelChange)="onSelectionChange(11, $event)"
           >
             <option value=""></option>
             @for (item of bracket().fighters; track $index) {
@@ -148,8 +152,8 @@
         <span class="tournament__match__team">
           <select
             class="fighter-select"
-            [ngModel]="selectedFighter4"
-            (ngModelChange)="onSelectionChange(4, $event)"
+            [ngModel]="selectedFighter12"
+            (ngModelChange)="onSelectionChange(12, $event)"
           >
             <option value=""></option>
             @for (item of bracket().fighters; track $index) {
@@ -166,8 +170,8 @@
         <span class="tournament__match__team">
           <select
             class="fighter-select"
-            [ngModel]="selectedFighter4"
-            (ngModelChange)="onSelectionChange(4, $event)"
+            [ngModel]="selectedFighter13"
+            (ngModelChange)="onSelectionChange(13, $event)"
           >
             <option value=""></option>
             @for (item of bracket().fighters; track $index) {
@@ -178,8 +182,8 @@
         <span class="tournament__match__team">
           <select
             class="fighter-select"
-            [ngModel]="selectedFighter4"
-            (ngModelChange)="onSelectionChange(4, $event)"
+            [ngModel]="selectedFighter14"
+            (ngModelChange)="onSelectionChange(14, $event)"
           >
             <option value=""></option>
             @for (item of bracket().fighters; track $index) {
@@ -196,8 +200,8 @@
         <span class="tournament__match__team">
           <select
             class="fighter-select"
-            [ngModel]="selectedFighter4"
-            (ngModelChange)="onSelectionChange(4, $event)"
+            [ngModel]="selectedFighter15"
+            (ngModelChange)="onSelectionChange(15, $event)"
           >
             <option value=""></option>
             @for (item of bracket().fighters; track $index) {

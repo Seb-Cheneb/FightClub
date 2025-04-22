@@ -10,6 +10,7 @@ import { BracketDto, CreateBracketDto } from './bracket';
 export class BracketService {
   private baseUrl: string = API.bracket;
   private http = inject(HttpClient);
+  private class = 'BracketService ::';
 
   add(entity: CreateBracketDto): Observable<BracketDto> {
     const url = `${this.baseUrl}/Add`;
@@ -102,6 +103,10 @@ export class BracketService {
       )
       .pipe(
         map((response) => {
+          console.info(
+            `${this.class} setFighterPosition(bracketId: ${bracketId}, fighterId: ${fighterId}, position: ${position}) -- got the following response`,
+            response
+          );
           return response;
         }),
         catchError(this.handleError)

@@ -291,8 +291,7 @@ public class BracketController : ControllerBase
                 return BadRequest("The parameters provided are null");
             }
 
-            var bracket = await _dataContext
-                .Brackets
+            var bracket = await _dataContext.Brackets
                 .Include(i => i.Positions)
                 .FirstOrDefaultAsync(i => i.Id == bracketId);
 
@@ -302,13 +301,26 @@ public class BracketController : ControllerBase
                 return NotFound();
             }
 
-            bracket.Positions.Add(new Position
+            bool found = false;
+            foreach (var item in bracket.Positions)
             {
-                Id = Guid.NewGuid().ToString(),
-                BracketId = bracketId,
-                Key = position,
-                Value = fighterId
-            });
+                if (item.Key == position)
+                {
+                    item.Value = fighterId;
+                    found = true;
+                }
+            }
+
+            if (found = false)
+            {
+                bracket.Positions.Add(new Position
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    BracketId = bracketId,
+                    Key = position,
+                    Value = fighterId
+                });
+            }
 
             await _dataContext.SaveChangesAsync();
 
