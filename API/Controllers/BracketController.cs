@@ -274,7 +274,7 @@ public class BracketController : ControllerBase
     }
 
     [Authorize]
-    [HttpPut("SetFighterPosition")]
+    [HttpPost("SetFighterPosition")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -298,6 +298,7 @@ public class BracketController : ControllerBase
 
             if (bracket == null)
             {
+                _logger.LogError($"Did not find bracket with id: {bracketId}");
                 return NotFound();
             }
 
@@ -311,6 +312,8 @@ public class BracketController : ControllerBase
 
             await _dataContext.SaveChangesAsync();
 
+            var response = bracket.CastToDto();
+            _logger.LogInformation($"Succesfully retrieved the bracket when setting the position");
             return Ok(bracket.CastToDto());
         }
         catch (Exception ex)
@@ -320,7 +323,7 @@ public class BracketController : ControllerBase
     }
 
     [Authorize]
-    [HttpPut("RemoveFighterPosition")]
+    [HttpPost("RemoveFighterPosition")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]

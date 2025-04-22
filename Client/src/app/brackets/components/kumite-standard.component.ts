@@ -16,6 +16,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./kumite-standard.component.scss'],
 })
 export class KumiteStandardComponent implements OnInit {
+  // LOGGERs
+  private className = 'KumiteStandardComponent';
+
   bracket = input.required<BracketDto>();
   // fighters
   selectedFighter1?: FighterDto;
@@ -57,6 +60,9 @@ export class KumiteStandardComponent implements OnInit {
 
   getFighterAtPosition(key: number): FighterDto | undefined {
     let fighterId = this.bracket().positions.find((i) => i.key == key)?.value;
+    console.info(
+      `KumiteStandardComponent :: getFighterAtPosition(key: ${key}) retrieved the fighterId: ${fighterId}`
+    );
     let fighter = this.bracket().fighters.find((i) => i.id == fighterId);
     return fighter;
   }
@@ -65,6 +71,11 @@ export class KumiteStandardComponent implements OnInit {
     this._bracketService
       .setFighterPosition(this.bracket().id, fighter.id, position)
       .subscribe({
+        next: (response) => {
+          console.info(
+            `${this.className} :: onSelectionChange(position: ${position}, fighter: ${fighter}) set the position of the fighter and got the following response: ${response}`
+          );
+        },
         error: (error) => this.snackBar.open(error, 'close'),
       });
   }

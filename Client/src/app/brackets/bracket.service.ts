@@ -96,7 +96,7 @@ export class BracketService {
     position: number
   ): Observable<BracketDto> {
     return this.http
-      .put<BracketDto>(
+      .post<BracketDto>(
         `${this.baseUrl}/SetFighterPosition?bracketId=${bracketId}&fighterId=${fighterId}&position=${position}`,
         null
       )
@@ -114,7 +114,7 @@ export class BracketService {
     position: number
   ): Observable<BracketDto> {
     return this.http
-      .put<BracketDto>(
+      .post<BracketDto>(
         `${this.baseUrl}/RemoveFighterPosition?bracketId=${bracketId}&fighterId=${fighterId}&position=${position}`,
         null
       )
