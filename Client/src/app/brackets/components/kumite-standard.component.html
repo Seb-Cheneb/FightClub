@@ -8,11 +8,11 @@
           <select
             class="fighter-select"
             [ngModel]="selectedFighter1"
-            (ngModelChange)="onSelectionChange(1, $event.value)"
+            (ngModelChange)="onSelectionChange(1, $event?.id)"
           >
-            <option value="undefined"></option>
+            <option [ngValue]="undefined"></option>
             @for (item of bracket().fighters; track $index) {
-            <option [value]="item">test {{ item.name }}</option>
+            <option [ngValue]="item">test {{ item.name }}</option>
             }
           </select>
         </span>

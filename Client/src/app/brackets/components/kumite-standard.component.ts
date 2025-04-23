@@ -67,13 +67,20 @@ export class KumiteStandardComponent implements OnInit {
     return fighter;
   }
 
-  onSelectionChange(position: number, fighter: FighterDto) {
+  onSelectionChange(position: number, fighterId: string | undefined) {
+    if (!fighterId) {
+      console.warn(
+        `${this.className} :: onSelectionChange(position: ${position}, fighter: ${fighterId}) ---> failed to provide a valid fighterId`
+      );
+      return;
+    }
+
     this._bracketService
-      .setFighterPosition(this.bracket().id, fighter.id, position)
+      .setFighterPosition(this.bracket().id, fighterId, position)
       .subscribe({
         next: (response) => {
           console.info(
-            `${this.className} :: onSelectionChange(position: ${position}, fighter: ${fighter}) got the following response: `,
+            `${this.className} :: onSelectionChange(position: ${position}, fighter: ${fighterId}) got the following response: `,
             response
           );
         },
