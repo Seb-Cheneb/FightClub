@@ -12,10 +12,10 @@ namespace API.Controllers;
 [ApiController]
 public class FighterController : ControllerBase
 {
-    private readonly ILogger<UserController> _logger;
+    private readonly ILogger<FighterController> _logger;
     private readonly DataContext _dataContext;
 
-    public FighterController(ILogger<UserController> logger, DataContext context)
+    public FighterController(ILogger<FighterController> logger, DataContext context)
     {
         _logger = logger;
         _dataContext = context;

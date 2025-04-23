@@ -12,10 +12,10 @@ namespace API.Controllers;
 [ApiController]
 public class MatchController : ControllerBase
 {
-    private readonly ILogger<UserController> _logger;
+    private readonly ILogger<MatchController> _logger;
     private readonly DataContext _dataContext;
 
-    public MatchController(ILogger<UserController> logger, DataContext context)
+    public MatchController(ILogger<MatchController> logger, DataContext context)
     {
         _logger = logger;
         _dataContext = context;

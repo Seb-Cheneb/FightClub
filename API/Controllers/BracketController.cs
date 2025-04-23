@@ -12,10 +12,10 @@ namespace API.Controllers;
 [ApiController]
 public class BracketController : ControllerBase
 {
-    private readonly ILogger<UserController> _logger;
+    private readonly ILogger<BracketController> _logger;
     private readonly DataContext _dataContext;
 
-    public BracketController(ILogger<UserController> logger, DataContext context)
+    public BracketController(ILogger<BracketController> logger, DataContext context)
     {
         _logger = logger;
         _dataContext = context;
@@ -70,6 +70,7 @@ public class BracketController : ControllerBase
         {
             var output = await _dataContext.Brackets
                 .Include(e => e.Fighters)
+                .Include(i => i.Positions)
                 .ToListAsync();
 
             var dtos = output.Select(entry => entry.CastToDto()).ToList();
@@ -94,6 +95,7 @@ public class BracketController : ControllerBase
             var output = await _dataContext.Brackets
                 .Include(i => i.Fighters)
                 .Include(i => i.Competition)
+                .Include(i => i.Positions)
                 .Where(i => ids.Contains(i.Id ?? "NULL"))
                 .ToListAsync();
 
@@ -311,7 +313,7 @@ public class BracketController : ControllerBase
                 }
             }
 
-            if (found = false)
+            if (found == false)
             {
                 bracket.Positions.Add(new Position
                 {
@@ -370,6 +372,36 @@ public class BracketController : ControllerBase
         catch (Exception ex)
         {
             return StatusCode(StatusCodes.Status500InternalServerError, ex);
+        }
+    }
+
+    [Authorize]
+    [HttpGet("GetPositions")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> GetPositions([FromQuery(Name = "bracketId")] string bracketId)
+    {
+        try
+        {
+            var output = await _dataContext.Brackets
+                .Include(i => i.Fighters)
+                .Include(i => i.Competition)
+                .Include(i => i.Positions)
+                .Where(i => i.Id == bracketId)
+                .ToListAsync();
+
+            if (output is null)
+            {
+                return NotFound("No entries were found");
+            }
+
+            return Ok(output.Select(i => i.CastToDto()));
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred: {ex.Message}");
         }
     }
 }
