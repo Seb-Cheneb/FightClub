@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { API } from '../_environments/api';
 import { catchError, map, Observable, throwError } from 'rxjs';
-import { BracketDto, CreateBracketDto } from './bracket';
+import { BracketDto, CreateBracketDto, PositionDto } from './bracket';
 
 @Injectable({
   providedIn: 'root',
@@ -123,6 +123,17 @@ export class BracketService {
         `${this.baseUrl}/RemoveFighterPosition?bracketId=${bracketId}&fighterId=${fighterId}&position=${position}`,
         null
       )
+      .pipe(
+        map((response) => {
+          return response;
+        }),
+        catchError(this.handleError)
+      );
+  }
+
+  getPositions(bracketId: string): Observable<PositionDto[]> {
+    return this.http
+      .get<PositionDto[]>(`${this.baseUrl}/GetPositions?bracketId=${bracketId}`)
       .pipe(
         map((response) => {
           return response;

@@ -385,19 +385,18 @@ public class BracketController : ControllerBase
     {
         try
         {
-            var output = await _dataContext.Brackets
+            var bracket = await _dataContext.Brackets
                 .Include(i => i.Fighters)
                 .Include(i => i.Competition)
                 .Include(i => i.Positions)
-                .Where(i => i.Id == bracketId)
-                .ToListAsync();
+                .FirstOrDefaultAsync(bracket => bracket.Id == bracketId);
 
-            if (output is null)
+            if (bracket is null)
             {
                 return NotFound("No entries were found");
             }
 
-            return Ok(output.Select(i => i.CastToDto()));
+            return Ok(bracket.Positions.Select(position => position.CastToDto()).ToList());
         }
         catch (Exception ex)
         {
