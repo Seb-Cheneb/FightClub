@@ -68,6 +68,23 @@ namespace API.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Fighters",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Gender = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Birthdate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Weight = table.Column<float>(type: "real", nullable: false),
+                    Club = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Rank = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Fighters", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -193,49 +210,6 @@ namespace API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Fighters",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Gender = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Birthdate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Weight = table.Column<float>(type: "real", nullable: false),
-                    Club = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Rank = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    BracketId = table.Column<string>(type: "nvarchar(450)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Fighters", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Fighters_Brackets_BracketId",
-                        column: x => x.BracketId,
-                        principalTable: "Brackets",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Position",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    BracketId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Key = table.Column<int>(type: "int", nullable: false),
-                    Value = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Position", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Position_Brackets_BracketId",
-                        column: x => x.BracketId,
-                        principalTable: "Brackets",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "FighterCompetition",
                 columns: table => new
                 {
@@ -255,6 +229,50 @@ namespace API.Migrations
                         name: "FK_FighterCompetition_Fighters_FightersId",
                         column: x => x.FightersId,
                         principalTable: "Fighters",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Fighterompetition",
+                columns: table => new
+                {
+                    BracketsId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    FightersId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Fighterompetition", x => new { x.BracketsId, x.FightersId });
+                    table.ForeignKey(
+                        name: "FK_Fighterompetition_Brackets_BracketsId",
+                        column: x => x.BracketsId,
+                        principalTable: "Brackets",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Fighterompetition_Fighters_FightersId",
+                        column: x => x.FightersId,
+                        principalTable: "Fighters",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Position",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    BracketId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Key = table.Column<int>(type: "int", nullable: false),
+                    Value = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Position", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Position_Brackets_BracketId",
+                        column: x => x.BracketId,
+                        principalTable: "Brackets",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -309,9 +327,9 @@ namespace API.Migrations
                 column: "FightersId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Fighters_BracketId",
-                table: "Fighters",
-                column: "BracketId");
+                name: "IX_Fighterompetition_FightersId",
+                table: "Fighterompetition",
+                column: "FightersId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Position_BracketId",
@@ -339,6 +357,9 @@ namespace API.Migrations
 
             migrationBuilder.DropTable(
                 name: "FighterCompetition");
+
+            migrationBuilder.DropTable(
+                name: "Fighterompetition");
 
             migrationBuilder.DropTable(
                 name: "Position");

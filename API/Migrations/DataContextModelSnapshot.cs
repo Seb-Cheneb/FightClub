@@ -22,6 +22,21 @@ namespace API.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("BracketFighter", b =>
+                {
+                    b.Property<string>("BracketsId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("FightersId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("BracketsId", "FightersId");
+
+                    b.HasIndex("FightersId");
+
+                    b.ToTable("Fighterompetition", (string)null);
+                });
+
             modelBuilder.Entity("CompetitionFighter", b =>
                 {
                     b.Property<string>("CompetitionsId")
@@ -82,9 +97,6 @@ namespace API.Migrations
                     b.Property<DateTime>("Birthdate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("BracketId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("Club")
                         .HasColumnType("nvarchar(max)");
 
@@ -101,8 +113,6 @@ namespace API.Migrations
                         .HasColumnType("real");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BracketId");
 
                     b.ToTable("Fighters");
                 });
@@ -351,6 +361,21 @@ namespace API.Migrations
                     b.HasDiscriminator().HasValue("AppUser");
                 });
 
+            modelBuilder.Entity("BracketFighter", b =>
+                {
+                    b.HasOne("Data.Entities.Bracket", null)
+                        .WithMany()
+                        .HasForeignKey("BracketsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Data.Entities.Fighter", null)
+                        .WithMany()
+                        .HasForeignKey("FightersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("CompetitionFighter", b =>
                 {
                     b.HasOne("Data.Entities.Competition", null)
@@ -374,13 +399,6 @@ namespace API.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Competition");
-                });
-
-            modelBuilder.Entity("Data.Entities.Fighter", b =>
-                {
-                    b.HasOne("Data.Entities.Bracket", null)
-                        .WithMany("Fighters")
-                        .HasForeignKey("BracketId");
                 });
 
             modelBuilder.Entity("Data.Entities.Position", b =>
@@ -447,8 +465,6 @@ namespace API.Migrations
 
             modelBuilder.Entity("Data.Entities.Bracket", b =>
                 {
-                    b.Navigation("Fighters");
-
                     b.Navigation("Positions");
                 });
 
