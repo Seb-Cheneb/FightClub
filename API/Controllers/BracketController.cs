@@ -359,7 +359,7 @@ public class BracketController : ControllerBase
 
             if (bracket == null)
             {
-                return NotFound();
+                return NotFound("could not find the bracket");
             }
 
             var positionToRemove = bracket.Positions.FirstOrDefault(i => i.Key == position);

@@ -95,10 +95,23 @@ export class KumiteStandardComponent implements OnInit {
 
   onSelectionChange(position: number, fighterId: string | undefined) {
     if (!fighterId) {
+      this._bracketService
+        .removePosition(this.bracket().id, position)
+        .subscribe({
+          next: () => {
+            return;
+          },
+          error: (e) => {
+            this._snackBar.open(`Error removing position: ${e}`, 'close');
+            return;
+          },
+        });
+    }
+
+    if (!fighterId) {
       console.warn(
         `${this._className} :: onSelectionChange(position: ${position}, fighter: ${fighterId}) ---> failed to provide a valid fighterId`
       );
-      this._bracketService.removePosition(this.bracket().id, position);
       return;
     }
 
