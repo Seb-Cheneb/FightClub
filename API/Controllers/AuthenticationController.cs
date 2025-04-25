@@ -18,11 +18,16 @@ public class AuthenticationController : Controller
     private readonly IConfiguration _configuration;
     private readonly ILogger<AuthenticationController> _logger;
     private readonly UserManager<AppUser> _userManager;
+    private readonly RoleManager<IdentityRole> _roleManager;
 
-    public AuthenticationController(UserManager<AppUser> userManager, IConfiguration configuration,
+    public AuthenticationController(
+        UserManager<AppUser> userManager,
+        RoleManager<IdentityRole> roleManager,
+        IConfiguration configuration,
         ILogger<AuthenticationController> logger)
     {
         _userManager = userManager;
+        _roleManager = roleManager;
         _configuration = configuration;
         _logger = logger;
     }
@@ -40,7 +45,8 @@ public class AuthenticationController : Controller
         if (user == null || !await _userManager.CheckPasswordAsync(user, model.Password))
             return Unauthorized();
 
-        var token = GenerateJwt(model.Username);
+        var roles = await _userManager.GetRolesAsync(user);
+        var token = await GenerateJwtWithRolesAsync(user, roles);
 
         var refreshToken = GenerateRefreshToken();
 
@@ -56,7 +62,8 @@ public class AuthenticationController : Controller
             JwtToken = new JwtSecurityTokenHandler().WriteToken(token),
             ExpirationDate = token.ValidTo,
             RefreshToken = refreshToken,
-            UserId = user.Id
+            UserId = user.Id,
+            Role = roles.FirstOrDefault() ?? "User"
         });
     }
 
@@ -74,10 +81,16 @@ public class AuthenticationController : Controller
 
         var user = await _userManager.FindByNameAsync(principal.Identity.Name);
 
-        if (user is null || user.RefreshToken != model.RefreshToken || user.RefreshTokenExpiry < DateTime.UtcNow)
+        if (user is null ||
+            user.RefreshToken != model.RefreshToken ||
+            user.RefreshTokenExpiry < DateTime.UtcNow)
+        {
             return Unauthorized();
+        }
 
-        var token = GenerateJwt(principal.Identity.Name);
+        // Get user roles for the new token
+        var roles = await _userManager.GetRolesAsync(user);
+        var token = await GenerateJwtWithRolesAsync(user, roles);
 
         _logger.LogInformation("Refresh succeeded");
 
@@ -86,7 +99,8 @@ public class AuthenticationController : Controller
             JwtToken = new JwtSecurityTokenHandler().WriteToken(token),
             ExpirationDate = token.ValidTo,
             RefreshToken = model.RefreshToken,
-            UserId = user.Id
+            UserId = user.Id,
+            Role = roles.FirstOrDefault() ?? "User"
         });
     }
 
@@ -123,38 +137,47 @@ public class AuthenticationController : Controller
             return StatusCode(StatusCodes.Status500InternalServerError, $"Failed to create user: {string.Join(" ", createResult.Errors.Select(e => e.Description))}");
         }
 
-        // Generate JWT token
-        var jwtToken = GenerateJwt(model.Username);
+        // --- ROLE ASSIGNMENT CHANGES START HERE ---
+        const string defaultRole = "User";
+        var normalizedRole = _roleManager.NormalizeKey(defaultRole);
 
-        // Generate a new refresh token
+        // Check if role exists using normalized name
+        if (!await _roleManager.RoleExistsAsync(normalizedRole))
+        {
+            var createRoleResult = await _roleManager.CreateAsync(new IdentityRole(defaultRole));
+            if (!createRoleResult.Succeeded)
+            {
+                _logger.LogError("Role creation failed: {Errors}", string.Join(", ", createRoleResult.Errors));
+                return StatusCode(StatusCodes.Status500InternalServerError, "Failed to create role");
+            }
+        }
+
+        var roleResult = await _userManager.AddToRoleAsync(newUser, normalizedRole);
+        if (!roleResult.Succeeded)
+        {
+            _logger.LogWarning("Role assignment failed: {Errors}", string.Join(", ", roleResult.Errors));
+        }
+
+        // Get roles for token generation
+        var roles = new List<string> { defaultRole }; // Force "User" role
+        var token = await GenerateJwtWithRolesAsync(newUser, roles);
+
         var refreshToken = GenerateRefreshToken();
-
-        // Update user with the generated refresh token and its expiry time
         newUser.RefreshToken = refreshToken;
         newUser.RefreshTokenExpiry = DateTime.UtcNow.AddMinutes(60);
 
-        // Update the user in the database
-        var updateResult = await _userManager.UpdateAsync(newUser);
-        if (!updateResult.Succeeded)
-        {
-            _logger.LogError("Failed to update user refresh token for {Username}: {Errors}",
-                            model.Username,
-                            string.Join(", ", updateResult.Errors.Select(e => e.Description)));
-            return StatusCode(StatusCodes.Status500InternalServerError, "Failed to update user refresh token.");
-        }
+        await _userManager.UpdateAsync(newUser);
 
-        // Log success and return the authentication response
-        _logger.LogInformation("User {Username} registered successfully.", model.Username);
+        _logger.LogInformation("User {Username} registered successfully with role {Role}.", model.Username, defaultRole);
 
-        var response = new AuthenticationResponse
+        return Ok(new AuthenticationResponse
         {
-            JwtToken = new JwtSecurityTokenHandler().WriteToken(jwtToken),
-            ExpirationDate = jwtToken.ValidTo,
+            JwtToken = new JwtSecurityTokenHandler().WriteToken(token),
+            ExpirationDate = token.ValidTo,
             RefreshToken = refreshToken,
-            UserId = newUser.Id
-        };
-
-        return Ok(response);
+            UserId = newUser.Id,
+            Role = defaultRole
+        });
     }
 
     [Authorize]
@@ -167,14 +190,10 @@ public class AuthenticationController : Controller
         _logger.LogInformation("Revoke called");
 
         var username = HttpContext.User.Identity?.Name;
-
-        if (username is null)
-            return Unauthorized();
+        if (username is null) return Unauthorized();
 
         var user = await _userManager.FindByNameAsync(username);
-
-        if (user is null)
-            return Unauthorized();
+        if (user is null) return Unauthorized();
 
         user.RefreshToken = string.Empty;
 
@@ -185,6 +204,88 @@ public class AuthenticationController : Controller
         return Ok();
     }
 
+    [Authorize(Roles = "Admin")]
+    [HttpPut("ChangeRole/{userId}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> ChangeUserRole(string userId, [FromBody] ChangeRoleRequest request)
+    {
+        _logger.LogInformation("ChangeUserRole called for user {UserId} to role {NewRole}", userId, request.NewRole);
+
+        // Validate request
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        // Validate role input
+        var validRoles = new[] { "User", "Moderator", "Admin" };
+        if (!validRoles.Contains(request.NewRole, StringComparer.OrdinalIgnoreCase))
+        {
+            _logger.LogWarning("Invalid role {Role} specified", request.NewRole);
+            return BadRequest($"Invalid role. Allowed values: {string.Join(", ", validRoles)}");
+        }
+
+        // Find user
+        var user = await _userManager.FindByIdAsync(userId);
+        if (user == null)
+        {
+            _logger.LogWarning("User with ID {UserId} not found", userId);
+            return NotFound("User not found");
+        }
+
+        // Normalize and verify role exists
+        var normalizedRole = _roleManager.NormalizeKey(request.NewRole);
+        if (!await _roleManager.RoleExistsAsync(normalizedRole))
+        {
+            _logger.LogWarning("Role {Role} does not exist in system", request.NewRole);
+            return BadRequest("Specified role does not exist");
+        }
+
+        try
+        {
+            // Remove existing roles
+            var currentRoles = await _userManager.GetRolesAsync(user);
+            if (currentRoles.Any())
+            {
+                var removeResult = await _userManager.RemoveFromRolesAsync(user, currentRoles);
+                if (!removeResult.Succeeded)
+                {
+                    _logger.LogError("Failed to remove existing roles: {Errors}",
+                        string.Join(", ", removeResult.Errors));
+                    return StatusCode(500, "Failed to remove existing roles");
+                }
+            }
+
+            // Add new role
+            var addResult = await _userManager.AddToRoleAsync(user, normalizedRole);
+            if (!addResult.Succeeded)
+            {
+                _logger.LogError("Failed to add new role: {Errors}",
+                    string.Join(", ", addResult.Errors));
+                return StatusCode(500, "Failed to assign new role");
+            }
+
+            _logger.LogInformation("Successfully changed role for user {UserId} to {NewRole}",
+                userId, normalizedRole);
+
+            return Ok(new
+            {
+                Message = "Role changed successfully",
+                UserId = userId,
+                NewRole = normalizedRole
+            });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error changing role for user {UserId}", userId);
+            return StatusCode(500, "An error occurred while changing roles");
+        }
+    }
+
     private static string GenerateRefreshToken()
     {
         var randomNumber = new byte[64];
@@ -193,21 +294,27 @@ public class AuthenticationController : Controller
         return Convert.ToBase64String(randomNumber);
     }
 
-    private JwtSecurityToken GenerateJwt(string username)
+    private async Task<JwtSecurityToken> GenerateJwtWithRolesAsync(AppUser user, IList<string> roles)
     {
         var authClaims = new List<Claim>
         {
-            new(ClaimTypes.Name, username),
-            new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+            new(ClaimTypes.Name, user.UserName),
+            new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+            new(ClaimTypes.NameIdentifier, user.Id)
         };
 
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"] ??
-                                                                  throw new InvalidOperationException(
-                                                                      "Secret not configured")));
+        // Add all roles as claims
+        foreach (var role in roles)
+        {
+            authClaims.Add(new Claim(ClaimTypes.Role, role));
+        }
+
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
+            _configuration["JWT:Secret"] ?? throw new InvalidOperationException("Secret not configured")));
 
         var token = new JwtSecurityToken(
-            _configuration["JWT:ValidIssuer"],
-            _configuration["JWT:ValidAudience"],
+            issuer: _configuration["JWT:ValidIssuer"],
+            audience: _configuration["JWT:ValidAudience"],
             expires: DateTime.UtcNow.AddHours(3),
             claims: authClaims,
             signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256)
@@ -222,10 +329,8 @@ public class AuthenticationController : Controller
 
         var validation = new TokenValidationParameters
         {
-            ValidIssuer = _configuration["JWT:ValidIssuer"] ??
-                          throw new InvalidOperationException("ValidIssuer not configured"),
-            ValidAudience = _configuration["JWT:ValidAudience"] ??
-                            throw new InvalidOperationException("ValidAudience not configured"),
+            ValidIssuer = _configuration["JWT:ValidIssuer"] ?? throw new InvalidOperationException("ValidIssuer not configured"),
+            ValidAudience = _configuration["JWT:ValidAudience"] ?? throw new InvalidOperationException("ValidAudience not configured"),
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret)),
             ValidateLifetime = false
         };

@@ -59,11 +59,11 @@ builder.Services
 builder.Services.AddScoped<IBracketService, BracketService>();
 //builder.Services.AddScoped<ITimeService, TimeService>();
 
-//builder.Services.AddAuthorization(options =>
-//{
-//    options.AddPolicy("Admin", policy => policy.RequireRole("Admin"));
-//    options.AddPolicy("Manager", policy => policy.RequireRole("Admin", "Manager"));
-//});
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("Admin", policy => policy.RequireRole("Admin"));
+    options.AddPolicy("Moderator", policy => policy.RequireRole("Admin", "Moderator"));
+});
 
 const string developmentPolicy = "developmentPolicy";
 const string productionPolicy = "productionPolicy";
@@ -86,6 +86,30 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+
+// Seed roles before any requests are handled
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+        string[] roles = { "User", "Moderator", "Admin" };
+
+        foreach (var role in roles)
+        {
+            if (!await roleManager.RoleExistsAsync(role))
+            {
+                await roleManager.CreateAsync(new IdentityRole(role));
+            }
+        }
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred while seeding roles");
+    }
+}
 
 if (app.Environment.IsDevelopment())
 {

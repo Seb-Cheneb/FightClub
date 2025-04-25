@@ -1,10 +1,11 @@
-﻿using Data.Entities;
-using API.Persistence;
+﻿using API.Persistence;
+using Data.DTOs;
+using Data.Entities;
+using Data.Mappers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Data.Mappers;
-using Data.DTOs;
+using System.Security.Claims;
 
 namespace API.Controllers;
 
@@ -21,32 +22,39 @@ public class FighterController : ControllerBase
         _dataContext = context;
     }
 
-    [Authorize]
+    [Authorize(Roles = "Moderator")]
     [HttpPost("Add")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> Add([FromBody] FighterCreateRequest request)
     {
         try
         {
+            // Get current user's ID for auditing
+            var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            _logger.LogInformation("Add fighter request from user {UserId}", currentUserId);
+
             if (request is null)
             {
-                return BadRequest();
+                _logger.LogWarning("Null request received from user {UserId}", currentUserId);
+                return BadRequest("Request body cannot be null");
             }
 
             var model = request.CreateModel();
 
-            _dataContext.Fighters.Add(model);
-
+            await _dataContext.Fighters.AddAsync(model);
             await _dataContext.SaveChangesAsync();
 
+            _logger.LogInformation("Fighter {FighterId} created by user {UserId}", model.Id, currentUserId);
             return Ok(model.CastToDto());
         }
         catch (Exception ex)
         {
-            return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred: {ex.Message}");
+            _logger.LogError(ex, "Error adding fighter");
+            return StatusCode(StatusCodes.Status500InternalServerError, "An internal server error occurred");
         }
     }
 
