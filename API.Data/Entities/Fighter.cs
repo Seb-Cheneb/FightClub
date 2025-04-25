@@ -9,5 +9,7 @@ public class Fighter
     public float Weight { get; set; }
     public string? Club { get; set; }
     public string? Rank { get; set; }
+
     public ICollection<Competition> Competitions { get; set; } = [];
+    public ICollection<Bracket> Brackets { get; set; } = [];
 }

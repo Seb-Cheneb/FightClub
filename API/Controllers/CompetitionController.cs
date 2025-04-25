@@ -65,7 +65,6 @@ public class CompetitionController : ControllerBase
         {
             var output = await _dataContext.Competitions
                 .Include(i => i.Fighters)
-                .Include(i => i.Matches)
                 .Include(i => i.Brackets)
                 .ToListAsync();
 
@@ -97,7 +96,6 @@ public class CompetitionController : ControllerBase
         {
             var output = await _dataContext.Competitions
                 .Include(i => i.Fighters)
-                .Include(i => i.Matches)
                 .Include(i => i.Brackets)
                 .Where(i => ids.Contains(i.Id ?? "NULL"))
                 .ToListAsync();
@@ -127,7 +125,6 @@ public class CompetitionController : ControllerBase
         {
             var output = await _dataContext.Competitions
                 .Include(i => i.Fighters)
-                .Include(i => i.Matches)
                 .Include(i => i.Brackets)
                 .FirstOrDefaultAsync(i => i.Id == id);
 
@@ -183,7 +180,6 @@ public class CompetitionController : ControllerBase
         try
         {
             var data = await _dataContext.Competitions
-                .Include(i => i.Matches)
                 .Include(i => i.Fighters)
                 .Include(i => i.Brackets)
                 .FirstOrDefaultAsync(i => i.Id == request.Id);
@@ -231,7 +227,6 @@ public class CompetitionController : ControllerBase
             var competition = await _dataContext.Competitions
                 .Include(e => e.Fighters)
                 .Include(e => e.Brackets)
-                .Include(e => e.Matches)
                 .FirstOrDefaultAsync(e => e.Id == competitionId);
 
             if (competition is null)
@@ -292,7 +287,6 @@ public class CompetitionController : ControllerBase
 
             var competition = await _dataContext.Competitions
                 .Include(i => i.Fighters)
-                .Include(i => i.Matches)
                 .FirstOrDefaultAsync(i => i.Id == competitionId);
 
             if (competition is null)

@@ -107,32 +107,6 @@ namespace API.Migrations
                     b.ToTable("Fighters");
                 });
 
-            modelBuilder.Entity("Data.Entities.Match", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CompetitionId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("Number")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Winner")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CompetitionId");
-
-                    b.ToTable("Matches");
-                });
-
             modelBuilder.Entity("Data.Entities.Position", b =>
                 {
                     b.Property<string>("Id")
@@ -154,21 +128,6 @@ namespace API.Migrations
                     b.HasIndex("BracketId");
 
                     b.ToTable("Position");
-                });
-
-            modelBuilder.Entity("FighterMatch", b =>
-                {
-                    b.Property<string>("FightersId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("MatchesId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("FightersId", "MatchesId");
-
-                    b.HasIndex("MatchesId");
-
-                    b.ToTable("FighterMatch");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -424,16 +383,6 @@ namespace API.Migrations
                         .HasForeignKey("BracketId");
                 });
 
-            modelBuilder.Entity("Data.Entities.Match", b =>
-                {
-                    b.HasOne("Data.Entities.Competition", "Competition")
-                        .WithMany("Matches")
-                        .HasForeignKey("CompetitionId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.Navigation("Competition");
-                });
-
             modelBuilder.Entity("Data.Entities.Position", b =>
                 {
                     b.HasOne("Data.Entities.Bracket", "Bracket")
@@ -443,21 +392,6 @@ namespace API.Migrations
                         .IsRequired();
 
                     b.Navigation("Bracket");
-                });
-
-            modelBuilder.Entity("FighterMatch", b =>
-                {
-                    b.HasOne("Data.Entities.Fighter", null)
-                        .WithMany()
-                        .HasForeignKey("FightersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Data.Entities.Match", null)
-                        .WithMany()
-                        .HasForeignKey("MatchesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -521,8 +455,6 @@ namespace API.Migrations
             modelBuilder.Entity("Data.Entities.Competition", b =>
                 {
                     b.Navigation("Brackets");
-
-                    b.Navigation("Matches");
                 });
 #pragma warning restore 612, 618
         }

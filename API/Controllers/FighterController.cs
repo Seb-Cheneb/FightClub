@@ -62,7 +62,6 @@ public class FighterController : ControllerBase
         {
             var output = await _dataContext.Fighters
                 .Include(i => i.Competitions)
-                .Include(i => i.Matches)
                 .ToListAsync();
 
             if (output.Count == 0)
@@ -92,7 +91,6 @@ public class FighterController : ControllerBase
         {
             var output = await _dataContext.Fighters
                 .Include(i => i.Competitions)
-                .Include(i => i.Matches)
                 .Where(i => ids.Contains(i.Id ?? "NULL"))
                 .ToListAsync();
 
@@ -124,7 +122,6 @@ public class FighterController : ControllerBase
         {
             var output = await _dataContext.Fighters
                 .Include(i => i.Competitions)
-                .Include(i => i.Matches)
                 .FirstOrDefaultAsync(i => i.Id == id);
 
             if (output is null)
@@ -198,7 +195,6 @@ public class FighterController : ControllerBase
         {
             var data = await _dataContext.Fighters
                 .Include(i => i.Competitions)
-                .Include(i => i.Matches)
                 .FirstOrDefaultAsync(i => i.Id == request.Id);
 
             if (data == null)

@@ -21,18 +21,24 @@ public class DataContext : IdentityDbContext
 
         modelBuilder
             .Entity<Competition>()
-            .HasMany(left => left.Fighters)
-            .WithMany(right => right.Competitions)
+            .HasMany(competition => competition.Fighters)
+            .WithMany(fighter => fighter.Competitions)
             .UsingEntity(join => join.ToTable("FighterCompetition"));
 
+        modelBuilder
+            .Entity<Bracket>()
+            .HasMany(bracket => bracket.Fighters)
+            .WithMany(fighter => fighter.Brackets)
+            .UsingEntity(join => join.ToTable("Fighterompetition"));
+
         modelBuilder.Entity<Bracket>()
-            .HasOne(match => match.Competition)
+            .HasOne(bracket => bracket.Competition)
             .WithMany(competition => competition.Brackets)
             .OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder.Entity<Position>()
-            .HasOne(i => i.Bracket)
-            .WithMany(j => j.Positions)
+            .HasOne(position => position.Bracket)
+            .WithMany(bracket => bracket.Positions)
             .OnDelete(DeleteBehavior.Cascade);
     }
 }

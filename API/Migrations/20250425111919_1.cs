@@ -193,27 +193,6 @@ namespace API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Matches",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    CompetitionId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    Winner = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Category = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Number = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Matches", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Matches_Competitions_CompetitionId",
-                        column: x => x.CompetitionId,
-                        principalTable: "Competitions",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Fighters",
                 columns: table => new
                 {
@@ -280,30 +259,6 @@ namespace API.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "FighterMatch",
-                columns: table => new
-                {
-                    FightersId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    MatchesId = table.Column<string>(type: "nvarchar(450)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_FighterMatch", x => new { x.FightersId, x.MatchesId });
-                    table.ForeignKey(
-                        name: "FK_FighterMatch_Fighters_FightersId",
-                        column: x => x.FightersId,
-                        principalTable: "Fighters",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_FighterMatch_Matches_MatchesId",
-                        column: x => x.MatchesId,
-                        principalTable: "Matches",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -354,19 +309,9 @@ namespace API.Migrations
                 column: "FightersId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FighterMatch_MatchesId",
-                table: "FighterMatch",
-                column: "MatchesId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Fighters_BracketId",
                 table: "Fighters",
                 column: "BracketId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Matches_CompetitionId",
-                table: "Matches",
-                column: "CompetitionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Position_BracketId",
@@ -396,9 +341,6 @@ namespace API.Migrations
                 name: "FighterCompetition");
 
             migrationBuilder.DropTable(
-                name: "FighterMatch");
-
-            migrationBuilder.DropTable(
                 name: "Position");
 
             migrationBuilder.DropTable(
@@ -409,9 +351,6 @@ namespace API.Migrations
 
             migrationBuilder.DropTable(
                 name: "Fighters");
-
-            migrationBuilder.DropTable(
-                name: "Matches");
 
             migrationBuilder.DropTable(
                 name: "Brackets");
