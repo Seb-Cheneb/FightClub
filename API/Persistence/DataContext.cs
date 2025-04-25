@@ -12,7 +12,6 @@ public class DataContext : IdentityDbContext
 
     public DbSet<AppUser> AppUsers { get; set; }
     public DbSet<Competition> Competitions { get; set; }
-    public DbSet<Match> Matches { get; set; }
     public DbSet<Bracket> Brackets { get; set; }
     public DbSet<Fighter> Fighters { get; set; }
 
@@ -25,11 +24,6 @@ public class DataContext : IdentityDbContext
             .HasMany(left => left.Fighters)
             .WithMany(right => right.Competitions)
             .UsingEntity(join => join.ToTable("FighterCompetition"));
-
-        modelBuilder.Entity<Match>()
-            .HasOne(match => match.Competition)
-            .WithMany(competition => competition.Matches)
-            .OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder.Entity<Bracket>()
             .HasOne(match => match.Competition)

@@ -31,7 +31,6 @@ public static class FighterMapper
             Club = instance.Club,
             Rank = instance.Rank,
             CompetitionIds = instance.Competitions.Select(i => i.Id ?? "NULL").ToList(),
-            MatchIds = instance.Matches.Select(i => i.Id ?? "NULL").ToList()
         };
     }
 

@@ -6,8 +6,6 @@ public class CompetitionDto
     public string? Type { get; set; }
     public string? Name { get; set; }
     public string? Description { get; set; }
-
     public List<string> FighterIds { get; set; } = [];
-    public List<string> MatchIds { get; set; } = [];
     public List<string> BracketIds { get; set; } = [];
 }

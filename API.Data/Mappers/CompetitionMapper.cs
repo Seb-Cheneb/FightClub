@@ -24,7 +24,6 @@ public static class CompetitionMapper
             Type = instance.Type,
             Name = instance.Name,
             Description = instance.Description,
-            MatchIds = instance.Matches.Select(i => i.Id ?? "NULL").ToList(),
             BracketIds = instance.Brackets.Select(i => i.Id ?? "NULL").ToList(),
             FighterIds = instance.Fighters.Select(i => i.Id ?? "NULL").ToList(),
         };
