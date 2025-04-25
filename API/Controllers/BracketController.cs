@@ -337,19 +337,17 @@ public class BracketController : ControllerBase
     }
 
     [Authorize]
-    [HttpPost("RemoveFighterPosition")]
+    [HttpPost("RemovePosition")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<IActionResult> RemoveFighterPosition(
+    public async Task<IActionResult> RemovePosition(
         [FromQuery] string bracketId,
-        [FromQuery] string fighterId,
         [FromQuery] int position)
     {
         try
         {
-            if (string.IsNullOrWhiteSpace(bracketId) ||
-                string.IsNullOrWhiteSpace(fighterId))
+            if (string.IsNullOrWhiteSpace(bracketId))
             {
                 return BadRequest("The parameters provided are null");
             }
@@ -364,7 +362,15 @@ public class BracketController : ControllerBase
                 return NotFound();
             }
 
-            bracket.Positions.Remove(bracket.Positions.FirstOrDefault(i => i.Key == position && i.Value == fighterId));
+            var positionToRemove = bracket.Positions.FirstOrDefault(i => i.Key == position);
+
+            if (positionToRemove == null)
+            {
+                return NotFound($"Position {position} not found in bracket {bracketId}.");
+            }
+
+            bracket.Positions.Remove(positionToRemove);
+
             await _dataContext.SaveChangesAsync();
 
             return Ok(bracket.CastToDto());

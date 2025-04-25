@@ -113,14 +113,10 @@ export class BracketService {
       );
   }
 
-  removeFighterPosition(
-    bracketId: string,
-    fighterId: string,
-    position: number
-  ): Observable<BracketDto> {
+  removePosition(bracketId: string, position: number): Observable<BracketDto> {
     return this.http
       .post<BracketDto>(
-        `${this.baseUrl}/RemoveFighterPosition?bracketId=${bracketId}&fighterId=${fighterId}&position=${position}`,
+        `${this.baseUrl}/RemovePosition?bracketId=${bracketId}&position=${position}`,
         null
       )
       .pipe(
