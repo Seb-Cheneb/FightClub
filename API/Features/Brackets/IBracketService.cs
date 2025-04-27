@@ -4,7 +4,7 @@ namespace API.Features.Brackets;
 
 public interface IBracketService
 {
-    public Task<bool> AddFighterToCompetition(string competitionId, Fighter fighter);
+    public Task<bool> EnrollFighter(string competitionId, Fighter fighter, string bracketType);
 
     public Task<bool> RemoveFighterFromCompetition(string competitionId, string fighterId);
 }

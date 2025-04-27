@@ -11,15 +11,135 @@ namespace API.Features.Competitions;
 [ApiController]
 public class CompetitionController : ControllerBase
 {
-    private readonly ILogger<CompetitionController> _logger;
     private readonly IBracketService _bracketService;
     private readonly DataContext _dataContext;
+    private readonly ILogger<CompetitionController> _logger;
 
     public CompetitionController(ILogger<CompetitionController> logger, DataContext context, IBracketService bracketService)
     {
         _logger = logger;
         _dataContext = context;
         _bracketService = bracketService;
+    }
+
+    [Authorize]
+    [HttpPost("AddFighter")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> AddFighter([FromQuery] string competitionId, [FromQuery] string fighterId)
+    {
+        try
+        {
+            if (string.IsNullOrWhiteSpace(competitionId))
+            {
+                return BadRequest("Competition ID is required and cannot be null, empty, or whitespace.");
+            }
+
+            if (string.IsNullOrWhiteSpace(fighterId))
+            {
+                return BadRequest("User ID is required and cannot be null, empty, or whitespace.");
+            }
+
+            var competition = await _dataContext.Competitions
+                .Include(e => e.Fighters)
+                .Include(e => e.Brackets)
+                .FirstOrDefaultAsync(e => e.Id == competitionId);
+
+            if (competition is null)
+            {
+                return NotFound($"Competition with ID '{competitionId}' not found.");
+            }
+
+            var fighter = await _dataContext.Fighters.FindAsync(fighterId);
+
+            if (fighter is null)
+            {
+                return NotFound($"User with ID '{fighterId}' not found.");
+            }
+
+            if (competition.Fighters.Any(f => f.Id == fighterId))
+            {
+                return Conflict($"Fighter '{fighter.Name}' is already part of competition '{competition.Name}'.");
+            }
+
+            competition.Fighters.Add(fighter);
+
+            //var bracketStatus = await _bracketService.AddFighterToCompetition(competitionId, fighter);
+            //if (!bracketStatus)
+            //{
+            //    _logger.LogError($"Failed to add fighter '{fighter.Name}' to bracket'.");
+            //}
+
+            await _dataContext.SaveChangesAsync();
+
+            return Ok(competition.CastToDto());
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred: {ex.Message}");
+        }
+    }
+
+    [Authorize]
+    [HttpPost("EnrollFighter")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> EnrollFighter([FromQuery] string competitionId, [FromQuery] string fighterId, [FromQuery] string bracketType)
+    {
+        try
+        {
+            if (string.IsNullOrWhiteSpace(competitionId))
+            {
+                return BadRequest("Competition ID is null");
+            }
+
+            if (string.IsNullOrWhiteSpace(fighterId))
+            {
+                return BadRequest("fighter id is null");
+            }
+
+            if (string.IsNullOrWhiteSpace(bracketType))
+            {
+                return BadRequest("Bracket type is null");
+            }
+
+            var competition = await _dataContext.Competitions
+                .Include(e => e.Fighters)
+                .Include(e => e.Brackets)
+                .FirstOrDefaultAsync(e => e.Id == competitionId);
+
+            if (competition is null)
+            {
+                return NotFound($"Competition with ID '{competitionId}' not found.");
+            }
+
+            var fighter = await _dataContext.Fighters.FindAsync(fighterId);
+
+            if (fighter is null)
+            {
+                return NotFound($"User with ID '{fighterId}' not found.");
+            }
+
+            var bracketStatus = await _bracketService.EnrollFighter(competitionId, fighter, bracketType);
+            if (!bracketStatus)
+            {
+                _logger.LogError($"Failed to add fighter '{fighter.Name}' to bracket'.");
+            }
+
+            await _dataContext.SaveChangesAsync();
+
+            return Ok(competition.CastToDto());
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred: {ex.Message}");
+        }
     }
 
     [Authorize]
@@ -44,6 +164,35 @@ public class CompetitionController : ControllerBase
             await _dataContext.SaveChangesAsync();
 
             return Ok(model.CastToDto());
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred: {ex.Message}");
+        }
+    }
+
+    [Authorize]
+    [HttpDelete("Delete")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> Delete([FromQuery] string id)
+    {
+        try
+        {
+            var data = await _dataContext.Competitions.FindAsync(id);
+
+            if (data == null)
+            {
+                return NotFound();
+            }
+
+            _dataContext.Competitions.Remove(data);
+
+            await _dataContext.SaveChangesAsync();
+
+            return NoContent();
         }
         catch (Exception ex)
         {
@@ -140,129 +289,6 @@ public class CompetitionController : ControllerBase
     }
 
     [Authorize]
-    [HttpDelete("Delete")]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> Delete([FromQuery] string id)
-    {
-        try
-        {
-            var data = await _dataContext.Competitions.FindAsync(id);
-
-            if (data == null)
-            {
-                return NotFound();
-            }
-
-            _dataContext.Competitions.Remove(data);
-
-            await _dataContext.SaveChangesAsync();
-
-            return NoContent();
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred: {ex.Message}");
-        }
-    }
-
-    [Authorize]
-    [HttpPut("Update")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<IActionResult> Update([FromBody] CompetitionDto request)
-    {
-        try
-        {
-            var data = await _dataContext.Competitions
-                .Include(i => i.Fighters)
-                .Include(i => i.Brackets)
-                .FirstOrDefaultAsync(i => i.Id == request.Id);
-
-            if (data == null)
-            {
-                return NotFound();
-            }
-
-            data.Update(request);
-
-            _dataContext.Competitions.Update(data);
-
-            await _dataContext.SaveChangesAsync();
-
-            return Ok(data.CastToDto());
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred: {ex.Message}");
-        }
-    }
-
-    [Authorize]
-    [HttpGet("AddFighter")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> AddFighter([FromQuery] string competitionId, [FromQuery] string fighterId)
-    {
-        try
-        {
-            if (string.IsNullOrWhiteSpace(competitionId))
-            {
-                return BadRequest("Competition ID is required and cannot be null, empty, or whitespace.");
-            }
-
-            if (string.IsNullOrWhiteSpace(fighterId))
-            {
-                return BadRequest("User ID is required and cannot be null, empty, or whitespace.");
-            }
-
-            var competition = await _dataContext.Competitions
-                .Include(e => e.Fighters)
-                .Include(e => e.Brackets)
-                .FirstOrDefaultAsync(e => e.Id == competitionId);
-
-            if (competition is null)
-            {
-                return NotFound($"Competition with ID '{competitionId}' not found.");
-            }
-
-            var fighter = await _dataContext.Fighters.FindAsync(fighterId);
-
-            if (fighter is null)
-            {
-                return NotFound($"User with ID '{fighterId}' not found.");
-            }
-
-            if (competition.Fighters.Any(f => f.Id == fighterId))
-            {
-                return Conflict($"Fighter '{fighter.Name}' is already part of competition '{competition.Name}'.");
-            }
-
-            competition.Fighters.Add(fighter);
-
-            var bracketStatus = await _bracketService.AddFighterToCompetition(competitionId, fighter);
-            if (!bracketStatus)
-            {
-                _logger.LogError($"Failed to add fighter '{fighter.Name}' to bracket'.");
-            }
-
-            await _dataContext.SaveChangesAsync();
-
-            return Ok(competition.CastToDto());
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred: {ex.Message}");
-        }
-    }
-
-    [Authorize]
     [HttpGet("RemoveFighter")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -314,6 +340,39 @@ public class CompetitionController : ControllerBase
             await _dataContext.SaveChangesAsync();
 
             return Ok(competition.CastToDto());
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred: {ex.Message}");
+        }
+    }
+
+    [Authorize]
+    [HttpPut("Update")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public async Task<IActionResult> Update([FromBody] CompetitionDto request)
+    {
+        try
+        {
+            var data = await _dataContext.Competitions
+                .Include(i => i.Fighters)
+                .Include(i => i.Brackets)
+                .FirstOrDefaultAsync(i => i.Id == request.Id);
+
+            if (data == null)
+            {
+                return NotFound();
+            }
+
+            data.Update(request);
+
+            _dataContext.Competitions.Update(data);
+
+            await _dataContext.SaveChangesAsync();
+
+            return Ok(data.CastToDto());
         }
         catch (Exception ex)
         {

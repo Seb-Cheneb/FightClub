@@ -1,8 +1,11 @@
-﻿using API.Persistence;
+﻿using API.Features.Brackets;
+using API.Features.Brackets.Models;
+using API.Features.Competitions;
+using API.Features.Competitions.Models;
+using API.Persistence;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using API.Features.Brackets.Models;
 
 namespace API.Features.Brackets;
 
@@ -10,13 +13,15 @@ namespace API.Features.Brackets;
 [ApiController]
 public class BracketController : ControllerBase
 {
+    private readonly IBracketService _bracketService;
     private readonly DataContext _dataContext;
     private readonly ILogger<BracketController> _logger;
 
-    public BracketController(ILogger<BracketController> logger, DataContext context)
+    public BracketController(ILogger<BracketController> logger, DataContext context, IBracketService bracketService)
     {
         _logger = logger;
         _dataContext = context;
+        _bracketService = bracketService;
     }
 
     [Authorize]
@@ -405,6 +410,66 @@ public class BracketController : ControllerBase
         catch (Exception ex)
         {
             return StatusCode(StatusCodes.Status500InternalServerError, ex);
+        }
+    }
+
+    [Authorize]
+    [HttpPost("EnrollFighter")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> EnrollFighter([FromQuery] string competitionId, [FromQuery] string fighterId, [FromQuery] string bracketType)
+    {
+        try
+        {
+            if (string.IsNullOrWhiteSpace(competitionId))
+            {
+                return BadRequest("Competition ID is null");
+            }
+
+            if (string.IsNullOrWhiteSpace(fighterId))
+            {
+                return BadRequest("fighter id is null");
+            }
+
+            if (string.IsNullOrWhiteSpace(bracketType))
+            {
+                return BadRequest("Bracket type is null");
+            }
+
+            var competition = await _dataContext.Competitions
+                .Include(e => e.Fighters)
+                .Include(e => e.Brackets)
+                .FirstOrDefaultAsync(e => e.Id == competitionId);
+
+            if (competition is null)
+            {
+                return NotFound($"Competition with ID '{competitionId}' not found.");
+            }
+
+            var fighter = await _dataContext.Fighters.FindAsync(fighterId);
+
+            if (fighter is null)
+            {
+                return NotFound($"User with ID '{fighterId}' not found.");
+            }
+
+            var bracketStatus = await _bracketService.EnrollFighter(competitionId, fighter, bracketType);
+
+            if (!bracketStatus)
+            {
+                return BadRequest($"Failed to add fighter '{fighter.Name}' to bracket '{bracketType}'.");
+            }
+
+            await _dataContext.SaveChangesAsync();
+
+            return Ok(competition.CastToDto());
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred: {ex.Message}");
         }
     }
 }
