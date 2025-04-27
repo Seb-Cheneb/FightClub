@@ -60,6 +60,34 @@ public class ClubController : ControllerBase
     }
 
     [Authorize]
+    [HttpDelete("Delete")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> Delete([FromQuery] string id)
+    {
+        try
+        {
+            var club = await _dataContext.Clubs.FindAsync(id);
+
+            if (club == null)
+            {
+                return NotFound();
+            }
+
+            _dataContext.Clubs.Remove(club);
+            await _dataContext.SaveChangesAsync();
+
+            return NoContent();
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, ex);
+        }
+    }
+
+    [Authorize]
     [HttpGet("GetAll")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -104,7 +132,7 @@ public class ClubController : ControllerBase
                 return NotFound("No entries were found");
             }
 
-            return Ok(output.Select(i => i.CastToDto()));
+            return Ok(output.Select(i => i.CastToDto()).ToList());
         }
         catch (Exception ex)
         {
@@ -139,34 +167,6 @@ public class ClubController : ControllerBase
             }
 
             return Ok(output.CastToDto());
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(StatusCodes.Status500InternalServerError, ex);
-        }
-    }
-
-    [Authorize]
-    [HttpDelete("Delete")]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> Delete([FromQuery] string id)
-    {
-        try
-        {
-            var club = await _dataContext.Clubs.FindAsync(id);
-
-            if (club == null)
-            {
-                return NotFound();
-            }
-
-            _dataContext.Clubs.Remove(club);
-            await _dataContext.SaveChangesAsync();
-
-            return NoContent();
         }
         catch (Exception ex)
         {
