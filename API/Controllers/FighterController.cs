@@ -1,7 +1,5 @@
 ﻿using API.Persistence;
-using Data.Entities;
 using Data.Fighters;
-using Data.Mappers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

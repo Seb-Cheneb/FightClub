@@ -1,5 +1,4 @@
 using API.Persistence;
-using Data.Mappers;
 using Data.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

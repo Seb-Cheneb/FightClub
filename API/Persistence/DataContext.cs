@@ -1,5 +1,6 @@
 using Data.Brackets;
 using Data.Competitions;
+using Data.Entities;
 using Data.Fighters;
 using Data.Positions;
 using Data.Users;
@@ -43,6 +44,24 @@ public class DataContext : IdentityDbContext
         modelBuilder.Entity<Position>()
             .HasOne(position => position.Bracket)
             .WithMany(bracket => bracket.Positions)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        // Configure the one-to-one relationship
+        modelBuilder.Entity<AppUser>()
+            .HasOne(u => u.Club)
+            .WithOne(c => c.User)
+            .HasForeignKey<Club>(c => c.AppUserId)
+            .IsRequired();
+
+        // Ensure AppUserId in Club is unique
+        modelBuilder.Entity<Club>()
+            .HasIndex(c => c.AppUserId)
+            .IsUnique();
+
+        modelBuilder.Entity<Fighter>()
+            .HasOne(f => f.Club)
+            .WithMany(c => c.Fighters)
+            .HasForeignKey(f => f.ClubId)
             .OnDelete(DeleteBehavior.Cascade);
     }
 }

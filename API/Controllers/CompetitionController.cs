@@ -1,10 +1,8 @@
-﻿using Data.Mappers;
-using API.Persistence;
+﻿using API.Persistence;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using API.Services.Interfaces;
-using API.Services;
 using Data.Competitions;
 
 namespace API.Controllers;

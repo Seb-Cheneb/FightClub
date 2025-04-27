@@ -1,9 +1,7 @@
-﻿using Data.Mappers;
-using API.Persistence;
+﻿using API.Persistence;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Data.Entities;
 using Data.Brackets;
 
 namespace API.Controllers;
@@ -12,12 +10,10 @@ namespace API.Controllers;
 [ApiController]
 public class ClubController : ControllerBase
 {
-    private readonly ILogger<BracketController> _logger;
     private readonly DataContext _dataContext;
 
-    public ClubController(ILogger<ClubController> logger, DataContext context)
+    public ClubController(DataContext context)
     {
-        _logger = logger;
         _dataContext = context;
     }
 

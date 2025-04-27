@@ -11,7 +11,7 @@ public static class FighterMapper
             Gender = instance.Gender,
             Birthdate = instance.Birthdate,
             Weight = instance.Weight,
-            Club = instance.Club,
+            //Club = instance.Club,
             Rank = instance.Rank,
         };
     }
@@ -25,7 +25,7 @@ public static class FighterMapper
             Gender = instance.Gender,
             Birthdate = instance.Birthdate,
             Weight = instance.Weight,
-            Club = instance.Club,
+            // Club = instance.Club,
             Rank = instance.Rank,
             CompetitionIds = instance.Competitions.Select(i => i.Id ?? "NULL").ToList(),
         };
@@ -35,7 +35,7 @@ public static class FighterMapper
     {
         instance.Name = request.Name ?? instance.Name;
         instance.Gender = request.Gender ?? instance.Gender;
-        instance.Club = request.Club ?? instance.Club;
+        //instance.Club = request.Club ?? instance.Club;
         instance.Rank = request.Rank ?? instance.Rank;
     }
 }
