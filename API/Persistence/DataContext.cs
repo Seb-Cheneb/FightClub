@@ -1,11 +1,10 @@
-using Data.Brackets;
-using Data.Competitions;
-using Data.Fighters;
-using Data.Clubs;
-using Data.Positions;
-using Data.Users;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using API.Users.Models;
+using API.Features.Brackets.Models;
+using API.Features.Clubs.Models;
+using API.Features.Competitions.Models;
+using API.Features.Fighters.Models;
 
 namespace API.Persistence;
 
