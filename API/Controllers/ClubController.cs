@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Data.Clubs;
+using Data.Users;
+using Microsoft.Identity.Client;
 
 namespace API.Controllers;
 
@@ -25,16 +27,16 @@ public class ClubController : ControllerBase
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> Add([FromBody] ClubCreateRequest request)
     {
-        if (request is null)
-        {
-            return BadRequest("The request is null");
-        }
-
         try
         {
+            if (request == null)
+            {
+                return BadRequest("The request is null");
+            }
+
             var user = await _dataContext.AppUsers
                 .Include(i => i.Club)
-                .FirstOrDefaultAsync(i => i.Id == request.UserId);
+                .FirstOrDefaultAsync(i => i.Id == request.AppUserId);
 
             if (user == null)
             {
@@ -46,12 +48,12 @@ public class ClubController : ControllerBase
                 return BadRequest("The user already has a club");
             }
 
-            var match = BracketMapper.CreateModel(request);
-            _dataContext.Brackets.Add(match);
-            _dataContext.Competitions.Update(competition);
-
+            var club = ClubMapper.CreateModel(request);
+            _dataContext.Clubs.Add(club);
+            _dataContext.AppUsers.Update(user);
             await _dataContext.SaveChangesAsync();
-            return Ok(match.CastToDto());
+
+            return Ok(club.CastToDto());
         }
         catch (Exception ex)
         {
@@ -69,13 +71,13 @@ public class ClubController : ControllerBase
     {
         try
         {
-            var output = await _dataContext.Brackets
-                .Include(e => e.Fighters)
-                .Include(i => i.Positions)
+            var output = await _dataContext.Clubs
+                .Include(club => club.AppUser)
+                .Include(club => club.Fighters)
                 .ToListAsync();
 
-            var dtos = output.Select(entry => entry.CastToDto()).ToList();
-            return Ok(dtos);
+            var response = output.Select(entry => entry.CastToDto()).ToList();
+            return Ok(response);
         }
         catch (Exception ex)
         {
@@ -93,10 +95,9 @@ public class ClubController : ControllerBase
     {
         try
         {
-            var output = await _dataContext.Brackets
-                .Include(i => i.Fighters)
-                .Include(i => i.Competition)
-                .Include(i => i.Positions)
+            var output = await _dataContext.Clubs
+                .Include(club => club.AppUser)
+                .Include(club => club.Fighters)
                 .Where(i => ids.Contains(i.Id ?? "NULL"))
                 .ToListAsync();
 
@@ -119,20 +120,26 @@ public class ClubController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> GetById([FromQuery] string bracketId)
+    public async Task<IActionResult> GetById([FromQuery] string id)
     {
-        if (string.IsNullOrWhiteSpace(bracketId))
+        if (string.IsNullOrWhiteSpace(id))
         {
             return BadRequest("bracketId is required");
         }
 
         try
         {
-            var output = await _dataContext.Brackets
-                .Include(e => e.Fighters)
-                .FirstOrDefaultAsync(e => e.Id == bracketId);
+            var output = await _dataContext.Clubs
+                .Include(club => club.AppUser)
+                .Include(club => club.Fighters)
+                .FirstOrDefaultAsync(e => e.Id == id);
 
-            if (output is null) return NotFound();
+            if (output is null)
+
+            {
+                return NotFound();
+            }
+
             return Ok(output.CastToDto());
         }
         catch (Exception ex)
@@ -152,12 +159,15 @@ public class ClubController : ControllerBase
         try
         {
             var data = await _dataContext.Brackets.FindAsync(id);
+
             if (data == null)
             {
                 return NotFound();
             }
+
             _dataContext.Brackets.Remove(data);
             await _dataContext.SaveChangesAsync();
+
             return NoContent();
         }
         catch (Exception ex)

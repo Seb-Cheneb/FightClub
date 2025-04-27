@@ -1,7 +1,7 @@
 using Data.Brackets;
 using Data.Competitions;
-using Data.Entities;
 using Data.Fighters;
+using Data.Clubs;
 using Data.Positions;
 using Data.Users;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -19,6 +19,7 @@ public class DataContext : IdentityDbContext
     public DbSet<Competition> Competitions { get; set; }
     public DbSet<Bracket> Brackets { get; set; }
     public DbSet<Fighter> Fighters { get; set; }
+    public DbSet<Club> Clubs { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -49,7 +50,7 @@ public class DataContext : IdentityDbContext
         // Configure the one-to-one relationship
         modelBuilder.Entity<AppUser>()
             .HasOne(u => u.Club)
-            .WithOne(c => c.User)
+            .WithOne(c => c.AppUser)
             .HasForeignKey<Club>(c => c.AppUserId)
             .IsRequired();
 

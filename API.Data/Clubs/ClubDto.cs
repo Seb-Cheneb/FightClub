@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Data.Fighters;
 
-namespace Data.DTOs
+namespace Data.DTOs;
+
+public class ClubDto
 {
-    internal class ClubDto
-    {
-    }
+    public string? Id { get; set; }
+    public string? AppUserId { get; set; }
+    public string? Name { get; set; }
+    public List<FighterDto> Fighters { get; set; } = [];
 }

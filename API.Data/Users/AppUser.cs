@@ -1,4 +1,4 @@
-using Data.Entities;
+using Data.Clubs;
 using Microsoft.AspNetCore.Identity;
 
 namespace Data.Users;

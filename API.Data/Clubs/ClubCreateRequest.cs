@@ -2,6 +2,6 @@
 
 public class ClubCreateRequest
 {
-    public string? UserId { get; set; }
+    public string? AppUserId { get; set; }
     public string? ClubName { get; set; }
 }
