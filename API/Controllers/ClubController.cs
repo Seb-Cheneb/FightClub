@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Data.Brackets;
+using Data.Clubs;
 
 namespace API.Controllers;
 
@@ -23,22 +23,27 @@ public class ClubController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> Add([FromBody] BracketCreateRequest request)
+    public async Task<IActionResult> Add([FromBody] ClubCreateRequest request)
     {
         if (request is null)
         {
-            return BadRequest("The creation request is bad");
+            return BadRequest("The request is null");
         }
 
         try
         {
-            var competition = await _dataContext.Competitions
-                .Include(i => i.Brackets)
-                .FirstOrDefaultAsync(i => i.Id == request.CompetitionId);
+            var user = await _dataContext.AppUsers
+                .Include(i => i.Club)
+                .FirstOrDefaultAsync(i => i.Id == request.UserId);
 
-            if (competition == null)
+            if (user == null)
             {
-                return BadRequest("The competition provided null");
+                return BadRequest("The user is null");
+            }
+
+            if (user.Club != null)
+            {
+                return BadRequest("The user already has a club");
             }
 
             var match = BracketMapper.CreateModel(request);

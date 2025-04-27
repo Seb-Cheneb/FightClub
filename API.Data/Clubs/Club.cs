@@ -1,7 +1,7 @@
 ﻿using Data.Fighters;
 using Data.Users;
 
-namespace Data.Entities;
+namespace Data.Clubs;
 
 public class Club
 {
