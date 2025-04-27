@@ -20,7 +20,7 @@ public class FighterController : ControllerBase
         _dataContext = context;
     }
 
-    [Authorize(Roles = "Moderator")]
+    [Authorize(Roles = "User")]
     [HttpPost("Add")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -31,27 +31,29 @@ public class FighterController : ControllerBase
     {
         try
         {
-            // Get current user's ID for auditing
-            var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            _logger.LogInformation("Add fighter request from user {UserId}", currentUserId);
-
             if (request is null)
             {
-                _logger.LogWarning("Null request received from user {UserId}", currentUserId);
                 return BadRequest("Request body cannot be null");
             }
 
-            var model = request.CreateModel();
+            var club = await _dataContext.Clubs
+                .Include(i => i.Fighters)
+                .FirstOrDefaultAsync(i => i.Id == request.ClubId);
 
-            await _dataContext.Fighters.AddAsync(model);
+            if (club == null)
+            {
+                return BadRequest("Club not found");
+            }
+
+            var fighter = request.CreateModel();
+            _dataContext.Fighters.Add(fighter);
+            _dataContext.Clubs.Update(club);
             await _dataContext.SaveChangesAsync();
 
-            _logger.LogInformation("Fighter {FighterId} created by user {UserId}", model.Id, currentUserId);
-            return Ok(model.CastToDto());
+            return Ok(fighter.CastToDto());
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error adding fighter");
             return StatusCode(StatusCodes.Status500InternalServerError, "An internal server error occurred");
         }
     }

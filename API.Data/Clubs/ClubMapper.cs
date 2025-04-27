@@ -1,5 +1,4 @@
-﻿using Data.DTOs;
-using Data.Fighters;
+﻿using Data.Fighters;
 
 namespace Data.Clubs;
 
@@ -26,5 +25,10 @@ public static class ClubMapper
                 .Select(i => i.CastToDto())
                 .ToList(),
         };
+    }
+
+    public static void Update(this Club instance, ClubDto request)
+    {
+        instance.Name = request.Name;
     }
 }

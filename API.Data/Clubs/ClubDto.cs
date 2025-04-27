@@ -1,6 +1,6 @@
 ﻿using Data.Fighters;
 
-namespace Data.DTOs;
+namespace Data.Clubs;
 
 public class ClubDto
 {

@@ -1,7 +1,6 @@
 ﻿using Data.Brackets;
+using Data.Clubs;
 using Data.Competitions;
-using Data.Entities;
-using Data.Users;
 
 namespace Data.Fighters;
 

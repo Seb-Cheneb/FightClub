@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Data.Clubs;
 using Data.Users;
-using Microsoft.Identity.Client;
 
 namespace API.Controllers;
 
@@ -158,14 +157,14 @@ public class ClubController : ControllerBase
     {
         try
         {
-            var data = await _dataContext.Brackets.FindAsync(id);
+            var club = await _dataContext.Clubs.FindAsync(id);
 
-            if (data == null)
+            if (club == null)
             {
                 return NotFound();
             }
 
-            _dataContext.Brackets.Remove(data);
+            _dataContext.Clubs.Remove(club);
             await _dataContext.SaveChangesAsync();
 
             return NoContent();
@@ -181,11 +180,12 @@ public class ClubController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<IActionResult> Update([FromBody] BracketDto request)
+    public async Task<IActionResult> Update([FromBody] ClubDto request)
     {
         try
         {
-            var data = await _dataContext.Brackets.FindAsync(request.Id);
+            var data = await _dataContext.Clubs.FindAsync(request.Id);
+
             if (data == null)
             {
                 return NotFound();
@@ -193,6 +193,7 @@ public class ClubController : ControllerBase
 
             data.Update(request);
             await _dataContext.SaveChangesAsync();
+
             return Ok(data.CastToDto());
         }
         catch (Exception ex)
