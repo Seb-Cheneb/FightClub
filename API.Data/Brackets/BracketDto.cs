@@ -1,4 +1,7 @@
-﻿namespace Data.DTOs;
+﻿using Data.Fighters;
+using Data.Positions;
+
+namespace Data.Brackets;
 
 public class BracketDto
 {

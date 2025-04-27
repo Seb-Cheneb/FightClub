@@ -1,6 +1,6 @@
 using API.Persistence;
-using Data.DTOs;
 using Data.Mappers;
+using Data.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

@@ -1,7 +1,7 @@
 ﻿using API.Persistence;
 using API.Services.Interfaces;
-using Data.Entities;
-using Data.Enums;
+using Data.Brackets;
+using Data.Fighters;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Services;

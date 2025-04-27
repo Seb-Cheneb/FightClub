@@ -1,4 +1,4 @@
-﻿namespace Data.DTOs;
+﻿namespace Data.Competitions;
 
 public class CompetitionCreateRequest
 {

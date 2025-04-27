@@ -1,4 +1,7 @@
-﻿namespace Data.Entities;
+﻿using Data.Brackets;
+using Data.Fighters;
+
+namespace Data.Competitions;
 
 public class Competition
 {

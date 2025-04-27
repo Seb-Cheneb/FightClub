@@ -1,6 +1,9 @@
-﻿namespace Data.DTOs;
+﻿using Data.Brackets;
+using Data.Competitions;
 
-public class FighterDto
+namespace Data.Fighters;
+
+public class Fighter
 {
     public string? Id { get; set; }
     public string? Name { get; set; }
@@ -9,5 +12,7 @@ public class FighterDto
     public float Weight { get; set; }
     public string? Club { get; set; }
     public string? Rank { get; set; }
-    public List<string> CompetitionIds { get; set; } = [];
+
+    public ICollection<Competition> Competitions { get; set; } = [];
+    public ICollection<Bracket> Brackets { get; set; } = [];
 }

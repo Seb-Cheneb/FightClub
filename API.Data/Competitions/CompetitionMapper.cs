@@ -1,7 +1,4 @@
-using Data.DTOs;
-using Data.Entities;
-
-namespace Data.Mappers;
+namespace Data.Competitions;
 
 public static class CompetitionMapper
 {

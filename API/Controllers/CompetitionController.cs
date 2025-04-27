@@ -3,9 +3,9 @@ using API.Persistence;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Data.DTOs;
 using API.Services.Interfaces;
 using API.Services;
+using Data.Competitions;
 
 namespace API.Controllers;
 

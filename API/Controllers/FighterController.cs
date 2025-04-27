@@ -1,6 +1,6 @@
 ﻿using API.Persistence;
-using Data.DTOs;
 using Data.Entities;
+using Data.Fighters;
 using Data.Mappers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

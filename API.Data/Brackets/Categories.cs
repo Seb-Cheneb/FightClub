@@ -1,4 +1,4 @@
-﻿namespace Data.Enums;
+﻿namespace Data.Brackets;
 
 public class Categories
 {

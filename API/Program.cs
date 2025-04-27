@@ -1,5 +1,4 @@
 using System.Text;
-using Data.Entities;
 using API.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -7,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using API.Services.Interfaces;
 using API.Services;
+using Data.Users;
 
 var builder = WebApplication.CreateBuilder(args);
 

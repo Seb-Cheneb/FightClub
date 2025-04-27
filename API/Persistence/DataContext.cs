@@ -1,4 +1,8 @@
-using Data.Entities;
+using Data.Brackets;
+using Data.Competitions;
+using Data.Fighters;
+using Data.Positions;
+using Data.Users;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

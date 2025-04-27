@@ -1,7 +1,8 @@
-﻿using Data.DTOs;
-using Data.Entities;
+﻿using Data.Brackets;
+using Data.Fighters;
+using Data.Positions;
 
-namespace Data.Mappers;
+namespace Data.Brackets;
 
 public static class BracketMapper
 {

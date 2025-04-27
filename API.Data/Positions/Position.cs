@@ -1,4 +1,6 @@
-﻿namespace Data.Entities;
+﻿using Data.Brackets;
+
+namespace Data.Positions;
 
 public class Position
 {

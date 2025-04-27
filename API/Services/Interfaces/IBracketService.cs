@@ -1,4 +1,4 @@
-﻿using Data.Entities;
+﻿using Data.Fighters;
 
 namespace API.Services.Interfaces;
 
