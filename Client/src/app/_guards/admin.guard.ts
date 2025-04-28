@@ -7,7 +7,7 @@ import { AuthenticationService } from '../authentication/services/authentication
 @Injectable({
   providedIn: 'root',
 })
-export class ModeratorGuard implements CanActivate {
+export class AdminGuard implements CanActivate {
   private _authenticationService = inject(AuthenticationService);
   private _router = inject(Router);
 

@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from './_guards/auth.guard';
+import { AdminGuard } from './_guards/admin.guard';
 
 export const routes: Routes = [
   /** Home */
@@ -94,7 +95,7 @@ export const routes: Routes = [
           import('./competitions/pages/add-competition-page.component').then(
             (m) => m.AddCompetitionPageComponent
           ),
-        canActivate: [AuthGuard],
+        canActivate: [AdminGuard],
       },
       {
         path: 'edit/:id',
@@ -103,16 +104,7 @@ export const routes: Routes = [
           import('./competitions/pages/edit-competition-page.component').then(
             (m) => m.EditCompetitionPageComponent
           ),
-        canActivate: [AuthGuard],
-      },
-      {
-        path: 'matches',
-        pathMatch: 'full',
-        loadComponent: () =>
-          import('./competitions/pages/competitions-page.component').then(
-            (m) => m.CompetitionsPageComponent
-          ),
-        canActivate: [AuthGuard],
+        canActivate: [AdminGuard],
       },
     ],
   },
