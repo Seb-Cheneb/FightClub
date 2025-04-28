@@ -11,7 +11,7 @@ export const routes: Routes = [
   {
     path: 'home',
     loadComponent: () =>
-      import('./pages/home/home-page.component').then(
+      import('./shared/pages/home/home-page.component').then(
         (m) => m.HomePageComponent
       ),
   },
@@ -50,7 +50,7 @@ export const routes: Routes = [
         path: 'getAll',
         pathMatch: 'full',
         loadComponent: () =>
-          import('./pages/fighter/fighter-page.component').then(
+          import('./fighters/pages/fighter-page.component').then(
             (m) => m.FighterPageComponent
           ),
         canActivate: [AuthGuard],
@@ -59,7 +59,7 @@ export const routes: Routes = [
         path: 'add',
         pathMatch: 'full',
         loadComponent: () =>
-          import('./pages/fighter/add-fighter-page.component').then(
+          import('./fighters/pages/add-fighter-page.component').then(
             (m) => m.AddFighterPageComponent
           ),
         canActivate: [AuthGuard],
@@ -68,7 +68,7 @@ export const routes: Routes = [
         path: 'edit/:id',
         pathMatch: 'full',
         loadComponent: () =>
-          import('./pages/fighter/edit-fighter-page.component').then(
+          import('./fighters/pages/edit-fighter-page.component').then(
             (m) => m.EditFighterPageComponent
           ),
         canActivate: [AuthGuard],
@@ -82,7 +82,7 @@ export const routes: Routes = [
         path: '',
         pathMatch: 'full',
         loadComponent: () =>
-          import('./pages/competition/competitions-page.component').then(
+          import('./competitions/pages/competitions-page.component').then(
             (m) => m.CompetitionsPageComponent
           ),
         canActivate: [AuthGuard],
@@ -91,7 +91,7 @@ export const routes: Routes = [
         path: 'add',
         pathMatch: 'full',
         loadComponent: () =>
-          import('./pages/competition/add-competition-page.component').then(
+          import('./competitions/pages/add-competition-page.component').then(
             (m) => m.AddCompetitionPageComponent
           ),
         canActivate: [AuthGuard],
@@ -100,16 +100,16 @@ export const routes: Routes = [
         path: 'edit/:id',
         pathMatch: 'full',
         loadComponent: () =>
-          import('./pages/competition/edit-competition-page.component').then(
+          import('./competitions/pages/edit-competition-page.component').then(
             (m) => m.EditCompetitionPageComponent
           ),
         canActivate: [AuthGuard],
-      }, {
-
+      },
+      {
         path: 'matches',
         pathMatch: 'full',
         loadComponent: () =>
-          import('./pages/competition/competitions-page.component').then(
+          import('./competitions/pages/competitions-page.component').then(
             (m) => m.CompetitionsPageComponent
           ),
         canActivate: [AuthGuard],

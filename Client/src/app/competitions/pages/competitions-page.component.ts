@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { MaterialModule } from '../../_modules/material.module';
 import { Client } from '../../_environments/client';
-import { CompetitionService } from '../../competitions/competition.service';
+import { CompetitionService } from '../competition.service';
 
 @Component({
   selector: 'app-competitions-page',

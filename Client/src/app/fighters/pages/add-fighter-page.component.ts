@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AddFighterComponent } from '../../fighters/components/add-fighter.component';
+import { AddFighterComponent } from '../components/add-fighter.component';
 import { MaterialModule } from '../../_modules/material.module';
 
 @Component({

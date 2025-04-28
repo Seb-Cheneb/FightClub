@@ -2,10 +2,10 @@ import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { MaterialModule } from '../../_modules/material.module';
-import { CompetitionDto } from '../../competitions/competition';
-import { CompetitionService } from '../../competitions/competition.service';
-import { EditCompetitionFightersComponent } from '../../competitions/components/edit-competition-fighters.component';
-import { EditCompetitionComponent } from '../../competitions/components/edit-competition.component';
+import { CompetitionDto } from '../competition';
+import { CompetitionService } from '../competition.service';
+import { EditCompetitionFightersComponent } from '../components/edit-competition-fighters.component';
+import { EditCompetitionComponent } from '../components/edit-competition.component';
 import { AddMatchComponent } from '../../matches/components/add-match.component';
 import { EditMatchComponent } from '../../matches/components/edit-match.component';
 import { MatchService } from '../../matches/match.service';

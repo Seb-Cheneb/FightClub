@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AddCompetitionComponent } from '../../competitions/components/add-competition.component';
+import { AddCompetitionComponent } from '../components/add-competition.component';
 
 @Component({
   selector: 'app-add-competition-page',

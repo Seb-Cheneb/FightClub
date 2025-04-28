@@ -2,8 +2,8 @@ import { Component, inject } from '@angular/core';
 import { MaterialModule } from '../../_modules/material.module';
 import { Router } from '@angular/router';
 import { Client } from '../../_environments/client';
-import { FighterDto } from '../../fighters/fighter';
-import { FighterService } from '../../fighters/fighter.service';
+import { FighterDto } from '../fighter';
+import { FighterService } from '../fighter.service';
 
 @Component({
   selector: 'app-fighter-page',

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { EditFighterComponent } from '../../fighters/components/edit-fighter.component';
+import { EditFighterComponent } from '../components/edit-fighter.component';
 
 @Component({
   selector: 'app-edit-fighter-page',
