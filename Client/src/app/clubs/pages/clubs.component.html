@@ -1,1 +1,5 @@
-<h5>{{ this.userId }}</h5>
+@if (!userHasClub) {
+<div class="m-1">
+  <button mat-stroked-button class="w-full">create club</button>
+</div>
+}
