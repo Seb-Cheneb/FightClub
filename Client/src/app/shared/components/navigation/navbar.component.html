@@ -5,13 +5,8 @@
   </button>
 
   @if (isLoggedIn) { @if (isModerator || isAdmin) {
-  <button mat-flat-button [matMenuTriggerFor]="clubs" class="ml-1">
-    Clubs
-  </button>
-  <mat-menu #clubs="matMenu">
-    <button mat-menu-item (click)="getHomePage()">View clubs</button>
-    <button mat-menu-item (click)="getHomePage()">Add clubs</button>
-  </mat-menu>
+
+  <button mat-flat-button (click)="getClubs()" class="ml-1">Clubs</button>
 
   <button mat-flat-button [matMenuTriggerFor]="fighters" class="ml-1">
     Fighters

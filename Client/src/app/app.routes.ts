@@ -45,6 +45,18 @@ export const routes: Routes = [
   },
   /** App logic*/
   {
+    path: 'clubs',
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        loadComponent: () =>
+          import('./clubs/pages/clubs.component').then((m) => m.ClubsComponent),
+        canActivate: [AuthGuard],
+      },
+    ],
+  },
+  {
     path: 'fighters',
     children: [
       {

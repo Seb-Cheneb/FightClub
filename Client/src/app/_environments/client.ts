@@ -22,6 +22,20 @@ export class Client {
   /** FEATURES
    **************************************/
   // FIGHTERS
+  static club: string = `${this.home}/clubs`;
+
+  static getClubs(): string {
+    return `${this.club}`;
+  }
+
+  static addClub(): string {
+    return `${this.club}/add`;
+  }
+
+  static editClub(id: string): string {
+    return `${this.club}/edit/${id}`;
+  }
+  // FIGHTERS
   static fighters: string = `${this.home}/fighters`;
 
   static getFighters(): string {
@@ -50,7 +64,4 @@ export class Client {
   static editCompetition(id: string): string {
     return `${this.competitions}/edit/${id}`;
   }
-
-  // MATCHES
-  static matches: string = `${this.home}/matches`;
 }

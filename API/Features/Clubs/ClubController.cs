@@ -60,34 +60,6 @@ public class ClubController : ControllerBase
     }
 
     [Authorize]
-    [HttpDelete("Delete")]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> Delete([FromQuery] string id)
-    {
-        try
-        {
-            var club = await _dataContext.Clubs.FindAsync(id);
-
-            if (club == null)
-            {
-                return NotFound();
-            }
-
-            _dataContext.Clubs.Remove(club);
-            await _dataContext.SaveChangesAsync();
-
-            return NoContent();
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(StatusCodes.Status500InternalServerError, ex);
-        }
-    }
-
-    [Authorize]
     [HttpGet("GetAll")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -175,6 +147,43 @@ public class ClubController : ControllerBase
     }
 
     [Authorize]
+    [HttpGet("GetByUserId")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> GetByUserId([FromQuery] string id)
+    {
+        try
+        {
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                return BadRequest("id is null");
+            }
+
+            var user = await _dataContext.AppUsers
+                .Include(i => i.Club)
+                .FirstOrDefaultAsync(i => i.Id == id);
+
+            if (user == null)
+            {
+                return BadRequest("user is null");
+            }
+
+            if (user.Club == null)
+            {
+                return BadRequest("user has no club");
+            }
+
+            return Ok(user.Club.CastToDto());
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, ex);
+        }
+    }
+
+    [Authorize]
     [HttpPut("Update")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -194,6 +203,34 @@ public class ClubController : ControllerBase
             await _dataContext.SaveChangesAsync();
 
             return Ok(data.CastToDto());
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, ex);
+        }
+    }
+
+    [Authorize]
+    [HttpDelete("Delete")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> Delete([FromQuery] string id)
+    {
+        try
+        {
+            var club = await _dataContext.Clubs.FindAsync(id);
+
+            if (club == null)
+            {
+                return NotFound();
+            }
+
+            _dataContext.Clubs.Remove(club);
+            await _dataContext.SaveChangesAsync();
+
+            return NoContent();
         }
         catch (Exception ex)
         {

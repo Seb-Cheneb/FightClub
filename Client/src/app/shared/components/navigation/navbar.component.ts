@@ -56,6 +56,10 @@ export class NavbarComponent {
     }, 200);
   }
 
+  getClubs() {
+    this._router.navigateByUrl(Client.getClubs());
+  }
+
   getFighters() {
     this._router.navigateByUrl(Client.getFighters());
   }

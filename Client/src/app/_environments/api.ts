@@ -9,6 +9,7 @@ export class API {
   static user: string = `${this.server}/api/User`;
 
   // APP
+  static club: string = `${this.server}/api/Club`;
   static fighter: string = `${this.server}/api/Fighter`;
   static competition: string = `${this.server}/api/Competition`;
   static match: string = `${this.server}/api/Match`;
