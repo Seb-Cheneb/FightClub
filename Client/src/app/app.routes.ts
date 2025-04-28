@@ -54,6 +54,15 @@ export const routes: Routes = [
           import('./clubs/pages/clubs.component').then((m) => m.ClubsComponent),
         canActivate: [AuthGuard],
       },
+      {
+        path: 'add/:id',
+        pathMatch: 'full',
+        loadComponent: () =>
+          import('./clubs/pages/club-add.component').then(
+            (m) => m.ClubAddComponent
+          ),
+        canActivate: [AuthGuard],
+      },
     ],
   },
   {
@@ -69,7 +78,7 @@ export const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
-        path: 'add',
+        path: 'add/:id',
         pathMatch: 'full',
         loadComponent: () =>
           import('./fighters/pages/add-fighter-page.component').then(

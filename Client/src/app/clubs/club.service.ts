@@ -74,13 +74,17 @@ export class ClubService {
   }
 
   private handleError(error: HttpErrorResponse): Observable<never> {
-    let errorMessage = 'Unknown error occurred';
-    if (error.error instanceof ErrorEvent) {
-      errorMessage = `CLIENT ERROR: ${error.error.message}`;
-    } else {
-      errorMessage = `SERVER ERROR: ${error.status}\n: ${error.message}`;
+    let errorMessage = '';
+
+    if (error.error) {
+      // If the backend sends a string or an object
+      errorMessage =
+        typeof error.error === 'string'
+          ? error.error
+          : JSON.stringify(error.error);
     }
-    console.error(errorMessage);
-    return throwError(() => new Error(errorMessage));
+
+    console.error(`Error status: ${error.status} ===> ${errorMessage}`);
+    return throwError(() => new Error(`${error.status}: ${errorMessage}`));
   }
 }

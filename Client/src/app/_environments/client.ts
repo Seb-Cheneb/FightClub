@@ -28,8 +28,8 @@ export class Client {
     return `${this.club}`;
   }
 
-  static addClub(): string {
-    return `${this.club}/add`;
+  static addClub(userId: string): string {
+    return `${this.club}/add/${userId}`;
   }
 
   static editClub(id: string): string {

@@ -1,1 +1,25 @@
-<p>club-add works!</p>
+<form
+  [formGroup]="form"
+  novalidate
+  (ngSubmit)="submit()"
+  class="flex flex-col p-2"
+>
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input matInput formControlName="name" />
+  </mat-form-field>
+
+  <div class="flex flex-col">
+    <button
+      mat-stroked-button
+      color="primary"
+      type="submit"
+      [disabled]="form.invalid"
+    >
+      Submit
+    </button>
+    <button mat-stroked-button type="button" (click)="cancel()" class="mt-1">
+      Cancel
+    </button>
+  </div>
+</form>

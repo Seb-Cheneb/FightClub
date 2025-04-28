@@ -37,7 +37,7 @@ export class ClubsComponent {
     });
   }
 
-  createClub() {
-    this._router.navigateByUrl(Client.addClub());
+  addClub() {
+    this._router.navigateByUrl(Client.addClub(this.userId));
   }
 }
