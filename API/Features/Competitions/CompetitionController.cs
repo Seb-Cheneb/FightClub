@@ -141,7 +141,6 @@ public class CompetitionController : ControllerBase
         }
     }
 
-    [Authorize]
     [HttpGet("GetAll")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -172,7 +171,6 @@ public class CompetitionController : ControllerBase
         }
     }
 
-    [Authorize]
     [HttpGet("GetAllById")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -201,7 +199,6 @@ public class CompetitionController : ControllerBase
         }
     }
 
-    [Authorize]
     [HttpGet("GetById")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

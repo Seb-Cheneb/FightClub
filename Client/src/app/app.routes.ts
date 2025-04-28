@@ -85,7 +85,7 @@ export const routes: Routes = [
           import('./competitions/pages/competitions-page.component').then(
             (m) => m.CompetitionsPageComponent
           ),
-        canActivate: [AuthGuard],
+        canActivate: [],
       },
       {
         path: 'add',
@@ -116,27 +116,6 @@ export const routes: Routes = [
       },
     ],
   },
-  // {
-  //   path: 'shifts',
-  //   children: [
-  //     {
-  //       path: 'add',
-  //       loadComponent: () =>
-  //         import('./components/employee-add.component').then(
-  //           (m) => m.EmployeeAddComponent
-  //         ),
-  //     },
-  //     {
-  //       path: 'list',
-  //       loadComponent: () =>
-  //         import('./components/employee-list.component').then(
-  //           (m) => m.EmployeeListComponent
-  //         ),
-  //     },
-  //   ],
-  //   canActivate: [AuthGuard],
-  // },
-  /** Errors */
   {
     path: '401',
     loadComponent: () =>

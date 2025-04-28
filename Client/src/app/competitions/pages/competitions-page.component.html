@@ -1,12 +1,25 @@
 @for (item of data; track $index) {
-<div class="m-4 hovering">
-    <mat-card appearance="outlined" (click)="getCompetitionPage(item.id)">
-        <mat-card-header>
-            <mat-card-title><b>{{item.name}}</b> [{{item.type}}]</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-            <p>{{item.description}}</p>
-        </mat-card-content>
-    </mat-card>
+<div class="m-1">
+  <mat-card appearance="outlined" (click)="getCompetitionPage(item.id)">
+    <mat-card-header>
+      <mat-card-title
+        ><b>{{ item.name }}</b>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>{{ item.description }}</p>
+    </mat-card-content>
+    @if ( isLoggedIn ) {
+    <mat-card-footer>
+      <mat-chip-set class="m-1">
+        @if (isAdmin) {
+        <mat-chip>Manage</mat-chip>
+        } @if (isAdmin || isModerator) {
+        <mat-chip>Add fighters</mat-chip>
+        }
+      </mat-chip-set>
+    </mat-card-footer>
+    }
+  </mat-card>
 </div>
 }

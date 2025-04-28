@@ -6,10 +6,6 @@ import { CompetitionDto } from '../competition';
 import { CompetitionService } from '../competition.service';
 import { EditCompetitionFightersComponent } from '../components/edit-competition-fighters.component';
 import { EditCompetitionComponent } from '../components/edit-competition.component';
-import { AddMatchComponent } from '../../matches/components/add-match.component';
-import { EditMatchComponent } from '../../matches/components/edit-match.component';
-import { MatchService } from '../../matches/match.service';
-import { AdminMatchPageComponent } from '../../matches/pages/admin-match-page.component';
 import { AdminBracketPageComponent } from '../../brackets/pages/admin-bracket-page.component';
 
 @Component({
@@ -17,8 +13,6 @@ import { AdminBracketPageComponent } from '../../brackets/pages/admin-bracket-pa
   imports: [
     MaterialModule,
     EditCompetitionComponent,
-    AddMatchComponent,
-    EditMatchComponent,
     EditCompetitionFightersComponent,
     AdminBracketPageComponent,
   ],

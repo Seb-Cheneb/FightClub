@@ -17,25 +17,5 @@
   <mat-tab label="Details">
     <app-edit-competition [id]="competitionId"></app-edit-competition>
   </mat-tab>
-
-  <!-- MATCHES -->
-  <mat-tab label="Matches">
-    <!-- add match -->
-    <div class="w-1-2 mx-auto my-1">
-      <app-add-match
-        [competitionId]="competitionId"
-        (matchCreatedSignal)="reloadCurrentRoute()"
-      ></app-add-match>
-    </div>
-    <!-- match entries  -->
-    @for (item of competition.matchIds; track $index) {
-    <div class="w-1-2 mx-auto my-1">
-      <app-edit-match
-        [id]="item"
-        (output)="reloadCurrentRoute()"
-      ></app-edit-match>
-    </div>
-    }
-  </mat-tab>
 </mat-tab-group>
 }

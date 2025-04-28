@@ -54,7 +54,6 @@ export class EditCompetitionComponent {
     this.form = this._formBuilder.group({
       id: new FormControl(this.id),
       name: new FormControl(''),
-      type: new FormControl(''),
       description: new FormControl(''),
       fighters: new FormControl(''),
       matches: new FormControl(''),
@@ -64,7 +63,6 @@ export class EditCompetitionComponent {
   updateForm(data: CompetitionDto) {
     this.form.patchValue({
       name: data.name,
-      type: data.type,
       description: data.description,
       fighters: data.fighterIds,
       matches: data.matchIds,
