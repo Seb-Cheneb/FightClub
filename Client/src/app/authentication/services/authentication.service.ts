@@ -19,6 +19,7 @@ export class AuthenticationService {
   private static readonly refreshToken = 'REFRESH_TOKEN';
   private static readonly expirationDate = 'EXPIRATION_DATE';
   private static readonly userId = 'USER_ID';
+  private static readonly role = 'ROLE';
 
   get jwt(): string {
     return sessionStorage.getItem(AuthenticationService.key) ?? '';
@@ -52,8 +53,24 @@ export class AuthenticationService {
     sessionStorage.setItem(AuthenticationService.userId, value);
   }
 
+  get role(): string {
+    return sessionStorage.getItem(AuthenticationService.role) ?? '';
+  }
+
+  private set role(value: string) {
+    sessionStorage.setItem(AuthenticationService.role, value);
+  }
+
   get isLoggedIn(): boolean {
     return !!this.jwt;
+  }
+
+  isModerator(): boolean {
+    return this.role === 'Moderator';
+  }
+
+  isAdmin(): boolean {
+    return this.role === 'Admin';
   }
 
   register(entity: RegistrationRequest): Observable<AuthenticationResponse> {
@@ -65,6 +82,7 @@ export class AuthenticationService {
           this.refreshToken = response.refreshToken;
           this.expirationDate = response.expirationDate;
           this.userId = response.userId;
+          this.role = response.role;
         }),
         map((response) => {
           return response;
@@ -82,6 +100,7 @@ export class AuthenticationService {
           this.refreshToken = response.refreshToken;
           this.expirationDate = response.expirationDate;
           this.userId = response.userId;
+          this.role = response.role;
         }),
         map((response) => {
           return response;
