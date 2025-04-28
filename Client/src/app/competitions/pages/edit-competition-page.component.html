@@ -1,5 +1,9 @@
 @if (competition) {
 <mat-tab-group>
+  <!-- COMPETITION DETAILS TAB -->
+  <mat-tab label="Details">
+    <app-edit-competition [id]="competitionId"></app-edit-competition>
+  </mat-tab>
   <mat-tab label="Bracket">
     <div class="">
       <app-admin-bracket-page
@@ -13,9 +17,5 @@
       [competitionId]="competitionId"
     ></app-edit-competition-fighters
   ></mat-tab>
-  <!-- COMPETITION DETAILS TAB -->
-  <mat-tab label="Details">
-    <app-edit-competition [id]="competitionId"></app-edit-competition>
-  </mat-tab>
 </mat-tab-group>
 }

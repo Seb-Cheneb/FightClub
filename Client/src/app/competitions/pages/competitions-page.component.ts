@@ -37,7 +37,11 @@ export class CompetitionsPageComponent {
     });
   }
 
-  getCompetitionPage(id: string) {
+  editCompetition(id: string) {
     this._router.navigateByUrl(Client.editCompetition(id));
+  }
+
+  addCompetition() {
+    this._router.navigateByUrl(Client.addCompetition());
   }
 }

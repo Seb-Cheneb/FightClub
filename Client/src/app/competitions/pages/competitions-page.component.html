@@ -1,6 +1,12 @@
-@for (item of data; track $index) {
+@if (isAdmin) {
 <div class="m-1">
-  <mat-card appearance="outlined" (click)="getCompetitionPage(item.id)">
+  <button mat-stroked-button class="w-full" (click)="addCompetition()">
+    New competition
+  </button>
+</div>
+} @for (item of data; track $index) {
+<div class="m-1">
+  <mat-card appearance="outlined">
     <mat-card-header>
       <mat-card-title
         ><b>{{ item.name }}</b>
@@ -13,7 +19,7 @@
     <mat-card-footer>
       <mat-chip-set class="m-1">
         @if (isAdmin) {
-        <mat-chip>Manage</mat-chip>
+        <mat-chip (click)="editCompetition(item.id)">Manage</mat-chip>
         } @if (isAdmin || isModerator) {
         <mat-chip>Add fighters</mat-chip>
         }

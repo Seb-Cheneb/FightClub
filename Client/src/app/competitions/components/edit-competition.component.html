@@ -15,7 +15,7 @@
   </mat-form-field>
 
   <button
-    mat-flat-button
+    mat-stroked-button
     color="primary"
     type="submit"
     [disabled]="form.invalid"
@@ -23,9 +23,9 @@
     Submit
   </button>
 
-  <button mat-flat-button type="button" (click)="back()" class="my-1">
+  <button mat-stroked-button type="button" (click)="back()" class="my-1">
     Cancel
   </button>
 
-  <button mat-raised-button type="button" (click)="delete(id())">Delete</button>
+  <button mat-flat-button type="button" (click)="delete(id())">Delete</button>
 </form>

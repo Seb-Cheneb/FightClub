@@ -1,37 +1,27 @@
 <mat-toolbar color="accent">
   <button mat-stroked-button (click)="getHomePage()">Home</button>
-  <button mat-stroked-button (click)="getCompetitions()" class="mx-1">
+  <button mat-stroked-button (click)="getCompetitions()" class="ml-1">
     Competitions
   </button>
 
-  @if (isLoggedIn) {
-  <button mat-button [matMenuTriggerFor]="fighters">Clubs</button>
-  <mat-menu #fighters="matMenu">
+  @if (isLoggedIn) { @if (isModerator || isAdmin) {
+  <button mat-flat-button [matMenuTriggerFor]="clubs" class="ml-1">
+    Clubs
+  </button>
+  <mat-menu #clubs="matMenu">
     <button mat-menu-item (click)="getHomePage()">View clubs</button>
     <button mat-menu-item (click)="getHomePage()">Add clubs</button>
   </mat-menu>
-  } @if (isLoggedIn) {
-  <button mat-button [matMenuTriggerFor]="fighters">Fighters</button>
+
+  <button mat-flat-button [matMenuTriggerFor]="fighters" class="ml-1">
+    Fighters
+  </button>
   <mat-menu #fighters="matMenu">
     <button mat-menu-item (click)="getFighters()">View fighters</button>
     <button mat-menu-item (click)="addFighter()">Add fighter</button>
   </mat-menu>
-  } @if (isLoggedIn) {
-  <button mat-button [matMenuTriggerFor]="fighters">Competitions</button>
-  <mat-menu #fighters="matMenu">
-    <button mat-menu-item [matMenuTriggerFor]="matches" (click)="getHomePage()">
-      Matches
-    </button>
-    <button mat-menu-item (click)="getCompetitions()">View competitions</button>
-    <button mat-menu-item (click)="addCompetition()">Add competition</button>
-  </mat-menu>
-
-  <mat-menu #matches="matMenu">
-    <button mat-menu-item (click)="getHomePage()">Add matches</button>
-  </mat-menu>
-  }
-
-  <button mat-raised-button [matMenuTriggerFor]="authentication">
+  } }
+  <button mat-raised-button [matMenuTriggerFor]="authentication" class="ml-1">
     Authentication
   </button>
   <mat-menu #authentication="matMenu">

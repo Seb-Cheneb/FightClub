@@ -15,6 +15,8 @@ import { AuthenticationService } from '../../../authentication/services/authenti
 })
 export class NavbarComponent {
   isLoggedIn: boolean = false;
+  isModerator: boolean = false;
+  isAdmin: boolean = false;
 
   private _authService = inject(AuthenticationService);
   private _router = inject(Router);
@@ -29,6 +31,8 @@ export class NavbarComponent {
 
   ngOnInit() {
     this.isLoggedIn = this._authService.isLoggedIn;
+    this.isModerator = this._authService.isModerator();
+    this.isAdmin = this._authService.isAdmin();
   }
 
   getHomePage() {
