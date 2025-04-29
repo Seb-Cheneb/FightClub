@@ -137,6 +137,15 @@ export const routes: Routes = [
           ),
         canActivate: [AdminGuard],
       },
+      {
+        path: 'club-page/:id',
+        pathMatch: 'full',
+        loadComponent: () =>
+          import('./competitions/pages/competition-club-page.component').then(
+            (m) => m.CompetitionClubPageComponent
+          ),
+        canActivate: [AdminGuard],
+      },
     ],
   },
   {

@@ -21,7 +21,9 @@
         @if (isAdmin) {
         <mat-chip (click)="editCompetition(item.id)">Manage</mat-chip>
         } @if (isAdmin || isModerator) {
-        <mat-chip>Add fighters</mat-chip>
+        <mat-chip (click)="manageCompetitionFighters(item.id)"
+          >Add fighters</mat-chip
+        >
         }
       </mat-chip-set>
     </mat-card-footer>

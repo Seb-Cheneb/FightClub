@@ -5,6 +5,7 @@ import { Client } from '../../_environments/client';
 import { CompetitionService } from '../competition.service';
 import { AuthenticationService } from '../../authentication/services/authentication.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { CompetitionDto } from '../competition';
 
 @Component({
   selector: 'app-competitions-page',
@@ -13,12 +14,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styles: ``,
 })
 export class CompetitionsPageComponent {
-  data: any;
+  data: CompetitionDto[] = [];
   isLoggedIn: boolean = false;
   isModerator: boolean = false;
   isAdmin: boolean = false;
 
-  private _service = inject(CompetitionService);
+  private _competitionService = inject(CompetitionService);
   private _authenticationService = inject(AuthenticationService);
   private _router = inject(Router);
   private _snackBar = inject(MatSnackBar);
@@ -31,7 +32,7 @@ export class CompetitionsPageComponent {
   }
 
   getData() {
-    this._service.getAll().subscribe({
+    this._competitionService.getAll().subscribe({
       next: (response) => (this.data = response),
       error: (error) => this._snackBar.open(error, 'close'),
     });
@@ -43,5 +44,9 @@ export class CompetitionsPageComponent {
 
   addCompetition() {
     this._router.navigateByUrl(Client.addCompetition());
+  }
+
+  manageCompetitionFighters(competitionId: string) {
+    this._router.navigateByUrl(Client.manageCompetitionFighters(competitionId));
   }
 }

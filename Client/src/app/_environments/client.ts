@@ -64,4 +64,8 @@ export class Client {
   static editCompetition(id: string): string {
     return `${this.competitions}/edit/${id}`;
   }
+
+  static manageCompetitionFighters(id: string): string {
+    return `${this.competitions}/club-page/${id}`;
+  }
 }

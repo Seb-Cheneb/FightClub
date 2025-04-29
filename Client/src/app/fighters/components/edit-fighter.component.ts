@@ -78,6 +78,6 @@ export class EditFighterComponent {
   }
 
   return() {
-    this._router.navigateByUrl(Client.getFighters());
+    this._router.navigateByUrl(Client.getClubs());
   }
 }
