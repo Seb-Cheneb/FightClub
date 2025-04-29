@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { Client } from '../../_environments/client';
 import { MaterialModule } from '../../_modules/material.module';
 import { FighterService } from '../fighter.service';
+import { FighterDto } from '../fighter';
 @Component({
   selector: 'app-add-fighter',
   imports: [MaterialModule, ReactiveFormsModule],
@@ -17,6 +18,7 @@ import { FighterService } from '../fighter.service';
 })
 export class AddFighterComponent {
   clubId = input.required<string>();
+  output = output<FighterDto>();
 
   form!: FormGroup;
 
@@ -43,12 +45,8 @@ export class AddFighterComponent {
   submit() {
     if (this.form.valid) {
       this._service.add(this.form.value).subscribe({
-        next: () => {
-          this.openSnackBar('Added entry successfully.', 'Close');
-        },
-        error: (e) => {
-          console.error('Oops, got the following error:', e);
-        },
+        next: (r) => this.output.emit(r),
+        error: (e) => this._snackBar.open(e, 'close'),
       });
     }
   }

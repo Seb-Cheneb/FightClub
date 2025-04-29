@@ -1,3 +1,4 @@
+import { ClubDto } from '../clubs/club';
 import { Page } from '../shared/models/page';
 
 export interface CreateFighterDto {
@@ -5,7 +6,7 @@ export interface CreateFighterDto {
   gender: string;
   birthDate: string;
   weight: number;
-  club: string;
+  clubId: string;
   rank: string;
 }
 

@@ -1,1 +1,19 @@
-<app-add-fighter [clubId]="this.clubId"></app-add-fighter>
+<div class="mt-1">
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title> Add a new fighter </mat-panel-title>
+      </mat-expansion-panel-header>
+      <app-add-fighter
+        [clubId]="this.clubId"
+        (output)="changeDetected()"
+      ></app-add-fighter>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+<div class="mt-1">
+  <app-club-fighters
+    [clubId]="this.clubId"
+    [changesReceiver]="refreshCounter"
+  ></app-club-fighters>
+</div>

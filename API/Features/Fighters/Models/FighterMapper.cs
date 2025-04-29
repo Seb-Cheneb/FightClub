@@ -35,7 +35,6 @@ public static class FighterMapper
     {
         instance.Name = request.Name ?? instance.Name;
         instance.Gender = request.Gender ?? instance.Gender;
-        //instance.Club = request.Club ?? instance.Club;
         instance.Rank = request.Rank ?? instance.Rank;
     }
 }

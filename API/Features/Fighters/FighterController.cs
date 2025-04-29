@@ -20,7 +20,7 @@ public class FighterController : ControllerBase
         _dataContext = context;
     }
 
-    [Authorize(Roles = "User")]
+    [Authorize]
     [HttpPost("Add")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -70,6 +70,7 @@ public class FighterController : ControllerBase
         {
             var output = await _dataContext.Fighters
                 .Include(i => i.Competitions)
+                .Include(i => i.Club)
                 .ToListAsync();
 
             if (output.Count == 0)
@@ -99,6 +100,7 @@ public class FighterController : ControllerBase
         {
             var output = await _dataContext.Fighters
                 .Include(i => i.Competitions)
+                .Include(i => i.Club)
                 .Where(i => ids.Contains(i.Id ?? "NULL"))
                 .ToListAsync();
 
@@ -130,6 +132,7 @@ public class FighterController : ControllerBase
         {
             var output = await _dataContext.Fighters
                 .Include(i => i.Competitions)
+                .Include(i => i.Club)
                 .FirstOrDefaultAsync(i => i.Id == id);
 
             if (output is null)

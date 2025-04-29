@@ -9,7 +9,7 @@ export interface CreateClubDto {
 export interface ClubDto {
   id: string;
   appUserId: string;
-  clubName: string;
+  name: string;
   fighters: FighterDto[];
 }
 export interface ShiftPage extends Page<ClubDto> {}
