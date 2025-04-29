@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -16,7 +16,9 @@ import { FighterService } from '../fighter.service';
   templateUrl: './add-fighter.component.html',
 })
 export class AddFighterComponent {
-  public form!: FormGroup;
+  clubId = input.required<string>();
+
+  form!: FormGroup;
 
   private _service = inject(FighterService);
   private _formBuilder = inject(FormBuilder);
@@ -24,16 +26,16 @@ export class AddFighterComponent {
   private _snackBar = inject(MatSnackBar);
 
   ngOnInit() {
-    this.createForm();
+    this.createForm(this.clubId());
   }
 
-  createForm() {
+  createForm(clubId: string) {
     this.form = this._formBuilder.group({
       name: new FormControl(''),
       gender: new FormControl(''),
       birthDate: new FormControl(''),
       weight: new FormControl(''),
-      club: new FormControl(''),
+      clubId: new FormControl(clubId),
       rank: new FormControl(''),
     });
   }

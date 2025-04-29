@@ -42,6 +42,6 @@ export class ClubsComponent {
   }
 
   editClub() {
-    this._router.navigateByUrl(Client.editClub(this.userId));
+    this._router.navigateByUrl(Client.editClub(this.userClub.id));
   }
 }

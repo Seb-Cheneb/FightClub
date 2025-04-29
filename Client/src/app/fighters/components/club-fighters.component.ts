@@ -3,9 +3,9 @@ import { Component, input } from '@angular/core';
 @Component({
   selector: 'app-get-all-fighter',
   imports: [],
-  templateUrl: './get-all-fighter.component.html',
+  templateUrl: './club-fighters.component.html',
   styles: ``,
 })
-export class GetAllFighterComponent {
+export class ClubFightersComponent {
   //id = input.string();
 }
