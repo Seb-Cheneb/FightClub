@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from './_guards/auth.guard';
 import { AdminGuard } from './_guards/admin.guard';
+import { ModeratorGuard } from './_guards/moderator.guard';
 
 export const routes: Routes = [
   /** Home */
@@ -52,7 +53,7 @@ export const routes: Routes = [
         pathMatch: 'full',
         loadComponent: () =>
           import('./clubs/pages/clubs.component').then((m) => m.ClubsComponent),
-        canActivate: [AuthGuard],
+        canActivate: [ModeratorGuard],
       },
       {
         path: 'add/:id',
@@ -61,7 +62,16 @@ export const routes: Routes = [
           import('./clubs/pages/club-add.component').then(
             (m) => m.ClubAddComponent
           ),
-        canActivate: [AuthGuard],
+        canActivate: [ModeratorGuard],
+      },
+      {
+        path: 'edit/:id',
+        pathMatch: 'full',
+        loadComponent: () =>
+          import('./clubs/pages/club-edit.component').then(
+            (m) => m.ClubEditComponent
+          ),
+        canActivate: [ModeratorGuard],
       },
     ],
   },

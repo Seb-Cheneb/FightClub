@@ -8,4 +8,9 @@
 
 <mat-card>
   <mat-card-content>test {{ userClub.clubName }}</mat-card-content>
+  <mat-card-footer>
+    <mat-chip-set class="m-1">
+      <mat-chip (click)="editClub()">Manage</mat-chip>
+    </mat-chip-set>
+  </mat-card-footer>
 </mat-card>

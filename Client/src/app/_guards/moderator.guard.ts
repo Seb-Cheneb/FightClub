@@ -14,7 +14,8 @@ export class ModeratorGuard implements CanActivate {
   canActivate(): boolean {
     if (
       this._authenticationService.isLoggedIn &&
-      this._authenticationService.isModerator()
+      (this._authenticationService.isModerator() ||
+        this._authenticationService.isAdmin())
     ) {
       return true;
     } else {

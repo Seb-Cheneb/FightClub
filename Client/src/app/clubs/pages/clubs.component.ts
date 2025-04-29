@@ -40,4 +40,8 @@ export class ClubsComponent {
   addClub() {
     this._router.navigateByUrl(Client.addClub(this.userId));
   }
+
+  editClub() {
+    this._router.navigateByUrl(Client.editClub(this.userId));
+  }
 }
