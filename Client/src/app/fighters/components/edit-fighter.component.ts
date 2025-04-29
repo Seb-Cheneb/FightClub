@@ -50,7 +50,6 @@ export class EditFighterComponent {
       gender: new FormControl(''),
       birthdate: new FormControl(''),
       weight: new FormControl(''),
-      club: new FormControl(''),
       rank: new FormControl(''),
     });
   }
@@ -61,7 +60,6 @@ export class EditFighterComponent {
       gender: data.gender,
       birthdate: data.birthdate,
       weight: data.weight,
-      club: data.club,
       rank: data.rank,
     });
   }

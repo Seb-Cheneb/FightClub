@@ -199,20 +199,16 @@ public class FighterController : ControllerBase
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> Update([FromBody] FighterDto request)
     {
-        var logMethod = "Update";
-        _logger.LogInformation($"{logMethod} :: Received request");
-
         try
         {
             var data = await _dataContext.Fighters
                 .Include(i => i.Competitions)
+                .Include(i => i.Club)
                 .FirstOrDefaultAsync(i => i.Id == request.Id);
 
             if (data == null)
             {
-                var logMessage = $"{logMethod} :: No entry found";
-                _logger.LogWarning(logMessage);
-                return NotFound(logMessage);
+                return NotFound("fighter is null");
             }
 
             data.Update(request);
@@ -221,15 +217,11 @@ public class FighterController : ControllerBase
 
             await _dataContext.SaveChangesAsync();
 
-            _logger.LogInformation($"{logMethod} :: Request successful");
-
             return Ok(data.CastToDto());
         }
         catch (Exception ex)
         {
-            var logMessage = $"{logMethod} :: Error while processing request";
-            _logger.LogError(ex, logMessage);
-            return StatusCode(StatusCodes.Status500InternalServerError, logMessage);
+            return StatusCode(StatusCodes.Status500InternalServerError, ex);
         }
     }
 }

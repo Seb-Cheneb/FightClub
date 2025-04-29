@@ -54,8 +54,4 @@ export class AddFighterComponent {
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action);
   }
-
-  cancel() {
-    this._router.navigateByUrl(Client.getFighters());
-  }
 }

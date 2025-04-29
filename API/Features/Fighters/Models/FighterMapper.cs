@@ -36,5 +36,7 @@ public static class FighterMapper
         instance.Name = request.Name ?? instance.Name;
         instance.Gender = request.Gender ?? instance.Gender;
         instance.Rank = request.Rank ?? instance.Rank;
+        instance.Weight = request.Weight;
+        instance.Birthdate = request.Birthdate;
     }
 }
