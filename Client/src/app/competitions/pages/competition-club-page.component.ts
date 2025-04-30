@@ -24,10 +24,16 @@ export class CompetitionClubPageComponent {
   club!: ClubDto;
 
   fighters: FighterDto[] = [];
-  competitionFighters: FighterDto[] = [];
 
-  fighterTable: string[] = ['add', 'name', 'gender', 'weight', 'rank', 'club'];
-  competitionFighterTable: string[] = ['name', 'club', 'remove'];
+  fighterTable: string[] = [
+    'name',
+    'gender',
+    'weight',
+    'rank',
+    'competition',
+    'kumite',
+    'kata',
+  ];
 
   private _snackBar = inject(MatSnackBar);
   private _activatedRoute = inject(ActivatedRoute);
@@ -75,33 +81,33 @@ export class CompetitionClubPageComponent {
     });
   }
 
-  addFighter(fighterId: string) {
-    this._competitionService
-      .addFighter(this.competitionId(), fighterId)
-      .subscribe({
-        next: () => {
-          const fighter = this.fighters.find((i) => i.id == fighterId);
-          if (
-            fighter &&
-            !this.competitionFighters.some((f) => f.id == fighter.id)
-          ) {
-            this.competitionFighters = [...this.competitionFighters, fighter];
-          }
-        },
-        error: (error) => this._snackBar.open(error, 'close'),
-      });
-  }
+  // addFighter(fighterId: string) {
+  //   this._competitionService
+  //     .addFighter(this.competitionId(), fighterId)
+  //     .subscribe({
+  //       next: () => {
+  //         const fighter = this.fighters.find((i) => i.id == fighterId);
+  //         if (
+  //           fighter &&
+  //           !this.competitionFighters.some((f) => f.id == fighter.id)
+  //         ) {
+  //           this.competitionFighters = [...this.competitionFighters, fighter];
+  //         }
+  //       },
+  //       error: (error) => this._snackBar.open(error, 'close'),
+  //     });
+  // }
 
-  removeFighter(fighterId: string) {
-    this._competitionService
-      .removeFighter(this.competitionId(), fighterId)
-      .subscribe({
-        next: () => {
-          this.competitionFighters = this.competitionFighters.filter(
-            (f) => f.id !== fighterId
-          );
-        },
-        error: (error) => this._snackBar.open(error, 'close'),
-      });
-  }
+  // removeFighter(fighterId: string) {
+  //   this._competitionService
+  //     .removeFighter(this.competitionId(), fighterId)
+  //     .subscribe({
+  //       next: () => {
+  //         this.competitionFighters = this.competitionFighters.filter(
+  //           (f) => f.id !== fighterId
+  //         );
+  //       },
+  //       error: (error) => this._snackBar.open(error, 'close'),
+  //     });
+  // }
 }

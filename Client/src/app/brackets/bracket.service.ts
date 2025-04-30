@@ -138,6 +138,29 @@ export class BracketService {
       );
   }
 
+  isFighterEnrolledInKata(
+    competitionId: string,
+    fighterId: string
+  ): Observable<boolean> {
+    const api: string = `IfFighterEnrolledInKata&competitionId=${competitionId}&fighterId=${fighterId}`;
+    return this.http.get<boolean>(`${this.baseUrl}/${api}`).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  isFighterEnrolledInKumite(): Observable<boolean> {
+    const api: string = 'IfFighterEnrolledInKumite';
+    return this.http.get<boolean>(`${this.baseUrl}/${api}`).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError(this.handleError)
+    );
+  }
+
   private handleError(error: HttpErrorResponse): Observable<never> {
     let errorMessage = '';
 

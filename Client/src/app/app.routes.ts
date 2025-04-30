@@ -88,15 +88,6 @@ export const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
-        path: 'add/:id',
-        pathMatch: 'full',
-        loadComponent: () =>
-          import('./fighters/pages/add-fighter-page.component').then(
-            (m) => m.AddFighterPageComponent
-          ),
-        canActivate: [AuthGuard],
-      },
-      {
         path: 'edit/:id',
         pathMatch: 'full',
         loadComponent: () =>

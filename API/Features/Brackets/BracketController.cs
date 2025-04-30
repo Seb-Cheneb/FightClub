@@ -3,6 +3,7 @@ using API.Features.Brackets.Models;
 using API.Features.Competitions;
 using API.Features.Competitions.Models;
 using API.Persistence;
+using Azure.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -45,7 +46,7 @@ public class BracketController : ControllerBase
 
             if (competition == null)
             {
-                return BadRequest("The competition provided null");
+                return BadRequest("The brackets provided null");
             }
 
             var match = BracketMapper.CreateModel(request);
@@ -85,7 +86,7 @@ public class BracketController : ControllerBase
 
             if (bracket.Fighters.Contains(fighter))
             {
-                return BadRequest("Fighter already enrolled in bracket");
+                return BadRequest("Fighter already enrolled in brackets");
             }
 
             bracket.Fighters.Add(fighter);
@@ -262,12 +263,12 @@ public class BracketController : ControllerBase
 
             if (fighter == null)
             {
-                return BadRequest("Fighter isn't enrolled in bracket");
+                return BadRequest("Fighter isn't enrolled in brackets");
             }
 
             if (!bracket.Fighters.Any(i => i.Id == fighterId))
             {
-                return BadRequest("Fighter isn't enrolled in bracket");
+                return BadRequest("Fighter isn't enrolled in brackets");
             }
 
             bracket.Fighters.Remove(fighter);
@@ -305,14 +306,14 @@ public class BracketController : ControllerBase
 
             if (bracket == null)
             {
-                return NotFound("could not find the bracket");
+                return NotFound("could not find the brackets");
             }
 
             var positionToRemove = bracket.Positions.FirstOrDefault(i => i.Key == position);
 
             if (positionToRemove == null)
             {
-                return NotFound($"Position {position} not found in bracket {bracketId}.");
+                return NotFound($"Position {position} not found in brackets {bracketId}.");
             }
 
             bracket.Positions.Remove(positionToRemove);
@@ -351,7 +352,7 @@ public class BracketController : ControllerBase
 
             if (bracket == null)
             {
-                _logger.LogError($"Did not find bracket with id: {bracketId}");
+                _logger.LogError($"Did not find brackets with id: {bracketId}");
                 return NotFound();
             }
 
@@ -379,7 +380,7 @@ public class BracketController : ControllerBase
             await _dataContext.SaveChangesAsync();
 
             var response = bracket.CastToDto();
-            _logger.LogInformation($"Succesfully retrieved the bracket when setting the position");
+            _logger.LogInformation($"Succesfully retrieved the brackets when setting the position");
             return Ok(bracket.CastToDto());
         }
         catch (Exception ex)
@@ -460,12 +461,106 @@ public class BracketController : ControllerBase
 
             if (!bracketStatus)
             {
-                return BadRequest($"Failed to add fighter '{fighter.Name}' to bracket '{bracketType}'.");
+                return BadRequest($"Failed to add fighter '{fighter.Name}' to brackets '{bracketType}'.");
             }
 
             await _dataContext.SaveChangesAsync();
 
             return Ok(competition.CastToDto());
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred: {ex.Message}");
+        }
+    }
+
+    [Authorize]
+    [HttpGet("IsFighterEnrolledInKata")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public async Task<IActionResult> IsFighterEnrolledInKata(
+        [FromQuery] string competitionId,
+        [FromQuery] string fighterId)
+    {
+        try
+        {
+            var brackets = await _dataContext.Brackets
+                .Include(i => i.Fighters)
+                .Where(i => i.CompetitionId == competitionId)
+                .ToListAsync();
+
+            if (brackets == null)
+            {
+                return NotFound("No brackets found for the specified competition");
+            }
+
+            var fighter = await _dataContext.Fighters.FirstOrDefaultAsync(i => i.Id == fighterId);
+
+            if (fighter == null)
+            {
+                return NotFound("No fighter found");
+            }
+
+            foreach (var bracket in brackets)
+            {
+                if (bracket.Fighters.Contains(fighter))
+                {
+                    if (bracket.Name != null && bracket.Name.StartsWith("Kata"))
+                    {
+                        return Ok(true);
+                    }
+                }
+            }
+
+            return Ok(false);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred: {ex.Message}");
+        }
+    }
+
+    [Authorize]
+    [HttpGet("IsFighterEnrolledInKumite")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public async Task<IActionResult> IsFighterEnrolledInKumite(
+        [FromQuery] string competitionId,
+        [FromQuery] string fighterId)
+    {
+        try
+        {
+            var brackets = await _dataContext.Brackets
+                .Include(i => i.Fighters)
+                .Where(i => i.CompetitionId == competitionId)
+                .ToListAsync();
+
+            if (brackets == null)
+            {
+                return NotFound("No brackets found for the specified competition");
+            }
+
+            var fighter = await _dataContext.Fighters.FirstOrDefaultAsync(i => i.Id == fighterId);
+
+            if (fighter == null)
+            {
+                return NotFound("No fighter found");
+            }
+
+            foreach (var bracket in brackets)
+            {
+                if (bracket.Fighters.Contains(fighter))
+                {
+                    if (bracket.Name != null && bracket.Name.StartsWith("Kumite"))
+                    {
+                        return Ok(true);
+                    }
+                }
+            }
+
+            return Ok(false);
         }
         catch (Exception ex)
         {
