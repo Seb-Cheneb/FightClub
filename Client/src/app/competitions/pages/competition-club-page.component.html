@@ -1,6 +1,6 @@
-@if (club) {
+@if (clubFighters) {
 <div class="w-2-3 m-1">
-  <table mat-table [dataSource]="club.fighters" class="mat-elevation-z8">
+  <table mat-table [dataSource]="clubFighters" class="mat-elevation-z8">
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef>Name</th>
       <td mat-cell *matCellDef="let element">{{ element.name }}</td>
@@ -23,7 +23,9 @@
 
     <ng-container matColumnDef="competition">
       <th mat-header-cell *matHeaderCellDef>competition</th>
-      <td mat-cell *matCellDef="let element">{{ element.competition }}</td>
+      <td mat-cell *matCellDef="let element">
+        {{ isFighterInCompetition(element) }}
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="kumite">

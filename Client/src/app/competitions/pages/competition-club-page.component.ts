@@ -9,6 +9,8 @@ import { MaterialModule } from '../../_modules/material.module';
 import { AuthenticationService } from '../../authentication/services/authentication.service';
 import { ClubDto } from '../../clubs/club';
 import { ClubService } from '../../clubs/club.service';
+import { BracketDto } from '../../brackets/bracket';
+import { BracketService } from '../../brackets/bracket.service';
 
 @Component({
   selector: 'app-competition-club-page',
@@ -17,12 +19,10 @@ import { ClubService } from '../../clubs/club.service';
   styles: ``,
 })
 export class CompetitionClubPageComponent {
-  userId!: string;
-  club!: ClubDto;
   competitionId!: string;
-  competition!: CompetitionDto;
-
-  inCompetition: boolean = false;
+  clubFighters: FighterDto[] = [];
+  competitionFighters: FighterDto[] = [];
+  brackets: BracketDto[] = [];
 
   fighterTable: string[] = [
     'name',
@@ -36,36 +36,52 @@ export class CompetitionClubPageComponent {
 
   private _snackBar = inject(MatSnackBar);
   private _activatedRoute = inject(ActivatedRoute);
-  private _competitionService = inject(CompetitionService);
   private _authService = inject(AuthenticationService);
+  private _bracketService = inject(BracketService);
   private _clubService = inject(ClubService);
+  private _competitionService = inject(CompetitionService);
+  private _fighterService = inject(FighterService);
 
   ngOnInit() {
-    this.userId = this._authService.userId;
     this.competitionId = String(
       this._activatedRoute.snapshot.paramMap.get('id')
     );
 
-    if (this.userId) {
-      this._clubService.getByUserId(this.userId).subscribe({
-        next: (r) => {
-          this.club = r;
-          console.info(`loaded the following club`, this.club);
-        },
-        error: (e) => this._snackBar.open(e, 'close'),
-      });
-    } else {
-      console.warn(`user id not set`);
-    }
+    this._clubService.getByUserId(this._authService.userId).subscribe({
+      next: (r) => (this.clubFighters = r.fighters),
+      error: (e) => this._snackBar.open(e, 'close'),
+    });
 
-    if (this.competitionId) {
-      this._competitionService.getById(this.competitionId).subscribe({
-        next: (r) => (this.competition = r),
-        error: (e) => this._snackBar.open(e, 'close'),
-      });
-    } else {
-      console.warn(`competition id not set`);
+    this._competitionService.getById(this.competitionId).subscribe({
+      next: (competition) => {
+        this._fighterService.getAllById(competition.fighterIds).subscribe({
+          next: (r) => (this.competitionFighters = r),
+          error: (e) => this._snackBar.open(e, 'close'),
+        });
+        this._bracketService.getAllById(competition.bracketIds).subscribe({
+          next: (r) => (this.brackets = r),
+          error: (e) => this._snackBar.open(e, 'close'),
+        });
+      },
+      error: (e) => this._snackBar.open(e, 'close'),
+    });
+  }
+
+  isFighterInCompetition(fighter: FighterDto): boolean {
+    for (const element of this.competitionFighters) {
+      if (element === fighter) {
+        return true;
+      }
     }
+    return false;
+  }
+
+  addFighterToCompetition(fighterId: string) {
+    this._competitionService
+      .addFighter(this.competitionId, fighterId)
+      .subscribe({
+        next: () => {},
+      });
   }
 
   // isFighterInCompetition(id: string) {
@@ -76,17 +92,6 @@ export class CompetitionClubPageComponent {
   //       error: (e) => this._snackBar.open(e, 'close'),
   //     });
   // }
-
-  async isFighterInCompetition(id: string): Promise<boolean> {
-    try {
-      return await this._competitionService
-        .isFighterInCompetition(this.competitionId, id)
-        .toPromise();
-    } catch (e) {
-      console.error(e);
-      return false;
-    }
-  }
 
   // addFighter(fighterId: string) {
   //   this._competitionService
