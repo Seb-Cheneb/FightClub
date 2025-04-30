@@ -2,6 +2,17 @@
   <mat-accordion>
     <mat-expansion-panel>
       <mat-expansion-panel-header>
+        <mat-panel-title> Edit club details </mat-panel-title>
+      </mat-expansion-panel-header>
+      <app-club-update [clubId]="this.clubId"></app-club-update>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+
+<div class="mt-1">
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
         <mat-panel-title> Add a new fighter </mat-panel-title>
       </mat-expansion-panel-header>
       <app-add-fighter

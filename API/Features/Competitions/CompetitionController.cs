@@ -317,4 +317,44 @@ public class CompetitionController : ControllerBase
             return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred: {ex.Message}");
         }
     }
+
+    [Authorize]
+    [HttpGet("IsFighterInCompetition")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public async Task<IActionResult> IsFighterInCompetition(
+    [FromQuery] string competitionId,
+    [FromQuery] string fighterId)
+    {
+        try
+        {
+            var competition = await _dataContext.Competitions
+                .Include(i => i.Fighters)
+                .FirstOrDefaultAsync(i => i.Id == competitionId);
+
+            if (competition == null)
+            {
+                return NotFound("No competition found");
+            }
+
+            var fighter = await _dataContext.Fighters.FirstOrDefaultAsync(i => i.Id == fighterId);
+
+            if (fighter == null)
+            {
+                return NotFound("No fighter found");
+            }
+
+            if (competition.Fighters.Contains(fighter))
+            {
+                return Ok(true);
+            }
+
+            return Ok(false);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred: {ex.Message}");
+        }
+    }
 }

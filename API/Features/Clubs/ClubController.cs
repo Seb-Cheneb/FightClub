@@ -38,12 +38,12 @@ public class ClubController : ControllerBase
 
             if (user == null)
             {
-                return BadRequest("The user is null");
+                return BadRequest("The club is null");
             }
 
             if (user.Club != null)
             {
-                return BadRequest("The user already has a club");
+                return BadRequest("The club already has a club");
             }
 
             var club = ClubMapper.CreateModel(request);
@@ -162,21 +162,16 @@ public class ClubController : ControllerBase
                 return BadRequest("id is null");
             }
 
-            var user = await _dataContext.AppUsers
-                .Include(i => i.Club)
-                .FirstOrDefaultAsync(i => i.Id == id);
+            var club = await _dataContext.Clubs
+                .Include(club => club.Fighters)
+                .FirstOrDefaultAsync(e => e.AppUserId == id);
 
-            if (user == null)
+            if (club == null)
             {
-                return BadRequest("user is null");
+                return BadRequest("club has no club");
             }
 
-            if (user.Club == null)
-            {
-                return BadRequest("user has no club");
-            }
-
-            return Ok(user.Club.CastToDto());
+            return Ok(club.CastToDto());
         }
         catch (Exception ex)
         {
@@ -189,21 +184,22 @@ public class ClubController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<IActionResult> Update([FromBody] ClubDto request)
+    public async Task<IActionResult> Update([FromQuery] string clubId, string name)
     {
         try
         {
-            var data = await _dataContext.Clubs.FindAsync(request.Id);
+            var club = await _dataContext.Clubs.FindAsync(clubId);
 
-            if (data == null)
+            if (club == null)
             {
-                return NotFound();
+                return NotFound($"no clubs found with id: {clubId}");
             }
 
-            data.Update(request);
+            club.Name = name;
+
             await _dataContext.SaveChangesAsync();
 
-            return Ok(data.CastToDto());
+            return Ok(club.CastToDto());
         }
         catch (Exception ex)
         {

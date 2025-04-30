@@ -142,7 +142,7 @@ export class BracketService {
     competitionId: string,
     fighterId: string
   ): Observable<boolean> {
-    const api: string = `IfFighterEnrolledInKata&competitionId=${competitionId}&fighterId=${fighterId}`;
+    const api: string = `IsFighterEnrolledInKata&competitionId=${competitionId}&fighterId=${fighterId}`;
     return this.http.get<boolean>(`${this.baseUrl}/${api}`).pipe(
       map((response) => {
         return response;
@@ -151,8 +151,11 @@ export class BracketService {
     );
   }
 
-  isFighterEnrolledInKumite(): Observable<boolean> {
-    const api: string = 'IfFighterEnrolledInKumite';
+  isFighterEnrolledInKumite(
+    competitionId: string,
+    fighterId: string
+  ): Observable<boolean> {
+    const api: string = `IsFighterEnrolledInKumite&competitionId=${competitionId}&fighterId=${fighterId}`;
     return this.http.get<boolean>(`${this.baseUrl}/${api}`).pipe(
       map((response) => {
         return response;

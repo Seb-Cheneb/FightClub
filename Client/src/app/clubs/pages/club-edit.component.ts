@@ -3,10 +3,16 @@ import { ActivatedRoute } from '@angular/router';
 import { AddFighterComponent } from '../../fighters/components/add-fighter.component';
 import { ClubFightersComponent } from '../components/club-fighters.component';
 import { MaterialModule } from '../../_modules/material.module';
+import { ClubUpdateComponent } from '../components/club-update.component';
 
 @Component({
   selector: 'app-club-edit',
-  imports: [AddFighterComponent, ClubFightersComponent, MaterialModule],
+  imports: [
+    AddFighterComponent,
+    ClubFightersComponent,
+    MaterialModule,
+    ClubUpdateComponent,
+  ],
   templateUrl: './club-edit.component.html',
   styles: ``,
 })

@@ -99,6 +99,19 @@ export class CompetitionService {
       );
   }
 
+  isFighterInCompetition(
+    competitionId: string,
+    fighterId: string
+  ): Observable<boolean> {
+    const api: string = `IsFighterInCompetition&competitionId=${competitionId}&fighterId=${fighterId}`;
+    return this.http.get<boolean>(`${this.baseUrl}/${api}`).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError(this.handleError)
+    );
+  }
+
   private handleError(error: HttpErrorResponse): Observable<never> {
     let errorMessage = '';
 

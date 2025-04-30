@@ -6,32 +6,7 @@
 >
   <mat-form-field>
     <mat-label>name</mat-label>
-    <input matInput formControlName="name" />
-  </mat-form-field>
-
-  <mat-form-field>
-    <mat-label>gender</mat-label>
-    <input matInput formControlName="gender" />
-  </mat-form-field>
-
-  <mat-form-field>
-    <mat-label>birth date</mat-label>
-    <input matInput [matDatepicker]="datePicker" formControlName="birthdate" />
-    <mat-datepicker-toggle
-      matIconSuffix
-      [for]="datePicker"
-    ></mat-datepicker-toggle>
-    <mat-datepicker #datePicker></mat-datepicker>
-  </mat-form-field>
-
-  <mat-form-field>
-    <mat-label>weight</mat-label>
-    <input matInput formControlName="weight" />
-  </mat-form-field>
-
-  <mat-form-field>
-    <mat-label>rank</mat-label>
-    <input matInput formControlName="rank" />
+    <input matInput formControlName="name" required />
   </mat-form-field>
 
   <div class="flex flex-col">
@@ -41,10 +16,7 @@
       type="submit"
       [disabled]="form.invalid"
     >
-      Submit
-    </button>
-    <button class="mt-1" mat-stroked-button type="button" (click)="return()">
-      Cancel
+      Update
     </button>
   </div>
 </form>

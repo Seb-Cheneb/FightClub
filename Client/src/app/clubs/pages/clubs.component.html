@@ -4,8 +4,7 @@
     create club
   </button>
 </div>
-}
-
+} @if (userClub) {
 <mat-card>
   <mat-card-content>{{ userClub.name }}</mat-card-content>
   <mat-card-footer>
@@ -14,3 +13,5 @@
     </mat-chip-set>
   </mat-card-footer>
 </mat-card>
+
+}

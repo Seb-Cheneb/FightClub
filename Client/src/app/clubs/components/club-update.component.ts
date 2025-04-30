@@ -5,7 +5,6 @@ import {
   FormGroup,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { FighterService } from '../../fighters/fighter.service';
 import { ClubService } from '../club.service';
 import { Router } from '@angular/router';
 import { MaterialModule } from '../../_modules/material.module';
@@ -23,7 +22,6 @@ export class ClubUpdateComponent {
   clubId = input.required<string>();
 
   form!: FormGroup;
-  club!: ClubDto;
 
   private _formBuilder = inject(FormBuilder);
   private _router = inject(Router);
@@ -31,9 +29,9 @@ export class ClubUpdateComponent {
   private _snackBar = inject(MatSnackBar);
 
   ngOnInit() {
+    this.initializeForm();
     this._clubService.getById(this.clubId()).subscribe({
       next: (r) => {
-        this.club = r;
         this.updateForm(r);
       },
     });
@@ -54,7 +52,7 @@ export class ClubUpdateComponent {
 
   submit() {
     if (this.form.valid) {
-      this._clubService.update(this.form.value).subscribe({
+      this._clubService.update(this.clubId(), this.form.value.name).subscribe({
         next: () => {
           this.return();
         },

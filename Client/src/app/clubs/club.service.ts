@@ -58,13 +58,18 @@ export class ClubService {
     );
   }
 
-  update(fighter: ClubDto): Observable<ClubDto> {
-    return this.http.put<ClubDto>(`${this.baseUrl}/Update`, fighter).pipe(
-      map((response) => {
-        return response;
-      }),
-      catchError(this.handleError)
-    );
+  update(clubId: string, name: string): Observable<ClubDto> {
+    return this.http
+      .put<ClubDto>(
+        `${this.baseUrl}/Update?clubId=${clubId}&name=${name}`,
+        null
+      )
+      .pipe(
+        map((response) => {
+          return response;
+        }),
+        catchError(this.handleError)
+      );
   }
 
   delete(id: string): Observable<void> {

@@ -17,13 +17,12 @@ import { ClubService } from '../../clubs/club.service';
   styles: ``,
 })
 export class CompetitionClubPageComponent {
-  competitionId: string = '';
+  userId!: string;
+  club!: ClubDto;
+  competitionId!: string;
   competition!: CompetitionDto;
 
-  userId: string = '';
-  club!: ClubDto;
-
-  fighters: FighterDto[] = [];
+  inCompetition: boolean = false;
 
   fighterTable: string[] = [
     'name',
@@ -37,48 +36,56 @@ export class CompetitionClubPageComponent {
 
   private _snackBar = inject(MatSnackBar);
   private _activatedRoute = inject(ActivatedRoute);
-  private _router = inject(Router);
   private _competitionService = inject(CompetitionService);
-  private _fighterService = inject(FighterService);
   private _authService = inject(AuthenticationService);
   private _clubService = inject(ClubService);
 
   ngOnInit() {
     this.userId = this._authService.userId;
-    if (this.userId) {
-      this._clubService.getByUserId(this.userId).subscribe({
-        next: (r) => {
-          this.club = r;
-        },
-      });
-    }
-
     this.competitionId = String(
       this._activatedRoute.snapshot.paramMap.get('id')
     );
 
-    this._competitionService.getById(this.competitionId).subscribe({
-      next: (response) => {
-        // get the competition
-        this.competition = response;
-        // get all fighters
-        this._fighterService.getAll().subscribe({
-          next: (response) => (this.fighters = response),
-          error: (error) => this._snackBar.open(error, 'close'),
-        });
-        // get competition fighters
-        this.getCompetitionFighters(response.fighterIds);
-      },
-      error: (error) => this._snackBar.open(error, 'close'),
-    });
+    if (this.userId) {
+      this._clubService.getByUserId(this.userId).subscribe({
+        next: (r) => {
+          this.club = r;
+          console.info(`loaded the following club`, this.club);
+        },
+        error: (e) => this._snackBar.open(e, 'close'),
+      });
+    } else {
+      console.warn(`user id not set`);
+    }
+
+    if (this.competitionId) {
+      this._competitionService.getById(this.competitionId).subscribe({
+        next: (r) => (this.competition = r),
+        error: (e) => this._snackBar.open(e, 'close'),
+      });
+    } else {
+      console.warn(`competition id not set`);
+    }
   }
 
-  getCompetitionFighters(fighterIds: string[]) {
-    this._fighterService.getAllById(fighterIds).subscribe({
-      next: (secondResponse) =>
-        (this.competitionFighters = [...secondResponse]),
-      error: (error) => this._snackBar.open(error, 'close'),
-    });
+  // isFighterInCompetition(id: string) {
+  //   this._competitionService
+  //     .isFighterInCompetition(this.competitionId, id)
+  //     .subscribe({
+  //       next: (r) => (this.inCompetition = r),
+  //       error: (e) => this._snackBar.open(e, 'close'),
+  //     });
+  // }
+
+  async isFighterInCompetition(id: string): Promise<boolean> {
+    try {
+      return await this._competitionService
+        .isFighterInCompetition(this.competitionId, id)
+        .toPromise();
+    } catch (e) {
+      console.error(e);
+      return false;
+    }
   }
 
   // addFighter(fighterId: string) {
