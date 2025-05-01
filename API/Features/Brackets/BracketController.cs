@@ -179,7 +179,8 @@ public class BracketController : ControllerBase
         }
         catch (Exception ex)
         {
-            return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred: {ex.Message}");
+            _logger.LogError(ex, "GetAllById ==> failed to get all by id");
+            return StatusCode(StatusCodes.Status500InternalServerError, "GetAllById ==> failed to get all by id");
         }
     }
 
@@ -200,6 +201,7 @@ public class BracketController : ControllerBase
         {
             var output = await _dataContext.Brackets
                 .Include(e => e.Fighters)
+                    .ThenInclude(f => f.Club)
                 .FirstOrDefaultAsync(e => e.Id == bracketId);
 
             if (output is null) return NotFound();

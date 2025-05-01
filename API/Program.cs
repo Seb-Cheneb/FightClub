@@ -116,6 +116,14 @@ if (app.Environment.IsDevelopment())
     app.UseCors("developmentPolicy");
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseExceptionHandler(appError =>
+    {
+        appError.Run(async context =>
+        {
+            context.Response.StatusCode = 500;
+            await context.Response.WriteAsync("An unexpected error occurred.");
+        });
+    });
 }
 else
 {
