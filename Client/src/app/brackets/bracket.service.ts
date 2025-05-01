@@ -34,12 +34,14 @@ export class BracketService {
 
   getAllById(ids: string[]): Observable<BracketDto[]> {
     const params = ids.map((id) => `id=${id}`).join('&');
-    return this.http
-      .get<BracketDto[]>(`${this.baseUrl}/GetAllById?${params}`)
-      .pipe(
-        map((response) => response),
-        catchError(this.handleError)
-      );
+    const URL = `${this.baseUrl}/GetAllById?${params}`;
+    console.info(
+      `BracketService :: getAllById(${ids}) ===> sending the request to ${URL}`
+    );
+    return this.http.get<BracketDto[]>(URL).pipe(
+      map((response) => response),
+      catchError(this.handleError)
+    );
   }
 
   getById(id: string): Observable<BracketDto> {

@@ -15,6 +15,7 @@ export interface BracketDto {
   id: string;
   competitionId: string;
   name: string;
+  surface: string;
   fighters: FighterDto[];
   positions: PositionDto[];
 }

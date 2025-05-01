@@ -10,6 +10,7 @@ import { MaterialModule } from '../../_modules/material.module';
 import { KumiteStandardComponent } from './kumite-standard.component';
 import { KataComponent } from './kata.component';
 import { KumiteTournamentComponent } from './kumite-tournament.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-competition-brackets',
@@ -23,7 +24,7 @@ import { KumiteTournamentComponent } from './kumite-tournament.component';
   styles: ``,
 })
 export class CompetitionBracketsComponent {
-  competitionId = input.required<string>();
+  competitionId!: string;
   competition!: CompetitionDto;
   brackets: BracketDto[] = [];
   fighters: FighterDto[] = [];
@@ -31,13 +32,18 @@ export class CompetitionBracketsComponent {
   selectedBracket!: BracketDto;
   bracketFighters: FighterDto[] = [];
 
+  private _activatedRoute = inject(ActivatedRoute);
+  private snackBar = inject(MatSnackBar);
   private competitionService = inject(CompetitionService);
   private bracketService = inject(BracketService);
   private fighterService = inject(FighterService);
-  private snackBar = inject(MatSnackBar);
 
   ngOnInit() {
-    this.competitionService.getById(this.competitionId()).subscribe({
+    this.competitionId = String(
+      this._activatedRoute.snapshot.paramMap.get('id')
+    );
+
+    this.competitionService.getById(this.competitionId).subscribe({
       next: (competitionResp) => {
         this.competition = competitionResp;
         this.bracketService.getAllById(competitionResp.bracketIds).subscribe({
