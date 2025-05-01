@@ -121,7 +121,8 @@ public class BracketController : ControllerBase
         }
         catch (Exception ex)
         {
-            return StatusCode(StatusCodes.Status500InternalServerError, ex);
+            _logger.LogError(ex, "Error adding bracket");
+            return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while creating the bracket.");
         }
     }
 
@@ -137,6 +138,7 @@ public class BracketController : ControllerBase
         {
             var output = await _dataContext.Brackets
                 .Include(e => e.Fighters)
+                    .ThenInclude(i => i.Club)
                 .Include(i => i.Positions)
                 .ToListAsync();
 
@@ -145,7 +147,8 @@ public class BracketController : ControllerBase
         }
         catch (Exception ex)
         {
-            return StatusCode(StatusCodes.Status500InternalServerError, ex);
+            _logger.LogError(ex, "Error getting brackets");
+            return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while creating the bracket.");
         }
     }
 
@@ -161,9 +164,10 @@ public class BracketController : ControllerBase
         {
             var output = await _dataContext.Brackets
                 .Include(i => i.Fighters)
+                    .ThenInclude(i => i.Club)
                 .Include(i => i.Competition)
                 .Include(i => i.Positions)
-                .Where(i => ids.Contains(i.Id ?? "NULL"))
+                .Where(i => ids.Contains(i.Id))
                 .ToListAsync();
 
             if (output is null)
@@ -517,7 +521,7 @@ public class BracketController : ControllerBase
                 return NotFound($"User with ID '{fighterId}' not found.");
             }
 
-            var bracketStatus = await _bracketService.EnrollFighter(competitionId, fighter, bracketType);
+            var bracketStatus = await _bracketService.UnEnrollFighter(competitionId, fighterId, bracketType);
 
             if (!bracketStatus)
             {
@@ -525,7 +529,6 @@ public class BracketController : ControllerBase
             }
 
             await _dataContext.SaveChangesAsync();
-
             return Ok(competition.CastToDto());
         }
         catch (Exception ex)

@@ -38,12 +38,12 @@ public class ClubController : ControllerBase
 
             if (user == null)
             {
-                return BadRequest("The club is null");
+                return BadRequest("The user is null");
             }
 
             if (user.Club != null)
             {
-                return BadRequest("The club already has a club");
+                return BadRequest("The user already has a club");
             }
 
             var club = ClubMapper.CreateModel(request);

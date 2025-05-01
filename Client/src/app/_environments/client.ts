@@ -68,4 +68,8 @@ export class Client {
   static manageCompetitionFighters(id: string): string {
     return `${this.competitions}/club-page/${id}`;
   }
+
+  static viewCompetitionBrackets(competitionId: string): string {
+    return `${this.competitions}/competition-brackets/${competitionId}`;
+  }
 }

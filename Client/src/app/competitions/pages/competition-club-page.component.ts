@@ -83,6 +83,64 @@ export class CompetitionClubPageComponent {
       });
   }
 
+  isFighterEnrolledInKumite(fighterId: string) {
+    for (const bracket of this.brackets) {
+      for (const fighter of bracket.fighters) {
+        if (fighter.id === fighterId && bracket.name.startsWith('Kumite')) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  enrollFighterInKumite(fighterId: string) {
+    this._bracketService
+      .enrollFighter(this.competitionId, fighterId, 'Kumite')
+      .subscribe({
+        next: () => this.loadCompetitionData(),
+        error: (e) => this._snackBar.open(e, 'X', { duration: 4000 }),
+      });
+  }
+
+  unEnrollFighterInKumite(fighterId: string) {
+    this._bracketService
+      .unEnrollFighter(this.competitionId, fighterId, 'Kumite')
+      .subscribe({
+        next: () => this.loadCompetitionData(),
+        error: (e) => this._snackBar.open(e, 'X', { duration: 4000 }),
+      });
+  }
+
+  isFighterEnrolledInKata(fighterId: string) {
+    for (const bracket of this.brackets) {
+      for (const fighter of bracket.fighters) {
+        if (fighter.id === fighterId && bracket.name.startsWith('Kata')) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  enrollFighterInKata(fighterId: string) {
+    this._bracketService
+      .enrollFighter(this.competitionId, fighterId, 'Kata')
+      .subscribe({
+        next: () => this.loadCompetitionData(),
+        error: (e) => this._snackBar.open(e, 'X', { duration: 4000 }),
+      });
+  }
+
+  unEnrollFighterInKata(fighterId: string) {
+    this._bracketService
+      .unEnrollFighter(this.competitionId, fighterId, 'Kata')
+      .subscribe({
+        next: () => this.loadCompetitionData(),
+        error: (e) => this._snackBar.open(e, 'X', { duration: 4000 }),
+      });
+  }
+
   calculateAge(birthdate: string): number {
     if (!birthdate) {
       return NaN;
@@ -118,42 +176,4 @@ export class CompetitionClubPageComponent {
       error: (e) => this._snackBar.open(e, 'close'),
     });
   }
-  // isFighterInCompetition(id: string) {
-  //   this._competitionService
-  //     .isFighterInCompetition(this.competitionId, id)
-  //     .subscribe({
-  //       next: (r) => (this.inCompetition = r),
-  //       error: (e) => this._snackBar.open(e, 'close'),
-  //     });
-  // }
-
-  // addFighter(fighterId: string) {
-  //   this._competitionService
-  //     .addFighter(this.competitionId(), fighterId)
-  //     .subscribe({
-  //       next: () => {
-  //         const fighter = this.fighters.find((i) => i.id == fighterId);
-  //         if (
-  //           fighter &&
-  //           !this.competitionFighters.some((f) => f.id == fighter.id)
-  //         ) {
-  //           this.competitionFighters = [...this.competitionFighters, fighter];
-  //         }
-  //       },
-  //       error: (error) => this._snackBar.open(error, 'close'),
-  //     });
-  // }
-
-  // removeFighter(fighterId: string) {
-  //   this._competitionService
-  //     .removeFighter(this.competitionId(), fighterId)
-  //     .subscribe({
-  //       next: () => {
-  //         this.competitionFighters = this.competitionFighters.filter(
-  //           (f) => f.id !== fighterId
-  //         );
-  //       },
-  //       error: (error) => this._snackBar.open(error, 'close'),
-  //     });
-  // }
 }

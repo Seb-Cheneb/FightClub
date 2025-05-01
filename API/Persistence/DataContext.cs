@@ -24,17 +24,15 @@ public class DataContext : IdentityDbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder
-            .Entity<Competition>()
-            .HasMany(competition => competition.Fighters)
-            .WithMany(fighter => fighter.Competitions)
-            .UsingEntity(join => join.ToTable("FighterCompetition"));
+        modelBuilder.Entity<Competition>()
+            .HasMany(c => c.Fighters)
+            .WithMany(f => f.Competitions)
+            .UsingEntity(j => j.ToTable("CompetitionFighters"));
 
-        modelBuilder
-            .Entity<Bracket>()
-            .HasMany(bracket => bracket.Fighters)
-            .WithMany(fighter => fighter.Brackets)
-            .UsingEntity(join => join.ToTable("Fighterompetition"));
+        modelBuilder.Entity<Bracket>()
+            .HasMany(b => b.Fighters)
+            .WithMany(f => f.Brackets)
+            .UsingEntity(j => j.ToTable("BracketFighters"));
 
         modelBuilder.Entity<Bracket>()
             .HasOne(bracket => bracket.Competition)

@@ -51,9 +51,9 @@ public class BracketService : IBracketService
 
     public async Task<bool> UnEnrollFighter(string competitionId, string fighterId, string bracketType)
     {
-        var competition = await _dataContext
-            .Competitions
+        var competition = await _dataContext.Competitions
             .Include(i => i.Brackets)
+                .ThenInclude(b => b.Fighters)
             .Include(i => i.Fighters)
             .FirstOrDefaultAsync(i => i.Id == competitionId);
 
@@ -71,7 +71,7 @@ public class BracketService : IBracketService
 
         foreach (var bracket in competition.Brackets)
         {
-            if (bracket.Name != null && bracket.Name.StartsWith(bracketType))
+            if (bracket.Name != null && bracket.Name.StartsWith(bracketType, StringComparison.OrdinalIgnoreCase))
             {
                 if (bracket.Fighters.Any(f => f.Id == fighterId))
                 {
@@ -80,6 +80,7 @@ public class BracketService : IBracketService
             }
         }
 
+        await _dataContext.SaveChangesAsync();
         return true;
     }
 
@@ -277,7 +278,7 @@ public class BracketService : IBracketService
         }
         else
         {
-            return "kata";
+            return "Kata";
         }
     }
 

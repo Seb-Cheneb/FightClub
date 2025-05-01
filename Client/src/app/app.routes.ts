@@ -108,7 +108,14 @@ export const routes: Routes = [
           import('./competitions/pages/competitions-page.component').then(
             (m) => m.CompetitionsPageComponent
           ),
-        canActivate: [],
+      },
+      {
+        path: 'competition-brackets/:id',
+        pathMatch: 'full',
+        loadComponent: () =>
+          import('./brackets/components/competition-brackets.component').then(
+            (m) => m.CompetitionBracketsComponent
+          ),
       },
       {
         path: 'add',

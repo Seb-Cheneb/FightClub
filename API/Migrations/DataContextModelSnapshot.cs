@@ -144,7 +144,7 @@ namespace API.Migrations
 
                     b.HasIndex("FightersId");
 
-                    b.ToTable("Fighterompetition", (string)null);
+                    b.ToTable("BracketFighters", (string)null);
                 });
 
             modelBuilder.Entity("CompetitionFighter", b =>
@@ -159,7 +159,7 @@ namespace API.Migrations
 
                     b.HasIndex("FightersId");
 
-                    b.ToTable("FighterCompetition", (string)null);
+                    b.ToTable("CompetitionFighters", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

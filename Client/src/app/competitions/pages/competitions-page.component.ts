@@ -49,4 +49,8 @@ export class CompetitionsPageComponent {
   manageCompetitionFighters(competitionId: string) {
     this._router.navigateByUrl(Client.manageCompetitionFighters(competitionId));
   }
+
+  viewBrackets(competitionId: string) {
+    this._router.navigateByUrl(Client.viewCompetitionBrackets(competitionId));
+  }
 }

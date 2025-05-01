@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20250428185027_1")]
+    [Migration("20250501195013_1")]
     partial class _1
     {
         /// <inheritdoc />
@@ -147,7 +147,7 @@ namespace API.Migrations
 
                     b.HasIndex("FightersId");
 
-                    b.ToTable("Fighterompetition", (string)null);
+                    b.ToTable("BracketFighters", (string)null);
                 });
 
             modelBuilder.Entity("CompetitionFighter", b =>
@@ -162,7 +162,7 @@ namespace API.Migrations
 
                     b.HasIndex("FightersId");
 
-                    b.ToTable("FighterCompetition", (string)null);
+                    b.ToTable("CompetitionFighters", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
