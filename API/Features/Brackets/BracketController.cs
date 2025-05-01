@@ -475,6 +475,66 @@ public class BracketController : ControllerBase
     }
 
     [Authorize]
+    [HttpPost("UnEnrollFighter")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> UnEnrollFighter([FromQuery] string competitionId, [FromQuery] string fighterId, [FromQuery] string bracketType)
+    {
+        try
+        {
+            if (string.IsNullOrWhiteSpace(competitionId))
+            {
+                return BadRequest("Competition ID is null");
+            }
+
+            if (string.IsNullOrWhiteSpace(fighterId))
+            {
+                return BadRequest("fighter id is null");
+            }
+
+            if (string.IsNullOrWhiteSpace(bracketType))
+            {
+                return BadRequest("Bracket type is null");
+            }
+
+            var competition = await _dataContext.Competitions
+                .Include(e => e.Fighters)
+                .Include(e => e.Brackets)
+                .FirstOrDefaultAsync(e => e.Id == competitionId);
+
+            if (competition is null)
+            {
+                return NotFound($"Competition with ID '{competitionId}' not found.");
+            }
+
+            var fighter = await _dataContext.Fighters.FindAsync(fighterId);
+
+            if (fighter is null)
+            {
+                return NotFound($"User with ID '{fighterId}' not found.");
+            }
+
+            var bracketStatus = await _bracketService.EnrollFighter(competitionId, fighter, bracketType);
+
+            if (!bracketStatus)
+            {
+                return BadRequest($"Failed to add fighter '{fighter.Name}' to brackets '{bracketType}'.");
+            }
+
+            await _dataContext.SaveChangesAsync();
+
+            return Ok(competition.CastToDto());
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred: {ex.Message}");
+        }
+    }
+
+    [Authorize]
     [HttpGet("IsFighterEnrolledInKata")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

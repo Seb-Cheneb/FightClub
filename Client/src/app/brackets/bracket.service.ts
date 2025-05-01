@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { API } from '../_environments/api';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { BracketDto, CreateBracketDto, PositionDto } from './bracket';
+import { CompetitionDto } from '../competitions/competition';
 
 @Injectable({
   providedIn: 'root',
@@ -157,6 +158,34 @@ export class BracketService {
   ): Observable<boolean> {
     const api: string = `IsFighterEnrolledInKumite&competitionId=${competitionId}&fighterId=${fighterId}`;
     return this.http.get<boolean>(`${this.baseUrl}/${api}`).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  enrollFighter(
+    competitionId: string,
+    fighterId: string,
+    bracketType: string
+  ): Observable<CompetitionDto> {
+    const url = `${this.baseUrl}/EnrollFighter?competitionId=${competitionId}&fighterId=${fighterId}&bracketType=${bracketType}`;
+    return this.http.post<CompetitionDto>(url, null).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  unEnrollFighter(
+    competitionId: string,
+    fighterId: string,
+    bracketType: string
+  ): Observable<CompetitionDto> {
+    const url = `${this.baseUrl}/UnEnrollFighter?competitionId=${competitionId}&fighterId=${fighterId}&bracketType=${bracketType}`;
+    return this.http.post<CompetitionDto>(url, null).pipe(
       map((response) => {
         return response;
       }),

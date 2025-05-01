@@ -72,8 +72,9 @@ export class CompetitionService {
     fighterId: string
   ): Observable<CompetitionDto> {
     return this.http
-      .get<CompetitionDto>(
-        `${this.baseUrl}/AddFighter?competitionId=${competitionId}&fighterId=${fighterId}`
+      .post<CompetitionDto>(
+        `${this.baseUrl}/AddFighter?competitionId=${competitionId}&fighterId=${fighterId}`,
+        null
       )
       .pipe(
         map((response) => {
@@ -88,8 +89,9 @@ export class CompetitionService {
     fighterId: string
   ): Observable<CompetitionDto> {
     return this.http
-      .get<CompetitionDto>(
-        `${this.baseUrl}/RemoveFighter?competitionId=${competitionId}&fighterId=${fighterId}`
+      .post<CompetitionDto>(
+        `${this.baseUrl}/RemoveFighter?competitionId=${competitionId}&fighterId=${fighterId}`,
+        null
       )
       .pipe(
         map((response) => {

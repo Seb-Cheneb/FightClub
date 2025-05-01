@@ -227,7 +227,7 @@ public class CompetitionController : ControllerBase
     }
 
     [Authorize]
-    [HttpGet("RemoveFighter")]
+    [HttpPost("RemoveFighter")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -269,11 +269,11 @@ public class CompetitionController : ControllerBase
             }
 
             competition.Fighters.Remove(fighter);
-            var bracketStatus = await _bracketService.RemoveFighterFromCompetition(competitionId, fighterId);
-            if (!bracketStatus)
-            {
-                _logger.LogError($"Failed to remove fighter '{fighter.Name}' from bracket'.");
-            }
+            //var bracketStatus = await _bracketService.RemoveFighterFromCompetition(competitionId, fighterId);
+            //if (!bracketStatus)
+            //{
+            //    _logger.LogError($"Failed to remove fighter '{fighter.Name}' from bracket'.");
+            //}
 
             await _dataContext.SaveChangesAsync();
 

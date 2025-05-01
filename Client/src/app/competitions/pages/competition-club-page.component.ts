@@ -27,6 +27,7 @@ export class CompetitionClubPageComponent {
   fighterTable: string[] = [
     'name',
     'gender',
+    'age',
     'weight',
     'rank',
     'competition',
@@ -52,6 +53,57 @@ export class CompetitionClubPageComponent {
       error: (e) => this._snackBar.open(e, 'close'),
     });
 
+    this.loadCompetitionData();
+  }
+
+  isFighterInCompetition(fighter: FighterDto): boolean {
+    for (const element of this.competitionFighters) {
+      if (element.id === fighter.id) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  addFighterToCompetition(fighterId: string) {
+    this._competitionService
+      .addFighter(this.competitionId, fighterId)
+      .subscribe({
+        next: () => this.loadCompetitionData(),
+        error: (e) => this._snackBar.open(e, 'X', { duration: 4000 }),
+      });
+  }
+
+  removeFighterFromCompetition(fighterId: string) {
+    this._competitionService
+      .removeFighter(this.competitionId, fighterId)
+      .subscribe({
+        next: () => this.loadCompetitionData(),
+        error: (e) => this._snackBar.open(e, 'X', { duration: 4000 }),
+      });
+  }
+
+  calculateAge(birthdate: string): number {
+    if (!birthdate) {
+      return NaN;
+    }
+
+    const birthDateObj = new Date(birthdate);
+    const today = new Date();
+
+    let age = today.getFullYear() - birthDateObj.getFullYear();
+    const monthDifference = today.getMonth() - birthDateObj.getMonth();
+    const dayDifference = today.getDate() - birthDateObj.getDate();
+
+    // Adjust if the birthday hasn't occurred yet this year
+    if (monthDifference < 0 || (monthDifference === 0 && dayDifference < 0)) {
+      age--;
+    }
+
+    return age;
+  }
+
+  private loadCompetitionData() {
     this._competitionService.getById(this.competitionId).subscribe({
       next: (competition) => {
         this._fighterService.getAllById(competition.fighterIds).subscribe({
@@ -66,24 +118,6 @@ export class CompetitionClubPageComponent {
       error: (e) => this._snackBar.open(e, 'close'),
     });
   }
-
-  isFighterInCompetition(fighter: FighterDto): boolean {
-    for (const element of this.competitionFighters) {
-      if (element === fighter) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  addFighterToCompetition(fighterId: string) {
-    this._competitionService
-      .addFighter(this.competitionId, fighterId)
-      .subscribe({
-        next: () => {},
-      });
-  }
-
   // isFighterInCompetition(id: string) {
   //   this._competitionService
   //     .isFighterInCompetition(this.competitionId, id)

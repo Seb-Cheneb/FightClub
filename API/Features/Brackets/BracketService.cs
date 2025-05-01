@@ -49,6 +49,40 @@ public class BracketService : IBracketService
         return true;
     }
 
+    public async Task<bool> UnEnrollFighter(string competitionId, string fighterId, string bracketType)
+    {
+        var competition = await _dataContext
+            .Competitions
+            .Include(i => i.Brackets)
+            .Include(i => i.Fighters)
+            .FirstOrDefaultAsync(i => i.Id == competitionId);
+
+        if (competition == null)
+        {
+            return false;
+        }
+
+        var fighter = competition.Fighters.FirstOrDefault(i => i.Id == fighterId);
+
+        if (fighter == null)
+        {
+            return false;
+        }
+
+        foreach (var bracket in competition.Brackets)
+        {
+            if (bracket.Name != null && bracket.Name.StartsWith(bracketType))
+            {
+                if (bracket.Fighters.Any(f => f.Id == fighterId))
+                {
+                    bracket.Fighters.Remove(fighter);
+                }
+            }
+        }
+
+        return true;
+    }
+
     public async Task<bool> RemoveFighterFromCompetition(string competitionId, string fighterId)
     {
         var competition = await _dataContext
