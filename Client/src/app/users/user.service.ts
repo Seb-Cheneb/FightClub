@@ -1,9 +1,8 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { API } from '../../_environments/api';
-import { Shift, ShiftCreate } from '../../tracker/models/shift';
+import { API } from '../_environments/api';
 import { catchError, map, Observable, throwError } from 'rxjs';
-import { User } from '../models/user';
+import { ChangeRoleRequest, User } from './user';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +12,8 @@ export class UserService {
   private http = inject(HttpClient);
 
   getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(`${this.baseUrl}/GetUsers`).pipe(
+    const URL = `${this.baseUrl}/GetUsers`;
+    return this.http.get<User[]>(URL).pipe(
       map((response) => {
         return response;
       }),
@@ -21,6 +21,19 @@ export class UserService {
     );
   }
 
+  changeRole(
+    userId: string,
+    changeRoleRquest: ChangeRoleRequest
+  ): Observable<User> {
+    return this.http
+      .put<User>(`${this.baseUrl}/ChangeRole/${userId}}`, changeRoleRquest)
+      .pipe(
+        map((response) => {
+          return response;
+        }),
+        catchError(this.handleError)
+      );
+  }
   /**
    * Handles errors that occur during HTTP requests.
    *

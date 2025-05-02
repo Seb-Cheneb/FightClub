@@ -14,6 +14,11 @@ export class Client {
     return `${this.authentication}/login`;
   }
 
+  static users: string = `${this.home}/users`;
+  static getUsers(): string {
+    return `${this.users}`;
+  }
+
   /** ERRORS
    **************************************/
   static unauthorizedAccessError: string = `${this.home}/401`;

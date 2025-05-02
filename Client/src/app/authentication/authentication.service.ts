@@ -2,12 +2,12 @@ import { catchError, map, Observable, of, tap, throwError } from 'rxjs';
 
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { API } from '../../_environments/api';
+import { API } from '../_environments/api';
 import {
+  RegistrationRequest,
   AuthenticationResponse,
   LoginRequest,
-  RegistrationRequest,
-} from '../models/authentication';
+} from './authentication';
 
 @Injectable({
   providedIn: 'root',
@@ -116,54 +116,6 @@ export class AuthenticationService {
     sessionStorage.removeItem(AuthenticationService.userId);
   }
 
-  // getRole(id: string): Observable<String> {
-  //   return this.http
-  //     .get<String>(`${this.baseUrl}/getRole?id=${id}`)
-  //     .pipe(catchError(this.handleError));
-  // }
-
-  // isAdmin(): Observable<boolean> {
-  //   let id = this.cookieService.getUserId();
-  //   if (id !== '') {
-  //     return this.getRole(this.cookieService.getUserId()).pipe(
-  //       map((role) => role === 'ADMIN'),
-  //       catchError(this.handleError)
-  //     );
-  //   } else {
-  //     return of(false);
-  //   }
-  // }
-
-  // isModerator(): Observable<boolean> {
-  //   let id = this.cookieService.getUserId();
-  //   if (id !== '') {
-  //     return this.getRole(this.cookieService.getUserId()).pipe(
-  //       map((role) => role === 'MODERATOR'),
-  //       catchError(this.handleError)
-  //     );
-  //   } else {
-  //     return of(false);
-  //   }
-  // }
-
-  // isAuthenticated() {
-  //   return this.cookieService.checkToken();
-  // }
-
-  // getAuthToken() {
-  //   return this.cookieService.getToken();
-  // }
-
-  // clearUser() {
-  //   this.cookieService.removeCookies();
-  // }
-
-  /**
-   * Handles errors that occur during HTTP requests.
-   *
-   * @param error - The error that occurred during the HTTP request.
-   * @returns An Observable that emits an error.
-   */
   private handleError(error: HttpErrorResponse): Observable<never> {
     let errorMessage = 'Unknown error occurred';
     if (error.error instanceof ErrorEvent) {

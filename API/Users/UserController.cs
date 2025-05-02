@@ -1,6 +1,7 @@
 using API.Persistence;
 using API.Users.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,11 +13,17 @@ public class UserController : ControllerBase
 {
     private readonly ILogger<UserController> _logger;
     private readonly DataContext _repository;
+    private readonly UserManager<AppUser> _userManager; // Add this
 
-    public UserController(ILogger<UserController> logger, DataContext repository)
+    // Update constructor
+    public UserController(
+        ILogger<UserController> logger,
+        DataContext repository,
+        UserManager<AppUser> userManager) // Add this parameter
     {
         _logger = logger;
         _repository = repository;
+        _userManager = userManager; // Add this
     }
 
     [Authorize]
@@ -29,14 +36,24 @@ public class UserController : ControllerBase
     {
         try
         {
-            var output = await _repository.AppUsers.ToListAsync();
+            var users = await _repository.AppUsers.ToListAsync();
 
-            if (output.Count == 0)
+            if (users.Count == 0)
             {
                 return NotFound("No entries were found");
             }
 
-            return Ok(output.Select(UserMapper.CastToDto).ToList());
+            // Map users with roles
+            var userDtos = new List<AppUserDto>();
+            foreach (var user in users)
+            {
+                var roles = await _userManager.GetRolesAsync(user);
+                var dto = UserMapper.CastToDto(user);
+                dto.Role = roles.FirstOrDefault() ?? "User"; // Default to "User"
+                userDtos.Add(dto);
+            }
+
+            return Ok(userDtos);
         }
         catch (Exception ex)
         {

@@ -3,3 +3,7 @@ export interface User {
   userName: string;
   email: string;
 }
+
+export interface ChangeRoleRequest {
+  newRole: string;
+}

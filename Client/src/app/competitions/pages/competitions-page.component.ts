@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { MaterialModule } from '../../_modules/material.module';
 import { Client } from '../../_environments/client';
 import { CompetitionService } from '../competition.service';
-import { AuthenticationService } from '../../authentication/services/authentication.service';
+import { AuthenticationService } from '../../authentication/authentication.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CompetitionDto } from '../competition';
 

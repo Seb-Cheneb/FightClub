@@ -11,9 +11,9 @@ import { Router } from '@angular/router';
 
 import { Client } from '../../_environments/client';
 import { Navigator } from '../../_environments/navigator';
-import { LoginRequest } from '../models/authentication';
+import { LoginRequest } from '../authentication';
 import { MaterialModule } from '../../_modules/material.module';
-import { AuthenticationService } from '../services/authentication.service';
+import { AuthenticationService } from '../authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -52,8 +52,7 @@ export class LoginComponent {
 
       this.authenticationService.login(formData).subscribe({
         next: () => this.navigator.navigateWithDelay(Client.home, 200),
-        error: () => this.notFound()
-
+        error: () => this.notFound(),
       });
     }
   }

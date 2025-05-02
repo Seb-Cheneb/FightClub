@@ -6,7 +6,7 @@ import { Component, inject } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { Client } from '../../../_environments/client';
 import { MaterialModule } from '../../../_modules/material.module';
-import { AuthenticationService } from '../../../authentication/services/authentication.service';
+import { AuthenticationService } from '../../../authentication/authentication.service';
 
 @Component({
   selector: 'app-navbar',
@@ -58,6 +58,10 @@ export class NavbarComponent {
 
   getClubs() {
     this._router.navigateByUrl(Client.getClubs());
+  }
+
+  getUsers() {
+    this._router.navigateByUrl(Client.getUsers());
   }
 
   getFighters() {

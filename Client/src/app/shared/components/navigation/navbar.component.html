@@ -8,7 +8,12 @@
 
   <button mat-flat-button (click)="getClubs()" class="ml-1">Clubs</button>
 
+  } } @if (isLoggedIn) { @if (isAdmin) {
+
+  <button mat-flat-button (click)="getUsers()" class="ml-1">Users</button>
+
   } }
+
   <button mat-raised-button [matMenuTriggerFor]="authentication" class="ml-1">
     Authentication
   </button>

@@ -6,7 +6,7 @@ import { CompetitionService } from '../competition.service';
 import { FighterService } from '../../fighters/fighter.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MaterialModule } from '../../_modules/material.module';
-import { AuthenticationService } from '../../authentication/services/authentication.service';
+import { AuthenticationService } from '../../authentication/authentication.service';
 import { ClubDto } from '../../clubs/club';
 import { ClubService } from '../../clubs/club.service';
 import { BracketDto } from '../../brackets/bracket';

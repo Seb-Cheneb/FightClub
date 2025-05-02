@@ -1,11 +1,11 @@
 import { Component, inject } from '@angular/core';
-import { AuthenticationService } from '../../authentication/services/authentication.service';
 import { ClubService } from '../club.service';
 import { ClubDto } from '../club';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MaterialModule } from '../../_modules/material.module';
 import { Router } from '@angular/router';
 import { Client } from '../../_environments/client';
+import { AuthenticationService } from '../../authentication/authentication.service';
 
 @Component({
   selector: 'app-clubs',

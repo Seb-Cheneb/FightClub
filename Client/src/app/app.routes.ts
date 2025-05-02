@@ -44,6 +44,19 @@ export const routes: Routes = [
       },
     ],
   },
+  {
+    path: 'users',
+    children: [
+      {
+        path: '',
+        loadComponent: () =>
+          import('./users/pages/user-admin-page.component').then(
+            (m) => m.UserAdminPageComponent
+          ),
+        canActivate: [AdminGuard],
+      },
+    ],
+  },
   /** App logic*/
   {
     path: 'clubs',
