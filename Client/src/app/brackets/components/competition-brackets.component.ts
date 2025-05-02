@@ -26,9 +26,8 @@ import { ActivatedRoute } from '@angular/router';
 export class CompetitionBracketsComponent {
   competitionId!: string;
   competition!: CompetitionDto;
-  brackets: BracketDto[] = [];
-  fighters: FighterDto[] = [];
 
+  brackets: BracketDto[] = [];
   selectedBracket!: BracketDto;
   bracketFighters: FighterDto[] = [];
 
@@ -36,7 +35,6 @@ export class CompetitionBracketsComponent {
   private snackBar = inject(MatSnackBar);
   private competitionService = inject(CompetitionService);
   private bracketService = inject(BracketService);
-  private fighterService = inject(FighterService);
 
   ngOnInit() {
     this.competitionId = String(
@@ -44,60 +42,30 @@ export class CompetitionBracketsComponent {
     );
 
     this.competitionService.getById(this.competitionId).subscribe({
-      next: (competitionResp) => {
-        this.competition = competitionResp;
-        this.bracketService.getAllById(competitionResp.bracketIds).subscribe({
-          next: (bracketResp) => (this.brackets = bracketResp),
-          error: (error) => this.snackBar.open(error, 'close'),
-        });
-        this.fighterService.getAllById(competitionResp.fighterIds).subscribe({
-          next: (fighterResponse) => (this.fighters = fighterResponse),
+      next: (competition) => {
+        this.competition = competition;
+        this.bracketService.getAllById(competition.bracketIds).subscribe({
+          next: (brackets) => (this.brackets = brackets),
           error: (error) => this.snackBar.open(error, 'close'),
         });
       },
       error: (e) => this.snackBar.open(e, 'close'),
     });
+
+    this.loadData();
   }
+
+  loadData() {}
 
   onBracketSelected(bracketId: string) {
+    // Reset selectedBracket to force component destruction
+    this.selectedBracket = null!;
+    this.bracketFighters = [];
+
     this.bracketService.getById(bracketId).subscribe({
-      next: (bracketResponse) => {
-        this.selectedBracket = bracketResponse;
-        this.bracketFighters = bracketResponse.fighters;
-        // this.fighterService.getAllById(bracketResponse.fighterIds).subscribe({
-        //   next: (fighterResponse) => (this.bracketFighters = fighterResponse),
-        //   error: (error) => this.snackBar.open(error, 'close'),
-        // });
-      },
-      error: (error) => this.snackBar.open(error, 'close'),
-    });
-  }
-
-  addFighter(bracketId: string, fighterId: string) {
-    this.bracketService.addFighter(bracketId, fighterId).subscribe({
-      next: () => {
-        this.fighterService.getById(fighterId).subscribe({
-          next: (fighterResponse) => {
-            this.bracketFighters = [...this.bracketFighters, fighterResponse];
-          },
-          error: (error) => this.snackBar.open(error, 'close'),
-        });
-      },
-      error: (error) => this.snackBar.open(error, 'close'),
-    });
-  }
-
-  removeFighter(bracketId: string, fighterId: string) {
-    this.bracketService.removeFighter(bracketId, fighterId).subscribe({
-      next: () => {
-        this.fighterService.getById(fighterId).subscribe({
-          next: () => {
-            this.bracketFighters = this.bracketFighters.filter((i) => {
-              return i.id !== fighterId;
-            });
-          },
-          error: (error) => this.snackBar.open(error, 'close'),
-        });
+      next: (response) => {
+        this.selectedBracket = response;
+        this.bracketFighters = response.fighters;
       },
       error: (error) => this.snackBar.open(error, 'close'),
     });
