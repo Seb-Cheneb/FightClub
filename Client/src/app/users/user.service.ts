@@ -21,19 +21,6 @@ export class UserService {
     );
   }
 
-  changeRole(
-    userId: string,
-    changeRoleRquest: ChangeRoleRequest
-  ): Observable<User> {
-    return this.http
-      .put<User>(`${this.baseUrl}/ChangeRole/${userId}}`, changeRoleRquest)
-      .pipe(
-        map((response) => {
-          return response;
-        }),
-        catchError(this.handleError)
-      );
-  }
   /**
    * Handles errors that occur during HTTP requests.
    *

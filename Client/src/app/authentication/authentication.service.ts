@@ -8,6 +8,7 @@ import {
   AuthenticationResponse,
   LoginRequest,
 } from './authentication';
+import { ChangeRoleRequest, User } from '../users/user';
 
 @Injectable({
   providedIn: 'root',
@@ -114,6 +115,20 @@ export class AuthenticationService {
     sessionStorage.removeItem(AuthenticationService.refreshToken);
     sessionStorage.removeItem(AuthenticationService.expirationDate);
     sessionStorage.removeItem(AuthenticationService.userId);
+  }
+
+  changeRole(
+    userId: string,
+    changeRoleRquest: ChangeRoleRequest
+  ): Observable<User> {
+    return this.http
+      .put<User>(`${this.baseUrl}/ChangeRole/${userId}`, changeRoleRquest)
+      .pipe(
+        map((response) => {
+          return response;
+        }),
+        catchError(this.handleError)
+      );
   }
 
   private handleError(error: HttpErrorResponse): Observable<never> {
