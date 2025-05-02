@@ -68,13 +68,16 @@ export class AdminBracketPageComponent {
 
   submit() {
     if (this.form.valid) {
-      this.bracketService.update(this.form.value).subscribe({
-        next: () =>
-          this.snackBar.open('succesfully updated bracket', 'close', {
-            duration: 1000,
-          }),
-        error: (e) => this.snackBar.open(e, 'close'),
-      });
+      this.bracketService
+        .update(this.form.value.id, this.form.value.surface)
+        .subscribe({
+          next: () =>
+            this.bracketService.getById(this.selectedBracket.id).subscribe({
+              next: (r) => (this.selectedBracket = r),
+              error: (error) => this.snackBar.open(error, 'close'),
+            }),
+          error: (e) => this.snackBar.open(e, 'close'),
+        });
     }
   }
   // END OF FORM

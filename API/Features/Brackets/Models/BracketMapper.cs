@@ -12,6 +12,7 @@ public static class BracketMapper
             Id = instance.Id,
             CompetitionId = instance.CompetitionId,
             Name = instance.Name,
+            Surface = instance.Surface,
             Fighters = instance.Fighters.Select(i => i.CastToDto()).ToList(),
             Positions = instance.Positions.Select(i => i.CastToDto()).ToList()
         };

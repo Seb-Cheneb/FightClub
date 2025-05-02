@@ -55,13 +55,18 @@ export class BracketService {
       );
   }
 
-  update(fighter: BracketDto): Observable<BracketDto> {
-    return this.http.put<BracketDto>(`${this.baseUrl}/Update`, fighter).pipe(
-      map((response) => {
-        return response;
-      }),
-      catchError(this.handleError)
-    );
+  update(bracketId: string, surface: string): Observable<BracketDto> {
+    return this.http
+      .put<BracketDto>(
+        `${this.baseUrl}/Update?bracketId=${bracketId}&surface=${surface}`,
+        null
+      )
+      .pipe(
+        map((response) => {
+          return response;
+        }),
+        catchError(this.handleError)
+      );
   }
 
   delete(id: string): Observable<void> {

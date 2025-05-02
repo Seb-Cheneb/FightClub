@@ -400,18 +400,31 @@ public class BracketController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<IActionResult> Update([FromBody] BracketDto request)
+    public async Task<IActionResult> Update([FromQuery] string bracketId, string surface)
     {
         try
         {
-            var data = await _dataContext.Brackets.FindAsync(request.Id);
-            if (data == null)
+            if (string.IsNullOrWhiteSpace(bracketId))
             {
-                return NotFound();
+                return BadRequest("bracketId is null");
             }
 
-            data.Update(request);
+            if (string.IsNullOrWhiteSpace(surface))
+            {
+                return BadRequest("surface is null");
+            }
+
+            var data = await _dataContext.Brackets.FindAsync(bracketId);
+
+            if (data == null)
+            {
+                return NotFound("no bracket found");
+            }
+
+            data.Surface = surface;
+
             await _dataContext.SaveChangesAsync();
+
             return Ok(data.CastToDto());
         }
         catch (Exception ex)
