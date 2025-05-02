@@ -1,9 +1,8 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CompetitionDto } from '../../competitions/competition';
 import { CompetitionService } from '../../competitions/competition.service';
 import { FighterDto } from '../../fighters/fighter';
-import { FighterService } from '../../fighters/fighter.service';
 import { BracketDto } from '../bracket';
 import { BracketService } from '../bracket.service';
 import { MaterialModule } from '../../_modules/material.module';
@@ -11,6 +10,7 @@ import { KumiteStandardComponent } from './kumite-standard.component';
 import { KataComponent } from './kata.component';
 import { KumiteTournamentComponent } from './kumite-tournament.component';
 import { ActivatedRoute } from '@angular/router';
+import { FighterListComponent } from '../../fighters/components/fighter-list.component';
 
 @Component({
   selector: 'app-competition-brackets',
@@ -19,6 +19,7 @@ import { ActivatedRoute } from '@angular/router';
     KumiteStandardComponent,
     KumiteTournamentComponent,
     KataComponent,
+    FighterListComponent,
   ],
   templateUrl: './competition-brackets.component.html',
   styles: ``,
