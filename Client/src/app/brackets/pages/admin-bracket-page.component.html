@@ -10,7 +10,46 @@
 </mat-form-field>
 
 @if (selectedBracket && bracketFighters && fighters) {
+<h1>surface: {{ selectedBracket.surface }}</h1>
 <mat-accordion>
+  <!-- EDIT BRACKET -->
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title> Edit bracket </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-list>
+      <form
+        [formGroup]="form"
+        novalidate
+        (ngSubmit)="submit()"
+        class="flex flex-col p-2"
+      >
+        <mat-form-field>
+          <mat-label>surface</mat-label>
+          <input matInput formControlName="surface" required />
+        </mat-form-field>
+
+        <div class="flex flex-col">
+          <button
+            mat-stroked-button
+            color="primary"
+            type="submit"
+            [disabled]="form.invalid"
+          >
+            Update
+          </button>
+          <button
+            mat-stroked-button
+            color="primary"
+            class="w-full mt-1"
+            (click)="deleteBracket(selectedBracket.id)"
+          >
+            DELETE BRACKET
+          </button>
+        </div>
+      </form>
+    </mat-list>
+  </mat-expansion-panel>
   <!-- REMOVE FIGHTERS -->
   <mat-expansion-panel>
     <mat-expansion-panel-header>
@@ -53,10 +92,15 @@
   </mat-expansion-panel>
 </mat-accordion>
 <!-- LIST FIGHTERS -->
+<!-- KUMITE -->
+@if (selectedBracket.name.startsWith("Kumite")) {
+<!-- 3 round robin -->
 @if (bracketFighters.length == 3) {
 <app-kumite-tournament [fighters]="bracketFighters"></app-kumite-tournament>
 } @else {
 <app-kumite-standard [bracket]="selectedBracket"></app-kumite-standard>
-}
-<!-- <app-kata [fighters]="bracketFighters"></app-kata> -->
 } }
+<!-- KATA -->
+@if (selectedBracket.name.startsWith("Kata")) {
+<app-kata [fighters]="bracketFighters"></app-kata>
+} } }

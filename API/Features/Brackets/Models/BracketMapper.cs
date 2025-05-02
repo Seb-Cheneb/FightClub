@@ -29,6 +29,6 @@ public static class BracketMapper
 
     public static void Update(this Bracket instance, BracketDto request)
     {
-        instance.Name = request.Name;
+        instance.Surface = request.Surface;
     }
 }
