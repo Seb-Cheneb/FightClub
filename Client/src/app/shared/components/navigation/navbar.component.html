@@ -8,13 +8,6 @@
 
   <button mat-flat-button (click)="getClubs()" class="ml-1">Clubs</button>
 
-  <button mat-flat-button [matMenuTriggerFor]="fighters" class="ml-1">
-    Fighters
-  </button>
-  <mat-menu #fighters="matMenu">
-    <button mat-menu-item (click)="getFighters()">View fighters</button>
-    <button mat-menu-item (click)="addFighter()">Add fighter</button>
-  </mat-menu>
   } }
   <button mat-raised-button [matMenuTriggerFor]="authentication" class="ml-1">
     Authentication

@@ -1,0 +1,81 @@
+@if (bracket()) {
+<div class="tournament">
+  <div class="tournament__grid">
+    <!-- tournament__round 1/8 -->
+    <div class="tournament__round tournament__round--first-round">
+      <div class="tournament__match">
+        <span class="tournament__match__team">
+          {{ selectedFighters[1]?.name || "---" }}
+        </span>
+        <span class="tournament__match__team">
+          {{ selectedFighters[2]?.name || "---" }}
+        </span>
+      </div>
+      <div class="tournament__match">
+        <span class="tournament__match__team">
+          {{ selectedFighters[3]?.name || "---" }}
+        </span>
+        <span class="tournament__match__team">
+          {{ selectedFighters[4]?.name || "---" }}
+        </span>
+      </div>
+      <div class="tournament__match">
+        <span class="tournament__match__team">
+          {{ selectedFighters[5]?.name || "---" }}
+        </span>
+        <span class="tournament__match__team">
+          {{ selectedFighters[6]?.name || "---" }}
+        </span>
+      </div>
+      <div class="tournament__match">
+        <span class="tournament__match__team">
+          {{ selectedFighters[7]?.name || "---" }}
+        </span>
+        <span class="tournament__match__team">
+          {{ selectedFighters[8]?.name || "---" }}
+        </span>
+      </div>
+    </div>
+
+    <div class="tournament__round tournament__round--first-round">
+      <div class="tournament__match">
+        <span class="tournament__match__team">
+          {{ selectedFighters[9]?.name || "---" }}
+        </span>
+        <span class="tournament__match__team">
+          {{ selectedFighters[10]?.name || "---" }}
+        </span>
+      </div>
+      <div class="tournament__match">
+        <span class="tournament__match__team">
+          {{ selectedFighters[11]?.name || "---" }}
+        </span>
+        <span class="tournament__match__team">
+          {{ selectedFighters[12]?.name || "---" }}
+        </span>
+      </div>
+    </div>
+
+    <!-- tournament__round 1/2 -->
+    <div class="tournament__round">
+      <div class="tournament__match">
+        <span class="tournament__match__team">
+          {{ selectedFighters[13]?.name || "---" }}
+        </span>
+        <span class="tournament__match__team">
+          {{ selectedFighters[14]?.name || "---" }}
+        </span>
+      </div>
+    </div>
+
+    <!-- tournament__round final -->
+    <div class="tournament__round tournament__round--winner">
+      <div class="tournament__match">
+        <span class="tournament__match__team">
+          {{ selectedFighters[15]?.name || "---" }}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+}

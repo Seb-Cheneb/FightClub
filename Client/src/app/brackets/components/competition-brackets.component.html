@@ -17,7 +17,9 @@
 @if (bracketFighters.length == 3) {
 <app-kumite-tournament [fighters]="bracketFighters"></app-kumite-tournament>
 } @else {
-<app-kumite-standard [bracket]="selectedBracket"></app-kumite-standard>
+<app-view-kumite-standard
+  [bracket]="selectedBracket"
+></app-view-kumite-standard>
 } }
 <!-- KATA -->
 @if (selectedBracket.name.startsWith("Kata")) {

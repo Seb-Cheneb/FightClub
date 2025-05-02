@@ -6,18 +6,18 @@ import { FighterDto } from '../../fighters/fighter';
 import { BracketDto } from '../bracket';
 import { BracketService } from '../bracket.service';
 import { MaterialModule } from '../../_modules/material.module';
-import { KumiteStandardComponent } from './kumite-standard.component';
 import { KataComponent } from './kata.component';
 import { KumiteTournamentComponent } from './kumite-tournament.component';
 import { ActivatedRoute } from '@angular/router';
 import { FighterListComponent } from '../../fighters/components/fighter-list.component';
+import { ViewKumiteStandardComponent } from './view-kumite-standard.component';
 
 @Component({
   selector: 'app-competition-brackets',
   imports: [
     MaterialModule,
-    KumiteStandardComponent,
     KumiteTournamentComponent,
+    ViewKumiteStandardComponent,
     KataComponent,
     FighterListComponent,
   ],

@@ -76,29 +76,6 @@ export const routes: Routes = [
     ],
   },
   {
-    path: 'fighters',
-    children: [
-      {
-        path: 'getAll',
-        pathMatch: 'full',
-        loadComponent: () =>
-          import('./fighters/pages/fighter-page.component').then(
-            (m) => m.FighterPageComponent
-          ),
-        canActivate: [AuthGuard],
-      },
-      {
-        path: 'edit/:id',
-        pathMatch: 'full',
-        loadComponent: () =>
-          import('./fighters/pages/edit-fighter-page.component').then(
-            (m) => m.EditFighterPageComponent
-          ),
-        canActivate: [AuthGuard],
-      },
-    ],
-  },
-  {
     path: 'competitions',
     children: [
       {
