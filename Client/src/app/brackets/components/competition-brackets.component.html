@@ -10,6 +10,7 @@
 </mat-form-field>
 
 @if (selectedBracket && bracketFighters ) {
+<h2>{{ selectedBracket.surface }}</h2>
 <app-fighter-list [fighters]="bracketFighters"></app-fighter-list>
 <!-- KUMITE -->
 @if (selectedBracket.name.startsWith("Kumite")) {
