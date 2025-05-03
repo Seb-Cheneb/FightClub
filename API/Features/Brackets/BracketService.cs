@@ -106,6 +106,7 @@ public class BracketService : IBracketService
         int age = GetFighterAge(fighter);
         float weight = fighter.Weight;
         string gender = fighter.Gender ?? "NULL";
+        string rank = fighter.Rank ?? "10 kyu";
 
         if (bracketType.ToLower().Equals("kumite"))
         {
