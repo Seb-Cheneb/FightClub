@@ -17,7 +17,7 @@ public class ClubController : ControllerBase
         _dataContext = context;
     }
 
-    [Authorize]
+    [Authorize(Roles = "Moderator")]
     [HttpPost("Add")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -59,7 +59,6 @@ public class ClubController : ControllerBase
         }
     }
 
-    [Authorize]
     [HttpGet("GetAll")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -83,7 +82,6 @@ public class ClubController : ControllerBase
         }
     }
 
-    [Authorize]
     [HttpGet("GetAllById")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -112,7 +110,6 @@ public class ClubController : ControllerBase
         }
     }
 
-    [Authorize]
     [HttpGet("GetById")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -146,7 +143,6 @@ public class ClubController : ControllerBase
         }
     }
 
-    [Authorize]
     [HttpGet("GetByUserId")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -179,7 +175,7 @@ public class ClubController : ControllerBase
         }
     }
 
-    [Authorize]
+    [Authorize(Roles = "Moderator")]
     [HttpPut("Update")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -207,7 +203,7 @@ public class ClubController : ControllerBase
         }
     }
 
-    [Authorize]
+    [Authorize(Roles = "Moderator")]
     [HttpDelete("Delete")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

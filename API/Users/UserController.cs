@@ -26,7 +26,7 @@ public class UserController : ControllerBase
         _userManager = userManager; // Add this
     }
 
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [HttpGet("GetUsers")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -62,7 +62,7 @@ public class UserController : ControllerBase
         }
     }
 
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [HttpPut("Update")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]

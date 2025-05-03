@@ -22,7 +22,7 @@ public class CompetitionController : ControllerBase
         _bracketService = bracketService;
     }
 
-    [Authorize]
+    [Authorize(Roles = "Moderator")]
     [HttpPost("AddFighter")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -83,7 +83,7 @@ public class CompetitionController : ControllerBase
         }
     }
 
-    [Authorize]
+    [Authorize(Roles = "Moderator")]
     [HttpPost("Add")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -112,7 +112,7 @@ public class CompetitionController : ControllerBase
         }
     }
 
-    [Authorize]
+    [Authorize(Roles = "Moderator")]
     [HttpDelete("Delete")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -226,7 +226,7 @@ public class CompetitionController : ControllerBase
         }
     }
 
-    [Authorize]
+    [Authorize(Roles = "Moderator")]
     [HttpPost("RemoveFighter")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -285,7 +285,7 @@ public class CompetitionController : ControllerBase
         }
     }
 
-    [Authorize]
+    [Authorize(Roles = "Moderator")]
     [HttpPut("Update")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -318,14 +318,11 @@ public class CompetitionController : ControllerBase
         }
     }
 
-    [Authorize]
     [HttpGet("IsFighterInCompetition")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<IActionResult> IsFighterInCompetition(
-    [FromQuery] string competitionId,
-    [FromQuery] string fighterId)
+    public async Task<IActionResult> IsFighterInCompetition([FromQuery] string competitionId, [FromQuery] string fighterId)
     {
         try
         {
