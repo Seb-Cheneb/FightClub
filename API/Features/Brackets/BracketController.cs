@@ -1,9 +1,6 @@
-﻿using API.Features.Brackets;
-using API.Features.Brackets.Models;
-using API.Features.Competitions;
+﻿using API.Features.Brackets.Models;
 using API.Features.Competitions.Models;
 using API.Persistence;
-using Azure.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -129,7 +126,6 @@ public class BracketController : ControllerBase
     [HttpGet("GetAll")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetAll()
     {
@@ -154,7 +150,6 @@ public class BracketController : ControllerBase
     [HttpGet("GetAllById")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetAllById([FromQuery(Name = "id")] List<string> ids)
     {
@@ -185,7 +180,6 @@ public class BracketController : ControllerBase
     [HttpGet("GetById")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetById([FromQuery] string bracketId)
     {
@@ -213,7 +207,6 @@ public class BracketController : ControllerBase
     [HttpGet("GetPositions")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetPositions([FromQuery(Name = "bracketId")] string bracketId)
     {
@@ -546,7 +539,6 @@ public class BracketController : ControllerBase
     [HttpGet("IsFighterEnrolledInKata")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> IsFighterEnrolledInKata(
         [FromQuery] string competitionId,
         [FromQuery] string fighterId)
@@ -592,7 +584,6 @@ public class BracketController : ControllerBase
     [HttpGet("IsFighterEnrolledInKumite")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> IsFighterEnrolledInKumite(
         [FromQuery] string competitionId,
         [FromQuery] string fighterId)
