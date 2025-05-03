@@ -89,6 +89,20 @@ export const routes: Routes = [
     ],
   },
   {
+    path: 'fighters',
+    children: [
+      {
+        path: 'edit/:id',
+        pathMatch: 'full',
+        loadComponent: () =>
+          import('./fighters/pages/edit-fighter-page.component').then(
+            (m) => m.EditFighterPageComponent
+          ),
+        canActivate: [ModeratorGuard],
+      },
+    ],
+  },
+  {
     path: 'competitions',
     children: [
       {

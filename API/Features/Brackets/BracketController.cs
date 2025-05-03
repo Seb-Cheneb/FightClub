@@ -22,7 +22,7 @@ public class BracketController : ControllerBase
         _bracketService = bracketService;
     }
 
-    [Authorize(Roles = "Moderator")]
+    [Authorize(Roles = "Moderator,Admin")]
     [HttpPost("Add")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -59,7 +59,7 @@ public class BracketController : ControllerBase
         }
     }
 
-    [Authorize(Roles = "Moderator")]
+    [Authorize(Roles = "Moderator,Admin")]
     [HttpPut("AddFighter")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -235,7 +235,7 @@ public class BracketController : ControllerBase
         }
     }
 
-    [Authorize(Roles = "Moderator")]
+    [Authorize(Roles = "Moderator,Admin")]
     [HttpPut("RemoveFighter")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -282,7 +282,7 @@ public class BracketController : ControllerBase
         }
     }
 
-    [Authorize(Roles = "Moderator")]
+    [Authorize(Roles = "Moderator,Admin")]
     [HttpPost("RemovePosition")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -325,7 +325,7 @@ public class BracketController : ControllerBase
         }
     }
 
-    [Authorize(Roles = "Moderator")]
+    [Authorize(Roles = "Moderator,Admin")]
     [HttpPost("SetFighterPosition")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -383,7 +383,7 @@ public class BracketController : ControllerBase
         }
     }
 
-    [Authorize(Roles = "Moderator")]
+    [Authorize(Roles = "Moderator,Admin")]
     [HttpPut("Update")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -421,7 +421,7 @@ public class BracketController : ControllerBase
         }
     }
 
-    [Authorize(Roles = "Moderator")]
+    [Authorize(Roles = "Moderator,Admin")]
     [HttpPost("EnrollFighter")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -481,7 +481,7 @@ public class BracketController : ControllerBase
         }
     }
 
-    [Authorize(Roles = "Moderator")]
+    [Authorize(Roles = "Moderator,Admin")]
     [HttpPost("UnEnrollFighter")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]

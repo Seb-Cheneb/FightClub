@@ -22,7 +22,7 @@ public class CompetitionController : ControllerBase
         _bracketService = bracketService;
     }
 
-    [Authorize(Roles = "Moderator")]
+    [Authorize(Roles = "Moderator,Admin")]
     [HttpPost("AddFighter")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -83,7 +83,7 @@ public class CompetitionController : ControllerBase
         }
     }
 
-    [Authorize(Roles = "Moderator")]
+    [Authorize(Roles = "Moderator,Admin")]
     [HttpPost("Add")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -112,7 +112,7 @@ public class CompetitionController : ControllerBase
         }
     }
 
-    [Authorize(Roles = "Moderator")]
+    [Authorize(Roles = "Moderator,Admin")]
     [HttpDelete("Delete")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -226,7 +226,7 @@ public class CompetitionController : ControllerBase
         }
     }
 
-    [Authorize(Roles = "Moderator")]
+    [Authorize(Roles = "Moderator,Admin")]
     [HttpPost("RemoveFighter")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -285,7 +285,7 @@ public class CompetitionController : ControllerBase
         }
     }
 
-    [Authorize(Roles = "Moderator")]
+    [Authorize(Roles = "Moderator,Admin")]
     [HttpPut("Update")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
