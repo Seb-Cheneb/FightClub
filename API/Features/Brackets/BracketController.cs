@@ -123,6 +123,7 @@ public class BracketController : ControllerBase
         }
     }
 
+    [AllowAnonymous]
     [HttpGet("GetAll")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -147,6 +148,7 @@ public class BracketController : ControllerBase
         }
     }
 
+    [AllowAnonymous]
     [HttpGet("GetAllById")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -177,6 +179,7 @@ public class BracketController : ControllerBase
         }
     }
 
+    [AllowAnonymous]
     [HttpGet("GetById")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -204,6 +207,7 @@ public class BracketController : ControllerBase
         }
     }
 
+    [AllowAnonymous]
     [HttpGet("GetPositions")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -536,6 +540,7 @@ public class BracketController : ControllerBase
         }
     }
 
+    [AllowAnonymous]
     [HttpGet("IsFighterEnrolledInKata")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -581,6 +586,7 @@ public class BracketController : ControllerBase
         }
     }
 
+    [AllowAnonymous]
     [HttpGet("IsFighterEnrolledInKumite")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

@@ -58,6 +58,7 @@ public class FighterController : ControllerBase
         }
     }
 
+    [AllowAnonymous]
     [HttpGet("GetAll")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -86,6 +87,7 @@ public class FighterController : ControllerBase
         }
     }
 
+    [AllowAnonymous]
     [HttpGet("GetAllById")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -113,6 +115,7 @@ public class FighterController : ControllerBase
         }
     }
 
+    [AllowAnonymous]
     [HttpGet("GetById")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

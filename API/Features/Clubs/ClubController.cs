@@ -59,6 +59,7 @@ public class ClubController : ControllerBase
         }
     }
 
+    [AllowAnonymous]
     [HttpGet("GetAll")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -81,6 +82,7 @@ public class ClubController : ControllerBase
         }
     }
 
+    [AllowAnonymous]
     [HttpGet("GetAllById")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -108,6 +110,7 @@ public class ClubController : ControllerBase
         }
     }
 
+    [AllowAnonymous]
     [HttpGet("GetById")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -140,6 +143,7 @@ public class ClubController : ControllerBase
         }
     }
 
+    [AllowAnonymous]
     [HttpGet("GetByUserId")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
