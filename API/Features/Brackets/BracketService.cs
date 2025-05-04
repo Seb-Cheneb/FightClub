@@ -1,6 +1,7 @@
 ﻿using API.Features.Brackets.Models;
 using API.Features.Fighters.Models;
 using API.Persistence;
+using Azure;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Features.Brackets;
@@ -279,6 +280,26 @@ public class BracketService : IBracketService
         }
         else
         {
+            if (age < 7) return Categories.KataMixt_Sub7Ani_Individual;
+            else if (age >= 7 && age <= 8)
+            {
+                if (rank.Equals("0 kyu") || rank.Equals("10 kyu") || rank.Equals("9 kyu"))
+                    return Categories.KataMixt_7_8ani_Individual_0_10_9kyu;
+                else
+                    return Categories.KataMixt_7_8ani_Individual_8_7_6_sup_kyu;
+            }
+            else if (age >= 9 && age <= 10)
+            {
+                if (rank.Equals("0 kyu") || rank.Equals("10 kyu") || rank.Equals("9 kyu"))
+                    return Categories.KataMixt_9_10ani_Individual_0_10_9kyu;
+                else if (rank.Equals("8 kyu") || rank.Equals("7 kyu") || rank.Equals("6 kyu"))
+                    return Categories.KataMixt_9_10ani_Individual_8_7_6_sup_kyu;
+
+                if (gender.Equals("masculin"))
+                    return Categories.KataBaieti_9_10ani_5_4_3_2_sup_kyu;
+                else
+                    return Categories.KataFete_9_10ani_5_4_3_2_sup_kyu;
+            }
             return "Kata";
         }
     }
