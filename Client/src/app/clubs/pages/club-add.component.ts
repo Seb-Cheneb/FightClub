@@ -35,7 +35,7 @@ export class ClubAddComponent {
   createForm() {
     this.form = this._formBuilder.group({
       appUserId: new FormControl(this.userId),
-      name: new FormControl(''),
+      clubName: new FormControl(''),
     });
   }
 

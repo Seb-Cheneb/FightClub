@@ -100,4 +100,9 @@ public class Categories
     public static readonly string KumiteMixt6AniPeste24 = "Kumite (mixt), sub 6 ani, +24 kg";
     public static readonly string KumiteMixt6AniSub24 = "Kumite (mixt), sub 6 ani, -24 kg";
     public static readonly string KumiteMixt6AniSub20 = "Kumite (mixt), sub 6 ani, -20 kg";
+
+    public static readonly string KataMixtSub7Individual = "Kata (mixt), sub 7 ani, individual";
+    public static readonly string KataMixt_7_8ani_Individual_0_10_9kyu = "Kata (mixt), 7 - 8 ani, individual, kyu: 0, 10, 9";
+    public static readonly string KataMixt_9_10ani_Individual_0_10_9kyu = "Kata (mixt), 9 - 10 ani, individual, kyu: 0, 10, 9";
+    public static readonly string KataFete_11_12ani_10_9kyu = "Kata (mixt), 9 - 10 ani, individual, kyu: 0, 10, 9";
 }
