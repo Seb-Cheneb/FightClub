@@ -107,7 +107,7 @@ public class BracketService : IBracketService
         int age = GetFighterAge(fighter);
         float weight = fighter.Weight;
         string gender = fighter.Gender ?? "NULL";
-        string rank = fighter.Rank ?? "10 kyu";
+        string rank = fighter.Rank ?? "no kyu";
 
         if (bracketType.ToLower().Equals("kumite"))
         {
@@ -283,14 +283,14 @@ public class BracketService : IBracketService
             if (age < 7) return Categories.KataMixt_Sub7Ani_Individual;
             else if (age >= 7 && age <= 8)
             {
-                if (rank.Equals("0 kyu") || rank.Equals("10 kyu") || rank.Equals("9 kyu"))
+                if (rank.Equals("no kyu") || rank.Equals("10 kyu") || rank.Equals("9 kyu"))
                     return Categories.KataMixt_7_8ani_Individual_0_10_9kyu;
                 else
                     return Categories.KataMixt_7_8ani_Individual_8_7_6_sup_kyu;
             }
             else if (age >= 9 && age <= 10)
             {
-                if (rank.Equals("0 kyu") || rank.Equals("10 kyu") || rank.Equals("9 kyu"))
+                if (rank.Equals("no kyu") || rank.Equals("10 kyu") || rank.Equals("9 kyu"))
                     return Categories.KataMixt_9_10ani_Individual_0_10_9kyu;
                 else if (rank.Equals("8 kyu") || rank.Equals("7 kyu") || rank.Equals("6 kyu"))
                     return Categories.KataMixt_9_10ani_Individual_8_7_6_sup_kyu;
@@ -302,7 +302,7 @@ public class BracketService : IBracketService
             }
             else if (age >= 11 && age <= 12)
             {
-                if (rank.Equals("0 kyu") || rank.Equals("10 kyu") || rank.Equals("9 kyu"))
+                if (rank.Equals("no kyu") || rank.Equals("10 kyu") || rank.Equals("9 kyu"))
                 {
                     if (gender.Equals("masculin"))
                         return Categories.KataBaieti_11_12ani_0_10_9kyu;
@@ -326,7 +326,7 @@ public class BracketService : IBracketService
             }
             else if (age >= 13 && age <= 15)
             {
-                if (rank.Equals("0 kyu") || rank.Equals("10 kyu") || rank.Equals("9 kyu"))
+                if (rank.Equals("no kyu") || rank.Equals("10 kyu") || rank.Equals("9 kyu"))
                 {
                     if (gender.Equals("masculin"))
                         return Categories.KataBaieti_13_15ani_0_10_9kyu;
@@ -350,7 +350,7 @@ public class BracketService : IBracketService
             }
             else
             {
-                if (rank.Equals("0 kyu") || rank.Equals("10 kyu") || rank.Equals("9 kyu"))
+                if (rank.Equals("no kyu") || rank.Equals("10 kyu") || rank.Equals("9 kyu"))
                 {
                     if (gender.Equals("masculin"))
                         return Categories.KataBaieti_Peste15Ani_0_10_9kyu;

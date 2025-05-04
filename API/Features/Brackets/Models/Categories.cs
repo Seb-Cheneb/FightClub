@@ -106,31 +106,31 @@ public class Categories
      ***************/
     public static readonly string KataMixt_Sub7Ani_Individual = "Kata mixt (individual), sub 7 ani";
 
-    public static readonly string KataMixt_7_8ani_Individual_0_10_9kyu = "Kata mixt (individual), 7 - 8 ani, kyu: 0, 10, 9";
+    public static readonly string KataMixt_7_8ani_Individual_0_10_9kyu = "Kata mixt (individual), 7 - 8 ani, kyu: none, 10, 9";
     public static readonly string KataMixt_7_8ani_Individual_8_7_6_sup_kyu = "Kata mixt (individual), 7 - 8 ani, kyu: 8, 7, 6 si grade superioare";
 
-    public static readonly string KataMixt_9_10ani_Individual_0_10_9kyu = "Kata mixt (individual), 9 - 10 ani, kyu: 0, 10, 9";
+    public static readonly string KataMixt_9_10ani_Individual_0_10_9kyu = "Kata mixt (individual), 9 - 10 ani, kyu: none, 10, 9";
     public static readonly string KataMixt_9_10ani_Individual_8_7_6_sup_kyu = "Kata mixt (individual), 9 - 10 ani, kyu: 8, 7, 6 si grade superioare";
     public static readonly string KataFete_9_10ani_5_4_3_2_sup_kyu = "Kata fete, 9 - 10 ani, kyu: 5, 4, 3, 2 si grade superioare";
     public static readonly string KataBaieti_9_10ani_5_4_3_2_sup_kyu = "Kata baieti, 9 - 10 ani, kyu: 5, 4, 3, 2 si grade superioare";
 
-    public static readonly string KataFete_11_12ani_0_10_9kyu = "Kata fete, 11 - 12 ani, kyu: 0, 10, 9";
+    public static readonly string KataFete_11_12ani_0_10_9kyu = "Kata fete, 11 - 12 ani, kyu: none, 10, 9";
     public static readonly string KataFete_11_12ani_8_7_6kyu = "Kata fete, 11 - 12 ani, kyu: 8, 7, 6";
     public static readonly string KataFete_11_12ani_5_4_3_2_sup_kyu = "Kata fete, 11 - 12 ani, kyu: 5, 4, 3, 2 si grade superioare";
-    public static readonly string KataBaieti_11_12ani_0_10_9kyu = "Kata baieti, 11 - 12 ani, kyu: 0, 10, 9";
+    public static readonly string KataBaieti_11_12ani_0_10_9kyu = "Kata baieti, 11 - 12 ani, kyu: none, 10, 9";
     public static readonly string KataBaieti_11_12ani_8_7_6kyu = "Kata baieti, 11 - 12 ani, kyu: 8, 7, 6";
     public static readonly string KataBaieti_11_12ani_5_4_3_2_sup_kyu = "Kata baieti, 11 - 12 ani, kyu: 5, 4, 3, 2 si grade superioare";
 
-    public static readonly string KataFete_13_15ani_0_10_9kyu = "Kata fete, 13 - 15 ani, kyu: 0, 10, 9";
+    public static readonly string KataFete_13_15ani_0_10_9kyu = "Kata fete, 13 - 15 ani, kyu: none, 10, 9";
     public static readonly string KataFete_13_15ani_8_7_6_5kyu = "Kata fete, 13 - 15 ani, kyu: 8, 7, 6, 5";
     public static readonly string KataFete_13_15ani_4_3_2_1kyu = "Kata fete, 13 - 15 ani, kyu: 4, 3, 2, 1";
     public static readonly string KataBaieti_13_15ani_0_10_9kyu = "Kata baieti, 13 - 15 ani, kyu: 0, 10, 9";
     public static readonly string KataBaieti_13_15ani_8_7_6_5kyu = "Kata baieti, 13 - 15 ani, kyu: 8, 7, 6, 5";
     public static readonly string KataBaieti_13_15ani_4_3_2_1kyu = "Kata baieti, 13 - 15 ani, kyu: 4, 3, 2, 1";
 
-    public static readonly string KataFete_Peste15Ani_0_10_9kyu = "Kata fete, peste 15 ani, kyu: 0, 10, 9";
+    public static readonly string KataFete_Peste15Ani_0_10_9kyu = "Kata fete, peste 15 ani, kyu: none, 10, 9";
     public static readonly string KataFete_Peste15Ani_8_7_6_5kyu = "Kata fete, peste 15 ani, kyu: 8, 7, 6, 5";
-    public static readonly string KataBaieti_Peste15Ani_0_10_9kyu = "Kata baieti, peste 15 ani, kyu: 0, 10, 9";
+    public static readonly string KataBaieti_Peste15Ani_0_10_9kyu = "Kata baieti, peste 15 ani, kyu: none, 10, 9";
     public static readonly string KataBaieti_Peste15Ani_8_7_6_5kyu = "Kata baieti, peste 15 ani, kyu: 8, 7, 6, 5";
 
     public static readonly string KataMasculin_Peste16Ani_4_3_2_1_sup_kyu = "Kata masculin, peste 16 ani, kyu: 4, 3, 2, 1 si centuri negre";
