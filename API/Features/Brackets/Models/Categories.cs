@@ -101,8 +101,24 @@ public class Categories
     public static readonly string KumiteMixt6AniSub24 = "Kumite (mixt), sub 6 ani, -24 kg";
     public static readonly string KumiteMixt6AniSub20 = "Kumite (mixt), sub 6 ani, -20 kg";
 
-    public static readonly string KataMixtSub7Individual = "Kata (mixt), sub 7 ani, individual";
-    public static readonly string KataMixt_7_8ani_Individual_0_10_9kyu = "Kata (mixt), 7 - 8 ani, individual, kyu: 0, 10, 9";
-    public static readonly string KataMixt_9_10ani_Individual_0_10_9kyu = "Kata (mixt), 9 - 10 ani, individual, kyu: 0, 10, 9";
-    public static readonly string KataFete_11_12ani_10_9kyu = "Kata (mixt), 9 - 10 ani, individual, kyu: 0, 10, 9";
+    /***************
+     * KATA
+     ***************/
+    public static readonly string KataMixt_Sub7Ani_Individual = "Kata mixt (individual), sub 7 ani";
+    public static readonly string KataMixt_7_8ani_Individual_0_10_9kyu = "Kata mixt (individual), 7 - 8 ani, kyu: 0, 10, 9";
+    public static readonly string KataMixt_7_8ani_Individual_8_7_6_sup_kyu = "Kata mixt (individual), 7 - 8 ani, kyu: 8, 7, 6 si grade superioare";
+    public static readonly string KataMixt_9_10ani_Individual_0_10_9kyu = "Kata mixt (individual), 9 - 10 ani, kyu: 0, 10, 9";
+    public static readonly string KataMixt_9_10ani_Individual_8_7_6_sup_kyu = "Kata mixt (individual), 9 - 10 ani, kyu: 8, 7, 6 si grade superioare";
+
+    public static readonly string KataFete_11_12ani_0_10_9kyu = "Kata fete, 11 - 12 ani, kyu: 0, 10, 9";
+    public static readonly string KataFete_11_12ani_8_7_6kyu = "Kata fete, 11 - 12 ani, kyu: 8, 7, 6";
+    public static readonly string KataFete_13_15ani_0_10_9kyu = "Kata fete, 13 - 15 ani, kyu: 0, 10, 9";
+    public static readonly string KataFete_13_15ani_8_7_6_5kyu = "Kata fete, 13 - 15 ani, kyu: 8, 7, 6, 5";
+    public static readonly string KataFete_Peste15Ani_0_10_9kyu = "Kata fete, peste 15 ani, kyu: 0, 10, 9";
+
+    public static readonly string KataBaieti_11_12ani_0_10_9kyu = "Kata baieti, 11 - 12 ani, kyu: 0, 10, 9";
+    public static readonly string KataBaieti_11_12ani_8_7_6kyu = "Kata baieti, 11 - 12 ani, kyu: 8, 7, 6";
+    public static readonly string KataBaieti_13_15ani_0_10_9kyu = "Kata baieti, 13 - 15 ani, kyu: 0, 10, 9";
+    public static readonly string KataBaieti_13_15ani_8_7_6_5kyu = "Kata baieti, 13 - 15 ani, kyu: 8, 7, 6, 5";
+    public static readonly string KataBaieti_Peste15Ani_0_10_9kyu = "Kata baieti, peste 15 ani, kyu: 0, 10, 9";
 }
