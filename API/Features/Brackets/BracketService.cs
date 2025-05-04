@@ -300,7 +300,78 @@ public class BracketService : IBracketService
                 else
                     return Categories.KataFete_9_10ani_5_4_3_2_sup_kyu;
             }
-            return "Kata";
+            else if (age >= 11 && age <= 12)
+            {
+                if (rank.Equals("0 kyu") || rank.Equals("10 kyu") || rank.Equals("9 kyu"))
+                {
+                    if (gender.Equals("masculin"))
+                        return Categories.KataBaieti_11_12ani_0_10_9kyu;
+                    else
+                        return Categories.KataFete_11_12ani_0_10_9kyu;
+                }
+                else if (rank.Equals("8 kyu") || rank.Equals("7 kyu") || rank.Equals("6 kyu"))
+                {
+                    if (gender.Equals("masculin"))
+                        return Categories.KataBaieti_11_12ani_8_7_6kyu;
+                    else
+                        return Categories.KataFete_11_12ani_8_7_6kyu;
+                }
+                else
+                {
+                    if (gender.Equals("masculin"))
+                        return Categories.KataBaieti_11_12ani_5_4_3_2_sup_kyu;
+                    else
+                        return Categories.KataFete_11_12ani_5_4_3_2_sup_kyu;
+                }
+            }
+            else if (age >= 13 && age <= 15)
+            {
+                if (rank.Equals("0 kyu") || rank.Equals("10 kyu") || rank.Equals("9 kyu"))
+                {
+                    if (gender.Equals("masculin"))
+                        return Categories.KataBaieti_13_15ani_0_10_9kyu;
+                    else
+                        return Categories.KataFete_13_15ani_0_10_9kyu;
+                }
+                else if (rank.Equals("8 kyu") || rank.Equals("7 kyu") || rank.Equals("6 kyu") || rank.Equals("5 kyu"))
+                {
+                    if (gender.Equals("masculin"))
+                        return Categories.KataBaieti_13_15ani_8_7_6_5kyu;
+                    else
+                        return Categories.KataFete_13_15ani_8_7_6_5kyu;
+                }
+                else
+                {
+                    if (gender.Equals("masculin"))
+                        return Categories.KataBaieti_13_15ani_4_3_2_1kyu;
+                    else
+                        return Categories.KataFete_13_15ani_4_3_2_1kyu;
+                }
+            }
+            else
+            {
+                if (rank.Equals("0 kyu") || rank.Equals("10 kyu") || rank.Equals("9 kyu"))
+                {
+                    if (gender.Equals("masculin"))
+                        return Categories.KataBaieti_Peste15Ani_0_10_9kyu;
+                    else
+                        return Categories.KataFete_Peste15Ani_0_10_9kyu;
+                }
+                else if (rank.Equals("8 kyu") || rank.Equals("7 kyu") || rank.Equals("6 kyu") || rank.Equals("5 kyu"))
+                {
+                    if (gender.Equals("masculin"))
+                        return Categories.KataBaieti_Peste15Ani_8_7_6_5kyu;
+                    else
+                        return Categories.KataFete_Peste15Ani_8_7_6_5kyu;
+                }
+                else
+                {
+                    if (gender.Equals("masculin"))
+                        return Categories.KataMasculin_Peste16Ani_4_3_2_1_sup_kyu;
+                    else
+                        return Categories.KataFeminin_Peste16Ani_4_3_2_1_sup_kyu;
+                }
+            }
         }
     }
 
