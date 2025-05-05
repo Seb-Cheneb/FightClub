@@ -9,5 +9,6 @@ public class FighterDto
     public float Weight { get; set; }
     public string? Club { get; set; }
     public string? Rank { get; set; }
-    public List<string> CompetitionIds { get; set; } = [];
+    //public List<string> CompetitionIds { get; set; } = [];
+    //public List<string> BracketIds { get; set; } = [];
 }

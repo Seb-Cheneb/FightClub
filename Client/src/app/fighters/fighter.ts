@@ -18,7 +18,7 @@ export interface FighterDto {
   weight: number;
   club: string;
   rank: string;
-  competitionIds: string[];
+  //competitionIds: string[];
 }
 
 export interface ShiftPage extends Page<FighterDto> {}

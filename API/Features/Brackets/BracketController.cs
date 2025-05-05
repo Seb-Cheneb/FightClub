@@ -63,7 +63,6 @@ public class BracketController : ControllerBase
     [HttpPut("AddFighter")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> AddFighter([FromQuery] string bracketId, [FromQuery] string fighterId)
     {
         try
@@ -73,8 +72,12 @@ public class BracketController : ControllerBase
                 return BadRequest("The parameters provided are null");
             }
 
-            var bracket = await _dataContext.Brackets.FindAsync(bracketId);
-            var fighter = await _dataContext.Fighters.FirstOrDefaultAsync(e => e.Id == fighterId);
+            var bracket = await _dataContext.Brackets
+                .Include(b => b.Fighters)
+                .FirstOrDefaultAsync(b => b.Id == bracketId);
+
+            var fighter = await _dataContext.Fighters
+                .FirstOrDefaultAsync(e => e.Id == fighterId);
 
             if (bracket == null || fighter == null)
             {
@@ -83,13 +86,13 @@ public class BracketController : ControllerBase
 
             if (bracket.Fighters.Contains(fighter))
             {
-                return BadRequest("Fighter already enrolled in brackets");
+                return BadRequest("Fighter already enrolled in bracket");
             }
 
             bracket.Fighters.Add(fighter);
             await _dataContext.SaveChangesAsync();
 
-            return Ok(bracket.CastToDto());
+            return Ok(new { Success = true });
         }
         catch (Exception ex)
         {

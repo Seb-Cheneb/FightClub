@@ -11,9 +11,14 @@ public static class FighterMapper
             Gender = instance.Gender,
             Birthdate = instance.Birthdate,
             Weight = instance.Weight,
-            Club = instance.Club.Name,
+            Club = instance.Club?.Name,
             Rank = instance.Rank,
-            CompetitionIds = instance.Competitions.Select(i => i.Id ?? "NULL").ToList(),
+            //CompetitionIds = instance.Competitions
+            //    .Select(i => i.Id ?? "NULL")
+            //    .ToList(),
+            //BracketIds = instance.Brackets
+            //    .Select(i => i.Id ?? "NULL")
+            //    .ToList(),
         };
     }
 

@@ -109,12 +109,6 @@ public class BracketService : IBracketService
         string gender = fighter.Gender ?? "NULL";
         string rank = fighter.Rank ?? "no kyu";
 
-        string incepatoriGrupaUnu = ", begginers first group";
-        string incepatoriGrupaDoi = ", begginers second group";
-        // LASATA IN CAZUL IN CARE VREI TREI GRUPE
-        //string incepatoriGrupaTrei = ", begginers third group";
-        string avansati = ", advanced";
-
         if (bracketType.ToLower().Equals("kumite"))
         {
             if (age < 6)
