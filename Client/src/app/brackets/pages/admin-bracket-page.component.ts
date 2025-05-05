@@ -20,6 +20,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { BracketAddComponent } from '../components/bracket-add.component';
 
 @Component({
   selector: 'app-admin-bracket-page',
@@ -29,6 +30,7 @@ import { Router } from '@angular/router';
     KumiteTournamentComponent,
     KataComponent,
     ReactiveFormsModule,
+    BracketAddComponent,
   ],
   templateUrl: './admin-bracket-page.component.html',
   styles: ``,

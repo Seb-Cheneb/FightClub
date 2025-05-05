@@ -1,4 +1,11 @@
 @if (competition) {
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title> Add custom bracket </mat-panel-title>
+  </mat-expansion-panel-header>
+  <app-bracket-add [competitionId]="competitionId()"></app-bracket-add>
+</mat-expansion-panel>
+
 <!-- BRACKET SELECTION -->
 <mat-form-field class="w-full">
   <mat-label>Available brackets</mat-label>

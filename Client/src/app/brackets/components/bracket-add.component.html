@@ -1,0 +1,20 @@
+<form
+  [formGroup]="form"
+  novalidate
+  (ngSubmit)="submit()"
+  class="flex flex-col p-2"
+>
+  <mat-form-field>
+    <mat-label>name</mat-label>
+    <input matInput formControlName="name" />
+  </mat-form-field>
+
+  <button
+    mat-raised-button
+    color="primary"
+    type="submit"
+    [disabled]="form.invalid"
+  >
+    Submit
+  </button>
+</form>
