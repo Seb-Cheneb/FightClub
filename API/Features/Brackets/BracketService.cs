@@ -109,158 +109,386 @@ public class BracketService : IBracketService
         string gender = fighter.Gender ?? "NULL";
         string rank = fighter.Rank ?? "no kyu";
 
+        string incepatoriGrupaUnu = ", begginers first group";
+        string incepatoriGrupaDoi = ", begginers second group";
+        // LASATA IN CAZUL IN CARE VREI TREI GRUPE
+        //string incepatoriGrupaTrei = ", begginers third group";
+        string avansati = ", advanced";
+
         if (bracketType.ToLower().Equals("kumite"))
         {
             if (age < 6)
             {
-                if (weight >= 24) return Categories.KumiteMixt6AniPeste24;
-                else if (weight >= 20) return Categories.KumiteMixt6AniSub24;
-                else return Categories.KumiteMixt6AniSub20;
+                if (weight >= 24)
+                {
+                    return GetBracketBasedOnExperience(rank, Categories.KumiteMixt6AniPeste24);
+                }
+                else if (weight >= 20)
+                {
+                    return GetBracketBasedOnExperience(rank, Categories.KumiteMixt6AniSub24);
+                }
+                else
+                {
+                    return GetBracketBasedOnExperience(rank, Categories.KumiteMixt6AniSub20);
+                }
             }
             else if (age < 7)
             {
-                if (weight >= 30) return Categories.KumiteMixt7AniPeste30;
-                else if (weight >= 25) return Categories.KumiteMixt7AniSub30;
-                else if (weight >= 20) return Categories.KumiteMixt7AniSub25;
-                else return Categories.KumiteMixt7AniSub20;
+                if (weight >= 30)
+                {
+                    return GetBracketBasedOnExperience(rank, Categories.KumiteMixt7AniPeste30);
+                }
+                else if (weight >= 25)
+                {
+                    return GetBracketBasedOnExperience(rank, Categories.KumiteMixt7AniSub30);
+                }
+                else if (weight >= 20)
+                {
+                    return GetBracketBasedOnExperience(rank, Categories.KumiteMixt7AniSub25);
+                }
+                else
+                {
+                    return GetBracketBasedOnExperience(rank, Categories.KumiteMixt7AniSub20);
+                }
             }
             else if (age < 8)
             {
                 if (gender.Equals("masculin"))
                 {
-                    if (weight >= 35) return Categories.KumiteCopiiBaieti8AniPeste35;
-                    else if (weight >= 30) return Categories.KumiteCopiiBaieti8AniSub35;
-                    else if (weight >= 25) return Categories.KumiteCopiiBaieti8AniSub30;
-                    else return Categories.KumiteCopiiBaieti8AniSub25;
+                    if (weight >= 35)
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCopiiBaieti8AniPeste35);
+                    }
+                    else if (weight >= 30)
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCopiiBaieti8AniSub35);
+                    }
+                    else if (weight >= 25)
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCopiiBaieti8AniSub30);
+                    }
+                    else
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCopiiBaieti8AniSub25);
+                    }
                 }
                 else
                 {
-                    if (weight >= 30) return Categories.KumiteCopiiFete8AniPeste30;
-                    else if (weight >= 25) return Categories.KumiteCopiiFete8AniSub30;
-                    else return Categories.KumiteCopiiFete8AniSub25;
+                    if (weight >= 30)
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCopiiFete8AniPeste30);
+                    }
+                    else if (weight >= 25)
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCopiiFete8AniSub30);
+                    }
+                    else
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCopiiFete8AniSub25);
+                    }
                 }
             }
             else if (age < 9)
             {
                 if (gender.Equals("masculin"))
                 {
-                    if (weight >= 40) return Categories.KumiteCopiiBaieti9AniPeste40;
-                    else if (weight >= 35) return Categories.KumiteCopiiBaieti9AniSub40;
-                    else if (weight >= 30) return Categories.KumiteCopiiBaieti9AniSub35;
-                    else if (weight >= 25) return Categories.KumiteCopiiBaieti9AniSub30;
-                    else return Categories.KumiteCopiiBaieti9AniSub25;
+                    if (weight >= 40)
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCopiiBaieti9AniPeste40);
+                    }
+                    else if (weight >= 35)
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCopiiBaieti9AniSub40);
+                    }
+                    else if (weight >= 30)
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCopiiBaieti9AniSub35);
+                    }
+                    else if (weight >= 25)
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCopiiBaieti9AniSub30);
+                    }
+                    else
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCopiiBaieti9AniSub25);
+                    }
                 }
                 else
                 {
-                    if (weight >= 35) return Categories.KumiteCopiiFete9AniPeste35;
-                    else if (weight >= 30) return Categories.KumiteCopiiFete9AniSub35;
-                    else if (weight >= 25) return Categories.KumiteCopiiFete9AniSub30;
-                    else return Categories.KumiteCopiiFete9AniSub25;
+                    if (weight >= 35)
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCopiiFete9AniPeste35);
+                    }
+                    else if (weight >= 30)
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCopiiFete9AniSub35);
+                    }
+                    else if (weight >= 25)
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCopiiFete9AniSub30);
+                    }
+                    else
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCopiiFete9AniSub25);
+                    }
                 }
             }
             else if (age < 10)
             {
                 if (gender.Equals("masculin"))
                 {
-                    if (weight >= 45) return Categories.KumiteCopiiBaieti10AniPeste45;
-                    else if (weight >= 40) return Categories.KumiteCopiiBaieti10AniSub45;
-                    else if (weight >= 35) return Categories.KumiteCopiiBaieti10AniSub40;
-                    else if (weight >= 30) return Categories.KumiteCopiiBaieti10AniSub35;
-                    else return Categories.KumiteCopiiBaieti10AniSub30;
+                    if (weight >= 45)
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCopiiBaieti10AniPeste45);
+                    }
+                    else if (weight >= 40)
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCopiiBaieti10AniSub45);
+                    }
+                    else if (weight >= 35)
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCopiiBaieti10AniSub40);
+                    }
+                    else if (weight >= 30)
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCopiiBaieti10AniSub35);
+                    }
+                    else
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCopiiBaieti10AniSub30);
+                    }
                 }
                 else
                 {
-                    if (weight >= 40) return Categories.KumiteCopiiFete10AniPeste40;
-                    else if (weight >= 35) return Categories.KumiteCopiiFete10AniSub40;
-                    else if (weight >= 30) return Categories.KumiteCopiiFete10AniSub35;
-                    else return Categories.KumiteCopiiFete10AniSub30;
+                    if (weight >= 40)
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCopiiFete10AniPeste40);
+                    }
+                    else if (weight >= 35)
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCopiiFete10AniSub40);
+                    }
+                    else if (weight >= 30)
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCopiiFete10AniSub35);
+                    }
+                    else
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCopiiFete10AniSub30);
+                    }
                 }
             }
             else if (age < 12)
             {
                 if (gender.Equals("masculin"))
                 {
-                    if (weight >= 50) return Categories.KumiteCopiiBaieti11AniPeste50;
-                    else if (weight >= 45) return Categories.KumiteCopiiBaieti11AniSub50;
-                    else if (weight >= 40) return Categories.KumiteCopiiBaieti11AniSub45;
-                    else if (weight >= 35) return Categories.KumiteCopiiBaieti11AniSub40;
-                    else return Categories.KumiteCopiiBaieti11AniSub35;
+                    if (weight >= 50)
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCopiiBaieti11AniPeste50);
+                    }
+                    else if (weight >= 45)
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCopiiBaieti11AniSub50);
+                    }
+                    else if (weight >= 40)
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCopiiBaieti11AniSub45);
+                    }
+                    else if (weight >= 35)
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCopiiBaieti11AniSub40);
+                    }
+                    else
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCopiiBaieti11AniSub35);
+                    }
                 }
                 else
                 {
-                    if (weight >= 45) return Categories.KumiteCopiiFete11AniPeste45;
-                    else if (weight >= 40) return Categories.KumiteCopiiFete11AniSub45;
-                    else if (weight >= 35) return Categories.KumiteCopiiFete11AniSub40;
-                    else return Categories.KumiteCopiiFete11AniSub35;
+                    if (weight >= 45)
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCopiiFete11AniPeste45);
+                    }
+                    else if (weight >= 40)
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCopiiFete11AniSub45);
+                    }
+                    else if (weight >= 35)
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCopiiFete11AniSub40);
+                    }
+                    else
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCopiiFete11AniSub35);
+                    }
                 }
             }
             else if (age < 14)
             {
                 if (gender.Equals("masculin"))
                 {
-                    if (weight >= 60) return Categories.KumiteCopiiBaieti13AniPeste60;
-                    else if (weight >= 55) return Categories.KumiteCopiiBaieti13AniSub60;
-                    else if (weight >= 50) return Categories.KumiteCopiiBaieti13AniSub55;
-                    else if (weight >= 45) return Categories.KumiteCopiiBaieti13AniSub50;
-                    else if (weight >= 40) return Categories.KumiteCopiiBaieti13AniSub45;
-                    else return Categories.KumiteCopiiBaieti13AniSub40;
+                    if (weight >= 60)
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCopiiBaieti13AniPeste60);
+                    }
+                    else if (weight >= 55)
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCopiiBaieti13AniSub60);
+                    }
+                    else if (weight >= 50)
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCopiiBaieti13AniSub55);
+                    }
+                    else if (weight >= 45)
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCopiiBaieti13AniSub50);
+                    }
+                    else if (weight >= 40)
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCopiiBaieti13AniSub45);
+                    }
+                    else
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCopiiBaieti13AniSub40);
+                    }
                 }
                 else
                 {
-                    if (weight >= 55) return Categories.KumiteCopiiFete13AniPeste55;
-                    else if (weight >= 50) return Categories.KumiteCopiiFete13AniSub55;
-                    else if (weight >= 45) return Categories.KumiteCopiiFete13AniSub50;
-                    else if (weight >= 40) return Categories.KumiteCopiiFete13AniSub45;
-                    else return Categories.KumiteCopiiFete13AniSub40;
+                    if (weight >= 55)
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCopiiFete13AniPeste55);
+                    }
+                    else if (weight >= 50)
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCopiiFete13AniSub55);
+                    }
+                    else if (weight >= 45)
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCopiiFete13AniSub50);
+                    }
+                    else if (weight >= 40)
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCopiiFete13AniSub45);
+                    }
+                    else
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCopiiFete13AniSub40);
+                    }
                 }
             }
             else if (age < 16)
             {
                 if (gender.Equals("masculin"))
                 {
-                    if (weight >= 65) return Categories.KumiteCadetiBaietiPeste65;
-                    else if (weight >= 60) return Categories.KumiteCadetiBaietiSub65;
-                    else if (weight >= 55) return Categories.KumiteCadetiBaietiSub60;
-                    else return Categories.KumiteCadetiBaietiSub55;
+                    if (weight >= 65)
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCadetiBaietiPeste65);
+                    }
+                    else if (weight >= 60)
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCadetiBaietiSub65);
+                    }
+                    else if (weight >= 55)
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCadetiBaietiSub60);
+                    }
+                    else
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCadetiBaietiSub55);
+                    }
                 }
                 else
                 {
-                    if (weight >= 60) return Categories.KumiteCadetiFetePeste60;
-                    else if (weight >= 55) return Categories.KumiteCadetiFeteSub60;
-                    else if (weight >= 50) return Categories.KumiteCadetiFeteSub55;
-                    else return Categories.KumiteCadetiFeteSub50;
+                    if (weight >= 60)
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCadetiFetePeste60);
+                    }
+                    else if (weight >= 55)
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCadetiFeteSub60);
+                    }
+                    else if (weight >= 50)
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCadetiFeteSub55);
+                    }
+                    else
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteCadetiFeteSub50);
+                    }
                 }
             }
             else if (age < 18)
             {
                 if (gender.Equals("masculin"))
                 {
-                    if (weight >= 75) return Categories.KumiteJunioriBaietiPeste75;
-                    else if (weight >= 70) return Categories.KumiteJunioriBaietiSub75;
-                    else if (weight >= 65) return Categories.KumiteJunioriBaietiSub70;
-                    else return Categories.KumiteJunioriBaietiSub65;
+                    if (weight >= 75)
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteJunioriBaietiPeste75);
+                    }
+                    else if (weight >= 70)
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteJunioriBaietiSub75);
+                    }
+                    else if (weight >= 65)
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteJunioriBaietiSub70);
+                    }
+                    else
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteJunioriBaietiSub65);
+                    }
                 }
                 else
                 {
-                    if (weight >= 65) return Categories.KumiteJunioriFetePeste65;
-                    else if (weight >= 60) return Categories.KumiteJunioriFeteSub65;
-                    else if (weight >= 55) return Categories.KumiteJunioriFeteSub60;
-                    else return Categories.KumiteJunioriFeteSub55;
+                    if (weight >= 65)
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteJunioriFetePeste65);
+                    }
+                    else if (weight >= 60)
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteJunioriFeteSub65);
+                    }
+                    else if (weight >= 55)
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteJunioriFeteSub60);
+                    }
+                    else
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteJunioriFeteSub55);
+                    }
                 }
             }
             else if (age < 45)
             {
                 if (gender.Equals("masculin"))
                 {
-                    if (weight >= 85) return Categories.KumiteSenioriMasculinPeste85;
-                    else if (weight >= 75) return Categories.KumiteSenioriMasculinSub85;
-                    else return Categories.KumiteSenioriMasculinSub75;
+                    if (weight >= 85)
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteSenioriMasculinPeste85);
+                    }
+                    else if (weight >= 75)
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteSenioriMasculinSub85);
+                    }
+                    else
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteSenioriMasculinSub75);
+                    }
                 }
                 else
                 {
-                    if (weight >= 65) return Categories.KumiteSenioriFemininPeste65;
-                    else if (weight >= 60) return Categories.KumiteSenioriFemininSub65;
-                    else return Categories.KumiteSenioriFemininSub60;
+                    if (weight >= 65)
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteSenioriFemininPeste65);
+                    }
+                    else if (weight >= 60)
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteSenioriFemininSub65);
+                    }
+                    else
+                    {
+                        return GetBracketBasedOnExperience(rank, Categories.KumiteSenioriFemininSub60);
+                    }
                 }
             }
             else
@@ -381,5 +609,23 @@ public class BracketService : IBracketService
         var age = today.Year - fighter.Birthdate.Year;
         if (fighter.Birthdate.Date > today.AddYears(-age)) age--;
         return age;
+    }
+
+    private string GetBracketBasedOnExperience(string rank, string group)
+    {
+        string incepatoriGrupaUnu = ", begginers first group";
+        string incepatoriGrupaDoi = ", begginers second group";
+        // LASATA IN CAZUL IN CARE VREI TREI GRUPE
+        //string incepatoriGrupaTrei = ", begginers third group";
+        string avansati = ", advanced";
+
+        if (rank.Equals("no kyu") || rank.Equals("10 kyu") || rank.Equals("9 kyu"))
+            return group + incepatoriGrupaUnu;
+        else if (rank.Equals("8 kyu") || rank.Equals("7 kyu") || rank.Equals("6 kyu"))
+            return group + incepatoriGrupaDoi;
+        //else if (rank.Equals("5 kyu") || rank.Equals("4 kyu"))
+        //    return group + incepatoriGrupaDoi;
+        else
+            return group + avansati;
     }
 }
