@@ -128,7 +128,7 @@ export const routes: Routes = [
           import('./competitions/pages/add-competition-page.component').then(
             (m) => m.AddCompetitionPageComponent
           ),
-        canActivate: [AdminGuard],
+        canActivate: [ModeratorGuard],
       },
       {
         path: 'edit/:id',
@@ -146,7 +146,7 @@ export const routes: Routes = [
           import('./competitions/pages/competition-club-page.component').then(
             (m) => m.CompetitionClubPageComponent
           ),
-        canActivate: [AdminGuard],
+        canActivate: [ModeratorGuard],
       },
     ],
   },
